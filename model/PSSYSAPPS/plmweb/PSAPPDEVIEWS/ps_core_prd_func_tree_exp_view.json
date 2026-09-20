@@ -17,6 +17,12 @@
   },
   "getPSDEViewCodeName" : "TreeExpView",
   "getPSDEViewId" : "397c5d86c471e49b544364f496120aeb",
+  "getPSAppViewNavParams" : [ {
+    "key" : "n_pscoreprdid_eq",
+    "name" : "n_pscoreprdid_eq",
+    "value" : "product",
+    "rawValue" : false
+  } ],
   "getPSViewLayoutPanel" : {
     "codeName" : "usr1206423734",
     "controlType" : "VIEWLAYOUTPANEL",

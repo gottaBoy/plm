@@ -15944,6 +15944,769 @@
     "name" : "WORK_ITEM_TYPE",
     "autoExtendModel" : true,
     "existingModel" : false
+  }, {
+    "getAllPSSysDBColumns" : [ {
+      "codeName" : "AGENT_ID",
+      "length" : 100,
+      "logicName" : "智能体标识",
+      "name" : "AGENT_ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "AGENT_VERSION",
+      "length" : 100,
+      "logicName" : "智能体版本",
+      "name" : "AGENT_VERSION",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "BUDGET_JSON",
+      "length" : 1048576,
+      "logicName" : "预算摘要",
+      "name" : "BUDGET_JSON",
+      "scale" : 0,
+      "stdDataType" : 21,
+      "nullable" : true
+    }, {
+      "codeName" : "CONTEXT_ID",
+      "length" : 100,
+      "logicName" : "上下文标识",
+      "name" : "CONTEXT_ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "CONVERSATION_ID",
+      "length" : 100,
+      "logicName" : "会话标识",
+      "name" : "CONVERSATION_ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "CREATE_MAN",
+      "length" : 100,
+      "logicName" : "创建人",
+      "name" : "CREATE_MAN",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "CREATE_TIME",
+      "logicName" : "创建时间",
+      "name" : "CREATE_TIME",
+      "scale" : 0,
+      "stdDataType" : 5,
+      "nullable" : true
+    }, {
+      "codeName" : "DEADLINE_AT",
+      "logicName" : "截止时间",
+      "name" : "DEADLINE_AT",
+      "scale" : 0,
+      "stdDataType" : 5,
+      "nullable" : true
+    }, {
+      "codeName" : "LEASE_OWNER",
+      "length" : 200,
+      "logicName" : "租约持有者",
+      "name" : "LEASE_OWNER",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "LEASE_UNTIL",
+      "logicName" : "租约截止时间",
+      "name" : "LEASE_UNTIL",
+      "scale" : 0,
+      "stdDataType" : 5,
+      "nullable" : true
+    }, {
+      "codeName" : "ERROR_CODE",
+      "length" : 100,
+      "logicName" : "错误码",
+      "name" : "ERROR_CODE",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "ERROR_MESSAGE",
+      "length" : 1000,
+      "logicName" : "错误摘要",
+      "name" : "ERROR_MESSAGE",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "FINISHED_AT",
+      "logicName" : "结束时间",
+      "name" : "FINISHED_AT",
+      "scale" : 0,
+      "stdDataType" : 5,
+      "nullable" : true
+    }, {
+      "codeName" : "ID",
+      "length" : 100,
+      "logicName" : "标识",
+      "name" : "ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "pKey" : true
+    }, {
+      "codeName" : "IDEMPOTENCY_KEY",
+      "length" : 200,
+      "logicName" : "幂等键",
+      "name" : "IDEMPOTENCY_KEY",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "MODEL_ID",
+      "length" : 100,
+      "logicName" : "模型标识",
+      "name" : "MODEL_ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "NEXT_ATTEMPT_AT",
+      "logicName" : "下次尝试时间",
+      "name" : "NEXT_ATTEMPT_AT",
+      "scale" : 0,
+      "stdDataType" : 5,
+      "nullable" : true
+    }, {
+      "codeName" : "NAME",
+      "length" : 200,
+      "logicName" : "名称",
+      "name" : "NAME",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "PARENT_RUN_ID",
+      "length" : 100,
+      "logicName" : "父运行标识",
+      "name" : "PARENT_RUN_ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "PROJECT_ID",
+      "length" : 100,
+      "logicName" : "项目标识",
+      "name" : "PROJECT_ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "PROVIDER",
+      "length" : 100,
+      "logicName" : "提供商",
+      "name" : "PROVIDER",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "REQUEST_JSON",
+      "length" : 1048576,
+      "logicName" : "请求摘要",
+      "name" : "REQUEST_JSON",
+      "scale" : 0,
+      "stdDataType" : 21,
+      "nullable" : true
+    }, {
+      "codeName" : "RECOVERY_ATTEMPTS",
+      "logicName" : "恢复尝试次数",
+      "name" : "RECOVERY_ATTEMPTS",
+      "scale" : 0,
+      "stdDataType" : 9,
+      "nullable" : true
+    }, {
+      "codeName" : "RESULT_JSON",
+      "length" : 1048576,
+      "logicName" : "结果摘要",
+      "name" : "RESULT_JSON",
+      "scale" : 0,
+      "stdDataType" : 21,
+      "nullable" : true
+    }, {
+      "codeName" : "RUN_TYPE",
+      "length" : 60,
+      "logicName" : "运行类型",
+      "name" : "RUN_TYPE",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "SESSION_ID",
+      "length" : 200,
+      "logicName" : "会话外部标识",
+      "name" : "SESSION_ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "STARTED_AT",
+      "logicName" : "开始时间",
+      "name" : "STARTED_AT",
+      "scale" : 0,
+      "stdDataType" : 5,
+      "nullable" : true
+    }, {
+      "codeName" : "STATUS",
+      "length" : 60,
+      "logicName" : "运行状态",
+      "name" : "STATUS",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "TENANT_ID",
+      "length" : 100,
+      "logicName" : "租户标识",
+      "name" : "TENANT_ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "TRACE_ID",
+      "length" : 200,
+      "logicName" : "追踪标识",
+      "name" : "TRACE_ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "UPDATE_MAN",
+      "length" : 100,
+      "logicName" : "更新人",
+      "name" : "UPDATE_MAN",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "UPDATE_TIME",
+      "logicName" : "更新时间",
+      "name" : "UPDATE_TIME",
+      "scale" : 0,
+      "stdDataType" : 5,
+      "nullable" : true
+    }, {
+      "codeName" : "USER_ID",
+      "length" : 100,
+      "logicName" : "用户标识",
+      "name" : "USER_ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "WORKSPACE",
+      "length" : 1000,
+      "logicName" : "工作区",
+      "name" : "WORKSPACE",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "LAST_EVENT_SEQUENCE",
+      "logicName" : "最后事件序号",
+      "name" : "LAST_EVENT_SEQUENCE",
+      "scale" : 0,
+      "stdDataType" : 1,
+      "nullable" : true
+    } ],
+    "getAllPSSysDBIndices" : [ {
+      "getAllPSSysDBIndexColumns" : [ {
+        "name" : "TENANT_ID",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "TENANT_ID"
+        }
+      }, {
+        "name" : "USER_ID",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "USER_ID"
+        }
+      }, {
+        "name" : "CREATE_TIME",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "CREATE_TIME"
+        }
+      } ],
+      "codeName" : "IX_AI_RUN_TENANT_USER_CREATE",
+      "indexType" : "NORMAL",
+      "name" : "IX_AI_RUN_TENANT_USER_CREATE",
+      "sourceType" : "DEDBINDEX"
+    }, {
+      "getAllPSSysDBIndexColumns" : [ {
+        "name" : "CONVERSATION_ID",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "CONVERSATION_ID"
+        }
+      }, {
+        "name" : "CREATE_TIME",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "CREATE_TIME"
+        }
+      } ],
+      "codeName" : "IX_AI_RUN_CONVERSATION_CREATE",
+      "indexType" : "NORMAL",
+      "name" : "IX_AI_RUN_CONVERSATION_CREATE",
+      "sourceType" : "DEDBINDEX"
+    }, {
+      "getAllPSSysDBIndexColumns" : [ {
+        "name" : "STATUS",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "STATUS"
+        }
+      }, {
+        "name" : "DEADLINE_AT",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "DEADLINE_AT"
+        }
+      }, {
+        "name" : "UPDATE_TIME",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "UPDATE_TIME"
+        }
+      } ],
+      "codeName" : "IX_AI_RUN_STATUS_DEADLINE_UPDATE",
+      "indexType" : "NORMAL",
+      "name" : "IX_AI_RUN_STATUS_DEADLINE_UPDATE",
+      "sourceType" : "DEDBINDEX"
+    }, {
+      "getAllPSSysDBIndexColumns" : [ {
+        "name" : "STATUS",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "STATUS"
+        }
+      }, {
+        "name" : "NEXT_ATTEMPT_AT",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "NEXT_ATTEMPT_AT"
+        }
+      }, {
+        "name" : "LEASE_UNTIL",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "LEASE_UNTIL"
+        }
+      } ],
+      "codeName" : "IX_AI_RUN_RECOVERY_CANDIDATE",
+      "indexType" : "NORMAL",
+      "name" : "IX_AI_RUN_RECOVERY_CANDIDATE",
+      "sourceType" : "DEDBINDEX"
+    }, {
+      "getAllPSSysDBIndexColumns" : [ {
+        "name" : "PARENT_RUN_ID",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "PARENT_RUN_ID"
+        }
+      }, {
+        "name" : "CREATE_TIME",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "CREATE_TIME"
+        }
+      } ],
+      "codeName" : "IX_AI_RUN_PARENT_CREATE",
+      "indexType" : "NORMAL",
+      "name" : "IX_AI_RUN_PARENT_CREATE",
+      "sourceType" : "DEDBINDEX"
+    } ],
+    "codeName" : "AI_RUN",
+    "logicName" : "AI运行",
+    "name" : "AI_RUN",
+    "autoExtendModel" : true,
+    "existingModel" : false
+  }, {
+    "getAllPSSysDBColumns" : [ {
+      "codeName" : "ATTEMPT",
+      "logicName" : "尝试次数",
+      "name" : "ATTEMPT",
+      "scale" : 0,
+      "stdDataType" : 9,
+      "nullable" : true
+    }, {
+      "codeName" : "CREATE_MAN",
+      "length" : 100,
+      "logicName" : "创建人",
+      "name" : "CREATE_MAN",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "CREATE_TIME",
+      "logicName" : "创建时间",
+      "name" : "CREATE_TIME",
+      "scale" : 0,
+      "stdDataType" : 5,
+      "nullable" : true
+    }, {
+      "codeName" : "DURATION_MS",
+      "logicName" : "耗时毫秒",
+      "name" : "DURATION_MS",
+      "scale" : 0,
+      "stdDataType" : 1,
+      "nullable" : true
+    }, {
+      "codeName" : "ERROR_CODE",
+      "length" : 100,
+      "logicName" : "错误码",
+      "name" : "ERROR_CODE",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "ERROR_MESSAGE",
+      "length" : 1000,
+      "logicName" : "错误摘要",
+      "name" : "ERROR_MESSAGE",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "FINISHED_AT",
+      "logicName" : "结束时间",
+      "name" : "FINISHED_AT",
+      "scale" : 0,
+      "stdDataType" : 5,
+      "nullable" : true
+    }, {
+      "codeName" : "ID",
+      "length" : 100,
+      "logicName" : "标识",
+      "name" : "ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "pKey" : true
+    }, {
+      "codeName" : "IDEMPOTENCY_KEY",
+      "length" : 200,
+      "logicName" : "幂等键",
+      "name" : "IDEMPOTENCY_KEY",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "INPUT_JSON",
+      "length" : 1048576,
+      "logicName" : "输入摘要",
+      "name" : "INPUT_JSON",
+      "scale" : 0,
+      "stdDataType" : 21,
+      "nullable" : true
+    }, {
+      "codeName" : "LAST_EVENT_SEQUENCE",
+      "logicName" : "最后事件序号",
+      "name" : "LAST_EVENT_SEQUENCE",
+      "scale" : 0,
+      "stdDataType" : 1,
+      "nullable" : true
+    }, {
+      "codeName" : "NAME",
+      "length" : 200,
+      "logicName" : "名称",
+      "name" : "NAME",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "OUTPUT_JSON",
+      "length" : 1048576,
+      "logicName" : "输出摘要",
+      "name" : "OUTPUT_JSON",
+      "scale" : 0,
+      "stdDataType" : 21,
+      "nullable" : true
+    }, {
+      "codeName" : "RETRY_COUNT",
+      "logicName" : "重试次数",
+      "name" : "RETRY_COUNT",
+      "scale" : 0,
+      "stdDataType" : 9,
+      "nullable" : true
+    }, {
+      "codeName" : "RUN_ID",
+      "length" : 100,
+      "logicName" : "运行标识",
+      "name" : "RUN_ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "SEQUENCE",
+      "logicName" : "步骤序号",
+      "name" : "SEQUENCE",
+      "scale" : 0,
+      "stdDataType" : 1,
+      "nullable" : true
+    }, {
+      "codeName" : "STARTED_AT",
+      "logicName" : "开始时间",
+      "name" : "STARTED_AT",
+      "scale" : 0,
+      "stdDataType" : 5,
+      "nullable" : true
+    }, {
+      "codeName" : "STATUS",
+      "length" : 60,
+      "logicName" : "步骤状态",
+      "name" : "STATUS",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "STEP_KIND",
+      "length" : 60,
+      "logicName" : "步骤类型",
+      "name" : "STEP_KIND",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "TOOL_CALL_ID",
+      "length" : 200,
+      "logicName" : "工具调用标识",
+      "name" : "TOOL_CALL_ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "TOOL_NAME",
+      "length" : 200,
+      "logicName" : "工具名称",
+      "name" : "TOOL_NAME",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "UPDATE_MAN",
+      "length" : 100,
+      "logicName" : "更新人",
+      "name" : "UPDATE_MAN",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "UPDATE_TIME",
+      "logicName" : "更新时间",
+      "name" : "UPDATE_TIME",
+      "scale" : 0,
+      "stdDataType" : 5,
+      "nullable" : true
+    } ],
+    "getAllPSSysDBIndices" : [ {
+      "getAllPSSysDBIndexColumns" : [ {
+        "name" : "RUN_ID",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "RUN_ID"
+        }
+      }, {
+        "name" : "SEQUENCE",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "SEQUENCE"
+        }
+      } ],
+      "codeName" : "IX_AI_RUN_STEP_RUN_SEQUENCE",
+      "indexType" : "NORMAL",
+      "name" : "IX_AI_RUN_STEP_RUN_SEQUENCE",
+      "sourceType" : "DEDBINDEX"
+    } ],
+    "codeName" : "AI_RUN_STEP",
+    "logicName" : "AI运行步骤",
+    "name" : "AI_RUN_STEP",
+    "autoExtendModel" : true,
+    "existingModel" : false
+  }, {
+    "getAllPSSysDBColumns" : [ {
+      "codeName" : "ACTOR_ID",
+      "length" : 100,
+      "logicName" : "操作者标识",
+      "name" : "ACTOR_ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "ACTOR_TYPE",
+      "length" : 60,
+      "logicName" : "操作者类型",
+      "name" : "ACTOR_TYPE",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "AGGREGATE_VERSION",
+      "logicName" : "聚合版本",
+      "name" : "AGGREGATE_VERSION",
+      "scale" : 0,
+      "stdDataType" : 1,
+      "nullable" : true
+    }, {
+      "codeName" : "CREATE_MAN",
+      "length" : 100,
+      "logicName" : "创建人",
+      "name" : "CREATE_MAN",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "CREATE_TIME",
+      "logicName" : "创建时间",
+      "name" : "CREATE_TIME",
+      "scale" : 0,
+      "stdDataType" : 5,
+      "nullable" : true
+    }, {
+      "codeName" : "EVENT_TYPE",
+      "length" : 100,
+      "logicName" : "事件类型",
+      "name" : "EVENT_TYPE",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "ID",
+      "length" : 100,
+      "logicName" : "标识",
+      "name" : "ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "pKey" : true
+    }, {
+      "codeName" : "IDEMPOTENCY_KEY",
+      "length" : 300,
+      "logicName" : "幂等键",
+      "name" : "IDEMPOTENCY_KEY",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "NAME",
+      "length" : 200,
+      "logicName" : "名称",
+      "name" : "NAME",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "OCCURRED_AT",
+      "logicName" : "发生时间",
+      "name" : "OCCURRED_AT",
+      "scale" : 0,
+      "stdDataType" : 5,
+      "nullable" : true
+    }, {
+      "codeName" : "PAYLOAD_JSON",
+      "length" : 1048576,
+      "logicName" : "事件载荷",
+      "name" : "PAYLOAD_JSON",
+      "scale" : 0,
+      "stdDataType" : 21,
+      "nullable" : true
+    }, {
+      "codeName" : "RUN_ID",
+      "length" : 100,
+      "logicName" : "运行标识",
+      "name" : "RUN_ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "SEQUENCE",
+      "logicName" : "事件序号",
+      "name" : "SEQUENCE",
+      "scale" : 0,
+      "stdDataType" : 1,
+      "nullable" : true
+    }, {
+      "codeName" : "STEP_ID",
+      "length" : 100,
+      "logicName" : "步骤标识",
+      "name" : "STEP_ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "TRACE_ID",
+      "length" : 200,
+      "logicName" : "追踪标识",
+      "name" : "TRACE_ID",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "UPDATE_MAN",
+      "length" : 100,
+      "logicName" : "更新人",
+      "name" : "UPDATE_MAN",
+      "scale" : 0,
+      "stdDataType" : 25,
+      "nullable" : true
+    }, {
+      "codeName" : "UPDATE_TIME",
+      "logicName" : "更新时间",
+      "name" : "UPDATE_TIME",
+      "scale" : 0,
+      "stdDataType" : 5,
+      "nullable" : true
+    } ],
+    "getAllPSSysDBIndices" : [ {
+      "getAllPSSysDBIndexColumns" : [ {
+        "name" : "RUN_ID",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "RUN_ID"
+        }
+      }, {
+        "name" : "SEQUENCE",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "SEQUENCE"
+        }
+      } ],
+      "codeName" : "IX_AI_RUN_EVENT_RUN_SEQUENCE",
+      "indexType" : "NORMAL",
+      "name" : "IX_AI_RUN_EVENT_RUN_SEQUENCE",
+      "sourceType" : "DEDBINDEX"
+    }, {
+      "getAllPSSysDBIndexColumns" : [ {
+        "name" : "STEP_ID",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "STEP_ID"
+        }
+      }, {
+        "name" : "SEQUENCE",
+        "getPSSysDBColumn" : {
+          "modelref" : true,
+          "id" : "SEQUENCE"
+        }
+      } ],
+      "codeName" : "IX_AI_RUN_EVENT_STEP_SEQUENCE",
+      "indexType" : "NORMAL",
+      "name" : "IX_AI_RUN_EVENT_STEP_SEQUENCE",
+      "sourceType" : "DEDBINDEX"
+    } ],
+    "codeName" : "AI_RUN_EVENT",
+    "logicName" : "AI运行事件",
+    "name" : "AI_RUN_EVENT",
+    "autoExtendModel" : true,
+    "existingModel" : false
   } ],
   "codeName" : "Default",
   "dSLink" : "DEFAULT",

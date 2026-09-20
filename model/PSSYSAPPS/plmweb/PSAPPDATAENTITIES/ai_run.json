@@ -1,0 +1,1648 @@
+{
+  "getAllPSAppDEACModes": [
+    {
+      "codeName": "Default",
+      "logicName": "DEFAULT",
+      "name": "DEFAULT",
+      "getPSAppDataEntity": {
+        "modelref": true,
+        "path": "PSSYSAPPS/plmweb/PSAPPDATAENTITIES/ai_run.json"
+      },
+      "getPSDEACModeDataItems": [
+        {
+          "dataType": 25,
+          "name": "value",
+          "getPSDEField": {
+            "name": "ID",
+            "codeName": "id"
+          },
+          "getPSAppDEField": {
+            "name": "ID",
+            "codeName": "id"
+          }
+        },
+        {
+          "dataType": 25,
+          "name": "text",
+          "getPSDEField": {
+            "name": "NAME",
+            "codeName": "name"
+          },
+          "getPSAppDEField": {
+            "name": "NAME",
+            "codeName": "name"
+          }
+        }
+      ],
+      "pagingSize": 50,
+      "getTextPSAppDEField": {
+        "name": "NAME",
+        "codeName": "name"
+      },
+      "getValuePSAppDEField": {
+        "name": "ID",
+        "codeName": "id"
+      },
+      "defaultMode": true,
+      "enablePagingBar": false
+    }
+  ],
+  "getAllPSAppDEActions": [
+    {
+      "actionMode": "CHECKKEY",
+      "actionTag": "CheckKey",
+      "codeName": "check_key",
+      "methodType": "DEACTION",
+      "name": "CheckKey",
+      "getPSAppDEMethodInput": {
+        "getPSAppDEMethodDTO": {
+          "modelref": true,
+          "id": "ai_run_dto"
+        },
+        "name": "CheckKeyInput",
+        "type": "DTO"
+      },
+      "getPSAppDEMethodReturn": {
+        "name": "CheckKeyResult",
+        "stdDataType": 9,
+        "type": "SIMPLE"
+      },
+      "getPSDEAction": {
+        "modelref": true,
+        "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/CheckKey.json"
+      },
+      "getPSDEOPPriv": {
+        "modelref": true,
+        "id": "CREATE"
+      },
+      "getPSDEServiceAPIMethod": {
+        "modelref": true,
+        "id": "check_key"
+      },
+      "requestMethod": "POST",
+      "requestParamType": "ENTITY",
+      "requestPath": "/check_key",
+      "builtinMethod": false
+    },
+    {
+      "actionMode": "CREATE",
+      "actionTag": "Create",
+      "codeName": "create",
+      "methodType": "DEACTION",
+      "name": "Create",
+      "getPSAppDEMethodInput": {
+        "getPSAppDEMethodDTO": {
+          "modelref": true,
+          "id": "ai_run_dto"
+        },
+        "name": "CreateInput",
+        "type": "DTO",
+        "output": true
+      },
+      "getPSAppDEMethodReturn": {
+        "name": "CreateResult",
+        "type": "VOID"
+      },
+      "getPSDEAction": {
+        "modelref": true,
+        "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/Create.json"
+      },
+      "getPSDEOPPriv": {
+        "modelref": true,
+        "id": "CREATE"
+      },
+      "getPSDEServiceAPIMethod": {
+        "modelref": true,
+        "id": "Create"
+      },
+      "requestMethod": "POST",
+      "requestParamType": "ENTITY",
+      "builtinMethod": false,
+      "noServiceCodeName": true
+    },
+    {
+      "actionMode": "READ",
+      "actionTag": "Get",
+      "codeName": "get",
+      "methodType": "DEACTION",
+      "name": "Get",
+      "getPSAppDEMethodInput": {
+        "getKeyPSAppDEField": {
+          "name": "ID",
+          "codeName": "id"
+        },
+        "name": "GetInput",
+        "type": "KEYFIELD"
+      },
+      "getPSAppDEMethodReturn": {
+        "getPSAppDEMethodDTO": {
+          "modelref": true,
+          "id": "ai_run_dto"
+        },
+        "name": "GetResult",
+        "type": "DTO"
+      },
+      "getPSDEAction": {
+        "modelref": true,
+        "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/Get.json"
+      },
+      "getPSDEOPPriv": {
+        "modelref": true,
+        "id": "READ"
+      },
+      "getPSDEServiceAPIMethod": {
+        "modelref": true,
+        "id": "Get"
+      },
+      "requestField": "ID",
+      "requestMethod": "GET",
+      "requestParamType": "FIELD",
+      "needResourceKey": true,
+      "builtinMethod": false,
+      "noServiceCodeName": true
+    },
+    {
+      "actionMode": "GETDRAFT",
+      "actionTag": "GetDraft",
+      "codeName": "get_draft",
+      "methodType": "DEACTION",
+      "name": "GetDraft",
+      "getPSAppDEMethodInput": {
+        "getPSAppDEMethodDTO": {
+          "modelref": true,
+          "id": "ai_run_dto"
+        },
+        "name": "GetDraftInput",
+        "type": "DTO"
+      },
+      "getPSAppDEMethodReturn": {
+        "getPSAppDEMethodDTO": {
+          "modelref": true,
+          "id": "ai_run_dto"
+        },
+        "name": "GetDraftResult",
+        "type": "DTO"
+      },
+      "getPSDEAction": {
+        "modelref": true,
+        "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/GetDraft.json"
+      },
+      "getPSDEOPPriv": {
+        "modelref": true,
+        "id": "CREATE"
+      },
+      "getPSDEServiceAPIMethod": {
+        "modelref": true,
+        "id": "get_draft"
+      },
+      "requestMethod": "GET",
+      "requestParamType": "NONE",
+      "requestPath": "/get_draft",
+      "builtinMethod": false
+    },
+    {
+      "actionMode": "DELETE",
+      "actionTag": "Remove",
+      "codeName": "remove",
+      "methodType": "DEACTION",
+      "name": "Remove",
+      "getPSAppDEMethodInput": {
+        "getKeyPSAppDEField": {
+          "name": "ID",
+          "codeName": "id"
+        },
+        "name": "RemoveInput",
+        "type": "KEYFIELDS"
+      },
+      "getPSAppDEMethodReturn": {
+        "name": "RemoveResult",
+        "type": "VOID"
+      },
+      "getPSDEAction": {
+        "modelref": true,
+        "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/Remove.json"
+      },
+      "getPSDEOPPriv": {
+        "modelref": true,
+        "id": "DELETE"
+      },
+      "getPSDEServiceAPIMethod": {
+        "modelref": true,
+        "id": "Remove"
+      },
+      "requestField": "ID",
+      "requestMethod": "DELETE",
+      "requestParamType": "FIELD",
+      "enableBatchAction": true,
+      "needResourceKey": true,
+      "builtinMethod": false,
+      "noServiceCodeName": true
+    },
+    {
+      "actionMode": "SAVE",
+      "actionTag": "Save",
+      "codeName": "save",
+      "methodType": "DEACTION",
+      "name": "Save",
+      "getPSAppDEMethodInput": {
+        "getPSAppDEMethodDTO": {
+          "modelref": true,
+          "id": "ai_run_dto"
+        },
+        "name": "SaveInput",
+        "type": "DTO",
+        "output": true
+      },
+      "getPSAppDEMethodReturn": {
+        "name": "SaveResult",
+        "type": "VOID"
+      },
+      "getPSDEAction": {
+        "modelref": true,
+        "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/Save.json"
+      },
+      "getPSDEOPPriv": {
+        "modelref": true,
+        "id": "CREATE"
+      },
+      "getPSDEServiceAPIMethod": {
+        "modelref": true,
+        "id": "save"
+      },
+      "requestMethod": "POST",
+      "requestParamType": "ENTITY",
+      "requestPath": "/save",
+      "builtinMethod": false
+    },
+    {
+      "actionMode": "UPDATE",
+      "actionTag": "Update",
+      "codeName": "update",
+      "methodType": "DEACTION",
+      "name": "Update",
+      "getPSAppDEMethodInput": {
+        "getPSAppDEMethodDTO": {
+          "modelref": true,
+          "id": "ai_run_dto"
+        },
+        "name": "UpdateInput",
+        "type": "DTO",
+        "output": true
+      },
+      "getPSAppDEMethodReturn": {
+        "name": "UpdateResult",
+        "type": "VOID"
+      },
+      "getPSDEAction": {
+        "modelref": true,
+        "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/Update.json"
+      },
+      "getPSDEOPPriv": {
+        "modelref": true,
+        "id": "UPDATE"
+      },
+      "getPSDEServiceAPIMethod": {
+        "modelref": true,
+        "id": "Update"
+      },
+      "requestMethod": "PUT",
+      "requestParamType": "ENTITY",
+      "needResourceKey": true,
+      "builtinMethod": false,
+      "noServiceCodeName": true
+    }
+  ],
+  "getAllPSAppDEDataSets": [
+    {
+      "codeName": "fetch_default",
+      "dataSetName": "DEFAULT",
+      "dataSetTag": "Default",
+      "methodType": "FETCH",
+      "name": "fetch_default",
+      "getPSAppDEMethodInput": {
+        "name": "输入对象",
+        "getPSAppDEMethodDTO": {
+          "modelref": true,
+          "id": "ai_run_filter_dto"
+        },
+        "type": "DTO"
+      },
+      "getPSAppDEMethodReturn": {
+        "name": "返回对象",
+        "getPSAppDEMethodDTO": {
+          "modelref": true,
+          "id": "ai_run_dto"
+        },
+        "type": "PAGE"
+      },
+      "getPSDEDataSet": {
+        "modelref": true,
+        "id": "Default"
+      },
+      "getPSDEOPPriv": {
+        "modelref": true,
+        "id": "READ"
+      },
+      "getPSDEServiceAPIMethod": {
+        "modelref": true,
+        "id": "fetch_default"
+      },
+      "requestMethod": "POST",
+      "requestParamType": "ENTITY",
+      "requestPath": "/fetch_default",
+      "builtinMethod": false
+    }
+  ],
+  "getAllPSAppDEFields": [
+    {
+      "codeName": "id",
+      "logicName": "标识",
+      "name": "ID",
+      "stdDataType": 25,
+      "stringLength": 100,
+      "valueFormat": "%1$s",
+      "keyField": true
+    },
+    {
+      "codeName": "name",
+      "logicName": "名称",
+      "name": "NAME",
+      "stdDataType": 25,
+      "stringLength": 200,
+      "valueFormat": "%1$s",
+      "majorField": true
+    },
+    {
+      "codeName": "create_man",
+      "logicName": "创建人",
+      "name": "CREATE_MAN",
+      "predefinedType": "CREATEMAN",
+      "stdDataType": 25,
+      "stringLength": 100,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "create_time",
+      "logicName": "创建时间",
+      "name": "CREATE_TIME",
+      "predefinedType": "CREATEDATE",
+      "stdDataType": 5
+    },
+    {
+      "codeName": "update_man",
+      "logicName": "更新人",
+      "name": "UPDATE_MAN",
+      "predefinedType": "UPDATEMAN",
+      "stdDataType": 25,
+      "stringLength": 100,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "update_time",
+      "logicName": "更新时间",
+      "name": "UPDATE_TIME",
+      "predefinedType": "UPDATEDATE",
+      "stdDataType": 5
+    },
+    {
+      "codeName": "status",
+      "logicName": "运行状态",
+      "name": "STATUS",
+      "stdDataType": 25,
+      "stringLength": 60,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "run_type",
+      "logicName": "运行类型",
+      "name": "RUN_TYPE",
+      "stdDataType": 25,
+      "stringLength": 60,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "tenant_id",
+      "logicName": "租户标识",
+      "name": "TENANT_ID",
+      "stdDataType": 25,
+      "stringLength": 100,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "user_id",
+      "logicName": "用户标识",
+      "name": "USER_ID",
+      "stdDataType": 25,
+      "stringLength": 100,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "project_id",
+      "logicName": "项目标识",
+      "name": "PROJECT_ID",
+      "stdDataType": 25,
+      "stringLength": 100,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "agent_id",
+      "logicName": "智能体标识",
+      "name": "AGENT_ID",
+      "stdDataType": 25,
+      "stringLength": 100,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "agent_version",
+      "logicName": "智能体版本",
+      "name": "AGENT_VERSION",
+      "stdDataType": 25,
+      "stringLength": 100,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "model_id",
+      "logicName": "模型标识",
+      "name": "MODEL_ID",
+      "stdDataType": 25,
+      "stringLength": 100,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "provider",
+      "logicName": "提供商",
+      "name": "PROVIDER",
+      "stdDataType": 25,
+      "stringLength": 100,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "context_id",
+      "logicName": "上下文标识",
+      "name": "CONTEXT_ID",
+      "stdDataType": 25,
+      "stringLength": 100,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "conversation_id",
+      "logicName": "会话标识",
+      "name": "CONVERSATION_ID",
+      "stdDataType": 25,
+      "stringLength": 100,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "session_id",
+      "logicName": "会话外部标识",
+      "name": "SESSION_ID",
+      "stdDataType": 25,
+      "stringLength": 200,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "parent_run_id",
+      "logicName": "父运行标识",
+      "name": "PARENT_RUN_ID",
+      "stdDataType": 25,
+      "stringLength": 100,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "idempotency_key",
+      "logicName": "幂等键",
+      "name": "IDEMPOTENCY_KEY",
+      "stdDataType": 25,
+      "stringLength": 200,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "trace_id",
+      "logicName": "追踪标识",
+      "name": "TRACE_ID",
+      "stdDataType": 25,
+      "stringLength": 200,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "workspace",
+      "logicName": "工作区",
+      "name": "WORKSPACE",
+      "stdDataType": 25,
+      "stringLength": 1000,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "request_json",
+      "logicName": "请求摘要",
+      "name": "REQUEST_JSON",
+      "stdDataType": 25,
+      "stringLength": 1048576,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "result_json",
+      "logicName": "结果摘要",
+      "name": "RESULT_JSON",
+      "stdDataType": 25,
+      "stringLength": 1048576,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "error_code",
+      "logicName": "错误码",
+      "name": "ERROR_CODE",
+      "stdDataType": 25,
+      "stringLength": 100,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "error_message",
+      "logicName": "错误摘要",
+      "name": "ERROR_MESSAGE",
+      "stdDataType": 25,
+      "stringLength": 1000,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "budget_json",
+      "logicName": "预算摘要",
+      "name": "BUDGET_JSON",
+      "stdDataType": 25,
+      "stringLength": 1048576,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "deadline_at",
+      "logicName": "截止时间",
+      "name": "DEADLINE_AT",
+      "stdDataType": 5,
+      "valueFormat": "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS"
+    },
+    {
+      "codeName": "lease_owner",
+      "logicName": "租约持有者",
+      "name": "LEASE_OWNER",
+      "stdDataType": 25,
+      "stringLength": 200,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "lease_until",
+      "logicName": "租约截止时间",
+      "name": "LEASE_UNTIL",
+      "stdDataType": 5,
+      "valueFormat": "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS"
+    },
+    {
+      "codeName": "recovery_attempts",
+      "logicName": "恢复尝试次数",
+      "name": "RECOVERY_ATTEMPTS",
+      "stdDataType": 9,
+      "valueFormat": "%1$s"
+    },
+    {
+      "codeName": "next_attempt_at",
+      "logicName": "下次尝试时间",
+      "name": "NEXT_ATTEMPT_AT",
+      "stdDataType": 5,
+      "valueFormat": "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS"
+    },
+    {
+      "codeName": "started_at",
+      "logicName": "开始时间",
+      "name": "STARTED_AT",
+      "stdDataType": 5,
+      "valueFormat": "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS"
+    },
+    {
+      "codeName": "finished_at",
+      "logicName": "结束时间",
+      "name": "FINISHED_AT",
+      "stdDataType": 5,
+      "valueFormat": "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS"
+    },
+    {
+      "codeName": "last_event_sequence",
+      "logicName": "最后事件序号",
+      "name": "LAST_EVENT_SEQUENCE",
+      "stdDataType": 1,
+      "valueFormat": "%1$s"
+    }
+  ],
+  "getAllPSAppDEMethodDTOs": [
+    {
+      "codeName": "ai_run_dto",
+      "name": "ai_run_dto",
+      "getPSAppDEMethodDTOFields": [
+        {
+          "codeName": "id",
+          "logicName": "标识",
+          "name": "id",
+          "getPSAppDEField": {
+            "name": "ID",
+            "codeName": "id"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 100,
+          "type": "SIMPLE",
+          "allowEmpty": false
+        },
+        {
+          "codeName": "name",
+          "logicName": "名称",
+          "name": "name",
+          "getPSAppDEField": {
+            "name": "NAME",
+            "codeName": "name"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 200,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "create_man",
+          "logicName": "创建人",
+          "name": "create_man",
+          "getPSAppDEField": {
+            "name": "CREATE_MAN",
+            "codeName": "create_man"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 100,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "create_time",
+          "logicName": "创建时间",
+          "name": "create_time",
+          "getPSAppDEField": {
+            "name": "CREATE_TIME",
+            "codeName": "create_time"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 5,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "update_man",
+          "logicName": "更新人",
+          "name": "update_man",
+          "getPSAppDEField": {
+            "name": "UPDATE_MAN",
+            "codeName": "update_man"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 100,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "update_time",
+          "logicName": "更新时间",
+          "name": "update_time",
+          "getPSAppDEField": {
+            "name": "UPDATE_TIME",
+            "codeName": "update_time"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 5,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "status",
+          "logicName": "运行状态",
+          "name": "status",
+          "getPSAppDEField": {
+            "name": "STATUS",
+            "codeName": "status"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 60,
+          "type": "SIMPLE",
+          "allowEmpty": false
+        },
+        {
+          "codeName": "run_type",
+          "logicName": "运行类型",
+          "name": "run_type",
+          "getPSAppDEField": {
+            "name": "RUN_TYPE",
+            "codeName": "run_type"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 60,
+          "type": "SIMPLE",
+          "allowEmpty": false
+        },
+        {
+          "codeName": "tenant_id",
+          "logicName": "租户标识",
+          "name": "tenant_id",
+          "getPSAppDEField": {
+            "name": "TENANT_ID",
+            "codeName": "tenant_id"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 100,
+          "type": "SIMPLE",
+          "allowEmpty": false
+        },
+        {
+          "codeName": "user_id",
+          "logicName": "用户标识",
+          "name": "user_id",
+          "getPSAppDEField": {
+            "name": "USER_ID",
+            "codeName": "user_id"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 100,
+          "type": "SIMPLE",
+          "allowEmpty": false
+        },
+        {
+          "codeName": "project_id",
+          "logicName": "项目标识",
+          "name": "project_id",
+          "getPSAppDEField": {
+            "name": "PROJECT_ID",
+            "codeName": "project_id"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 100,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "agent_id",
+          "logicName": "智能体标识",
+          "name": "agent_id",
+          "getPSAppDEField": {
+            "name": "AGENT_ID",
+            "codeName": "agent_id"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 100,
+          "type": "SIMPLE",
+          "allowEmpty": false
+        },
+        {
+          "codeName": "agent_version",
+          "logicName": "智能体版本",
+          "name": "agent_version",
+          "getPSAppDEField": {
+            "name": "AGENT_VERSION",
+            "codeName": "agent_version"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 100,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "model_id",
+          "logicName": "模型标识",
+          "name": "model_id",
+          "getPSAppDEField": {
+            "name": "MODEL_ID",
+            "codeName": "model_id"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 100,
+          "type": "SIMPLE",
+          "allowEmpty": false
+        },
+        {
+          "codeName": "provider",
+          "logicName": "提供商",
+          "name": "provider",
+          "getPSAppDEField": {
+            "name": "PROVIDER",
+            "codeName": "provider"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 100,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "context_id",
+          "logicName": "上下文标识",
+          "name": "context_id",
+          "getPSAppDEField": {
+            "name": "CONTEXT_ID",
+            "codeName": "context_id"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 100,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "conversation_id",
+          "logicName": "会话标识",
+          "name": "conversation_id",
+          "getPSAppDEField": {
+            "name": "CONVERSATION_ID",
+            "codeName": "conversation_id"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 100,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "session_id",
+          "logicName": "会话外部标识",
+          "name": "session_id",
+          "getPSAppDEField": {
+            "name": "SESSION_ID",
+            "codeName": "session_id"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 200,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "parent_run_id",
+          "logicName": "父运行标识",
+          "name": "parent_run_id",
+          "getPSAppDEField": {
+            "name": "PARENT_RUN_ID",
+            "codeName": "parent_run_id"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 100,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "idempotency_key",
+          "logicName": "幂等键",
+          "name": "idempotency_key",
+          "getPSAppDEField": {
+            "name": "IDEMPOTENCY_KEY",
+            "codeName": "idempotency_key"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 200,
+          "type": "SIMPLE",
+          "allowEmpty": false
+        },
+        {
+          "codeName": "trace_id",
+          "logicName": "追踪标识",
+          "name": "trace_id",
+          "getPSAppDEField": {
+            "name": "TRACE_ID",
+            "codeName": "trace_id"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 200,
+          "type": "SIMPLE",
+          "allowEmpty": false
+        },
+        {
+          "codeName": "workspace",
+          "logicName": "工作区",
+          "name": "workspace",
+          "getPSAppDEField": {
+            "name": "WORKSPACE",
+            "codeName": "workspace"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 1000,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "request_json",
+          "logicName": "请求摘要",
+          "name": "request_json",
+          "getPSAppDEField": {
+            "name": "REQUEST_JSON",
+            "codeName": "request_json"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 1048576,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "result_json",
+          "logicName": "结果摘要",
+          "name": "result_json",
+          "getPSAppDEField": {
+            "name": "RESULT_JSON",
+            "codeName": "result_json"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 1048576,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "error_code",
+          "logicName": "错误码",
+          "name": "error_code",
+          "getPSAppDEField": {
+            "name": "ERROR_CODE",
+            "codeName": "error_code"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 100,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "error_message",
+          "logicName": "错误摘要",
+          "name": "error_message",
+          "getPSAppDEField": {
+            "name": "ERROR_MESSAGE",
+            "codeName": "error_message"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 1000,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "budget_json",
+          "logicName": "预算摘要",
+          "name": "budget_json",
+          "getPSAppDEField": {
+            "name": "BUDGET_JSON",
+            "codeName": "budget_json"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 1048576,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "deadline_at",
+          "logicName": "截止时间",
+          "name": "deadline_at",
+          "getPSAppDEField": {
+            "name": "DEADLINE_AT",
+            "codeName": "deadline_at"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 5,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "lease_owner",
+          "logicName": "租约持有者",
+          "name": "lease_owner",
+          "getPSAppDEField": {
+            "name": "LEASE_OWNER",
+            "codeName": "lease_owner"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 25,
+          "stringLength": 200,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "lease_until",
+          "logicName": "租约截止时间",
+          "name": "lease_until",
+          "getPSAppDEField": {
+            "name": "LEASE_UNTIL",
+            "codeName": "lease_until"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 5,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "recovery_attempts",
+          "logicName": "恢复尝试次数",
+          "name": "recovery_attempts",
+          "getPSAppDEField": {
+            "name": "RECOVERY_ATTEMPTS",
+            "codeName": "recovery_attempts"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 9,
+          "type": "SIMPLE",
+          "allowEmpty": false
+        },
+        {
+          "codeName": "next_attempt_at",
+          "logicName": "下次尝试时间",
+          "name": "next_attempt_at",
+          "getPSAppDEField": {
+            "name": "NEXT_ATTEMPT_AT",
+            "codeName": "next_attempt_at"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 5,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "started_at",
+          "logicName": "开始时间",
+          "name": "started_at",
+          "getPSAppDEField": {
+            "name": "STARTED_AT",
+            "codeName": "started_at"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 5,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "finished_at",
+          "logicName": "结束时间",
+          "name": "finished_at",
+          "getPSAppDEField": {
+            "name": "FINISHED_AT",
+            "codeName": "finished_at"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 5,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "last_event_sequence",
+          "logicName": "最后事件序号",
+          "name": "last_event_sequence",
+          "getPSAppDEField": {
+            "name": "LAST_EVENT_SEQUENCE",
+            "codeName": "last_event_sequence"
+          },
+          "sourceType": "DEFIELD",
+          "stdDataType": 1,
+          "type": "SIMPLE",
+          "allowEmpty": false
+        }
+      ],
+      "sourceType": "DE",
+      "type": "DEFAULT"
+    },
+    {
+      "codeName": "ai_run_filter_dto",
+      "name": "ai_run_filter_dto",
+      "getPSAppDEMethodDTOFields": [
+        {
+          "codeName": "n_id_eq",
+          "logicName": "标识",
+          "name": "n_id_eq",
+          "getPSAppDEField": {
+            "name": "ID",
+            "codeName": "id"
+          },
+          "sourceType": "DEFSEARCHMODE",
+          "stdDataType": 25,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "n_status_eq",
+          "logicName": "运行状态",
+          "name": "n_status_eq",
+          "getPSAppDEField": {
+            "name": "STATUS",
+            "codeName": "status"
+          },
+          "sourceType": "DEFSEARCHMODE",
+          "stdDataType": 25,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "n_run_type_eq",
+          "logicName": "运行类型",
+          "name": "n_run_type_eq",
+          "getPSAppDEField": {
+            "name": "RUN_TYPE",
+            "codeName": "run_type"
+          },
+          "sourceType": "DEFSEARCHMODE",
+          "stdDataType": 25,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "n_tenant_id_eq",
+          "logicName": "租户标识",
+          "name": "n_tenant_id_eq",
+          "getPSAppDEField": {
+            "name": "TENANT_ID",
+            "codeName": "tenant_id"
+          },
+          "sourceType": "DEFSEARCHMODE",
+          "stdDataType": 25,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "n_user_id_eq",
+          "logicName": "用户标识",
+          "name": "n_user_id_eq",
+          "getPSAppDEField": {
+            "name": "USER_ID",
+            "codeName": "user_id"
+          },
+          "sourceType": "DEFSEARCHMODE",
+          "stdDataType": 25,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "n_agent_id_eq",
+          "logicName": "智能体标识",
+          "name": "n_agent_id_eq",
+          "getPSAppDEField": {
+            "name": "AGENT_ID",
+            "codeName": "agent_id"
+          },
+          "sourceType": "DEFSEARCHMODE",
+          "stdDataType": 25,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "n_model_id_eq",
+          "logicName": "模型标识",
+          "name": "n_model_id_eq",
+          "getPSAppDEField": {
+            "name": "MODEL_ID",
+            "codeName": "model_id"
+          },
+          "sourceType": "DEFSEARCHMODE",
+          "stdDataType": 25,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "n_conversation_id_eq",
+          "logicName": "会话标识",
+          "name": "n_conversation_id_eq",
+          "getPSAppDEField": {
+            "name": "CONVERSATION_ID",
+            "codeName": "conversation_id"
+          },
+          "sourceType": "DEFSEARCHMODE",
+          "stdDataType": 25,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "n_parent_run_id_eq",
+          "logicName": "父运行标识",
+          "name": "n_parent_run_id_eq",
+          "getPSAppDEField": {
+            "name": "PARENT_RUN_ID",
+            "codeName": "parent_run_id"
+          },
+          "sourceType": "DEFSEARCHMODE",
+          "stdDataType": 25,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "n_idempotency_key_eq",
+          "logicName": "幂等键",
+          "name": "n_idempotency_key_eq",
+          "getPSAppDEField": {
+            "name": "IDEMPOTENCY_KEY",
+            "codeName": "idempotency_key"
+          },
+          "sourceType": "DEFSEARCHMODE",
+          "stdDataType": 25,
+          "type": "SIMPLE"
+        },
+        {
+          "codeName": "n_trace_id_eq",
+          "logicName": "追踪标识",
+          "name": "n_trace_id_eq",
+          "getPSAppDEField": {
+            "name": "TRACE_ID",
+            "codeName": "trace_id"
+          },
+          "sourceType": "DEFSEARCHMODE",
+          "stdDataType": 25,
+          "type": "SIMPLE"
+        }
+      ],
+      "sourceType": "DE",
+      "type": "DEFILTER"
+    }
+  ],
+  "getAllPSAppDEMethods": [
+    {
+      "actionMode": "CHECKKEY",
+      "actionTag": "CheckKey",
+      "codeName": "check_key",
+      "methodType": "DEACTION",
+      "name": "CheckKey",
+      "getPSAppDEMethodInput": {
+        "getPSAppDEMethodDTO": {
+          "modelref": true,
+          "id": "ai_run_dto"
+        },
+        "name": "CheckKeyInput",
+        "type": "DTO"
+      },
+      "getPSAppDEMethodReturn": {
+        "name": "CheckKeyResult",
+        "stdDataType": 9,
+        "type": "SIMPLE"
+      },
+      "getPSDEAction": {
+        "modelref": true,
+        "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/CheckKey.json"
+      },
+      "getPSDEOPPriv": {
+        "modelref": true,
+        "id": "CREATE"
+      },
+      "getPSDEServiceAPIMethod": {
+        "modelref": true,
+        "id": "check_key"
+      },
+      "requestMethod": "POST",
+      "requestParamType": "ENTITY",
+      "requestPath": "/check_key",
+      "builtinMethod": false
+    },
+    {
+      "actionMode": "CREATE",
+      "actionTag": "Create",
+      "codeName": "create",
+      "methodType": "DEACTION",
+      "name": "Create",
+      "getPSAppDEMethodInput": {
+        "getPSAppDEMethodDTO": {
+          "modelref": true,
+          "id": "ai_run_dto"
+        },
+        "name": "CreateInput",
+        "type": "DTO",
+        "output": true
+      },
+      "getPSAppDEMethodReturn": {
+        "name": "CreateResult",
+        "type": "VOID"
+      },
+      "getPSDEAction": {
+        "modelref": true,
+        "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/Create.json"
+      },
+      "getPSDEOPPriv": {
+        "modelref": true,
+        "id": "CREATE"
+      },
+      "getPSDEServiceAPIMethod": {
+        "modelref": true,
+        "id": "Create"
+      },
+      "requestMethod": "POST",
+      "requestParamType": "ENTITY",
+      "builtinMethod": false,
+      "noServiceCodeName": true
+    },
+    {
+      "actionMode": "READ",
+      "actionTag": "Get",
+      "codeName": "get",
+      "methodType": "DEACTION",
+      "name": "Get",
+      "getPSAppDEMethodInput": {
+        "getKeyPSAppDEField": {
+          "name": "ID",
+          "codeName": "id"
+        },
+        "name": "GetInput",
+        "type": "KEYFIELD"
+      },
+      "getPSAppDEMethodReturn": {
+        "getPSAppDEMethodDTO": {
+          "modelref": true,
+          "id": "ai_run_dto"
+        },
+        "name": "GetResult",
+        "type": "DTO"
+      },
+      "getPSDEAction": {
+        "modelref": true,
+        "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/Get.json"
+      },
+      "getPSDEOPPriv": {
+        "modelref": true,
+        "id": "READ"
+      },
+      "getPSDEServiceAPIMethod": {
+        "modelref": true,
+        "id": "Get"
+      },
+      "requestField": "ID",
+      "requestMethod": "GET",
+      "requestParamType": "FIELD",
+      "needResourceKey": true,
+      "builtinMethod": false,
+      "noServiceCodeName": true
+    },
+    {
+      "actionMode": "GETDRAFT",
+      "actionTag": "GetDraft",
+      "codeName": "get_draft",
+      "methodType": "DEACTION",
+      "name": "GetDraft",
+      "getPSAppDEMethodInput": {
+        "getPSAppDEMethodDTO": {
+          "modelref": true,
+          "id": "ai_run_dto"
+        },
+        "name": "GetDraftInput",
+        "type": "DTO"
+      },
+      "getPSAppDEMethodReturn": {
+        "getPSAppDEMethodDTO": {
+          "modelref": true,
+          "id": "ai_run_dto"
+        },
+        "name": "GetDraftResult",
+        "type": "DTO"
+      },
+      "getPSDEAction": {
+        "modelref": true,
+        "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/GetDraft.json"
+      },
+      "getPSDEOPPriv": {
+        "modelref": true,
+        "id": "CREATE"
+      },
+      "getPSDEServiceAPIMethod": {
+        "modelref": true,
+        "id": "get_draft"
+      },
+      "requestMethod": "GET",
+      "requestParamType": "NONE",
+      "requestPath": "/get_draft",
+      "builtinMethod": false
+    },
+    {
+      "actionMode": "DELETE",
+      "actionTag": "Remove",
+      "codeName": "remove",
+      "methodType": "DEACTION",
+      "name": "Remove",
+      "getPSAppDEMethodInput": {
+        "getKeyPSAppDEField": {
+          "name": "ID",
+          "codeName": "id"
+        },
+        "name": "RemoveInput",
+        "type": "KEYFIELDS"
+      },
+      "getPSAppDEMethodReturn": {
+        "name": "RemoveResult",
+        "type": "VOID"
+      },
+      "getPSDEAction": {
+        "modelref": true,
+        "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/Remove.json"
+      },
+      "getPSDEOPPriv": {
+        "modelref": true,
+        "id": "DELETE"
+      },
+      "getPSDEServiceAPIMethod": {
+        "modelref": true,
+        "id": "Remove"
+      },
+      "requestField": "ID",
+      "requestMethod": "DELETE",
+      "requestParamType": "FIELD",
+      "enableBatchAction": true,
+      "needResourceKey": true,
+      "builtinMethod": false,
+      "noServiceCodeName": true
+    },
+    {
+      "actionMode": "SAVE",
+      "actionTag": "Save",
+      "codeName": "save",
+      "methodType": "DEACTION",
+      "name": "Save",
+      "getPSAppDEMethodInput": {
+        "getPSAppDEMethodDTO": {
+          "modelref": true,
+          "id": "ai_run_dto"
+        },
+        "name": "SaveInput",
+        "type": "DTO",
+        "output": true
+      },
+      "getPSAppDEMethodReturn": {
+        "name": "SaveResult",
+        "type": "VOID"
+      },
+      "getPSDEAction": {
+        "modelref": true,
+        "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/Save.json"
+      },
+      "getPSDEOPPriv": {
+        "modelref": true,
+        "id": "CREATE"
+      },
+      "getPSDEServiceAPIMethod": {
+        "modelref": true,
+        "id": "save"
+      },
+      "requestMethod": "POST",
+      "requestParamType": "ENTITY",
+      "requestPath": "/save",
+      "builtinMethod": false
+    },
+    {
+      "actionMode": "UPDATE",
+      "actionTag": "Update",
+      "codeName": "update",
+      "methodType": "DEACTION",
+      "name": "Update",
+      "getPSAppDEMethodInput": {
+        "getPSAppDEMethodDTO": {
+          "modelref": true,
+          "id": "ai_run_dto"
+        },
+        "name": "UpdateInput",
+        "type": "DTO",
+        "output": true
+      },
+      "getPSAppDEMethodReturn": {
+        "name": "UpdateResult",
+        "type": "VOID"
+      },
+      "getPSDEAction": {
+        "modelref": true,
+        "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/Update.json"
+      },
+      "getPSDEOPPriv": {
+        "modelref": true,
+        "id": "UPDATE"
+      },
+      "getPSDEServiceAPIMethod": {
+        "modelref": true,
+        "id": "Update"
+      },
+      "requestMethod": "PUT",
+      "requestParamType": "ENTITY",
+      "needResourceKey": true,
+      "builtinMethod": false,
+      "noServiceCodeName": true
+    },
+    {
+      "codeName": "fetch_default",
+      "dataSetName": "DEFAULT",
+      "dataSetTag": "Default",
+      "methodType": "FETCH",
+      "name": "fetch_default",
+      "getPSAppDEMethodInput": {
+        "name": "输入对象",
+        "getPSAppDEMethodDTO": {
+          "modelref": true,
+          "id": "ai_run_filter_dto"
+        },
+        "type": "DTO"
+      },
+      "getPSAppDEMethodReturn": {
+        "name": "返回对象",
+        "getPSAppDEMethodDTO": {
+          "modelref": true,
+          "id": "ai_run_dto"
+        },
+        "type": "PAGE"
+      },
+      "getPSDEDataSet": {
+        "modelref": true,
+        "id": "Default"
+      },
+      "getPSDEOPPriv": {
+        "modelref": true,
+        "id": "READ"
+      },
+      "getPSDEServiceAPIMethod": {
+        "modelref": true,
+        "id": "fetch_default"
+      },
+      "requestMethod": "POST",
+      "requestParamType": "ENTITY",
+      "requestPath": "/fetch_default",
+      "builtinMethod": false
+    },
+    {
+      "codeName": "FilterCreate",
+      "methodType": "FILTERACTION",
+      "name": "FILTERCREATE",
+      "builtinMethod": true
+    },
+    {
+      "codeName": "FilterFetch",
+      "methodType": "FILTERACTION",
+      "name": "FILTERFETCH",
+      "builtinMethod": true
+    },
+    {
+      "codeName": "FilterGet",
+      "methodType": "FILTERACTION",
+      "name": "FILTERGET",
+      "builtinMethod": true
+    },
+    {
+      "codeName": "FilterGetDraft",
+      "methodType": "FILTERACTION",
+      "name": "FILTERGETDRAFT",
+      "builtinMethod": true
+    },
+    {
+      "codeName": "FilterRemove",
+      "methodType": "FILTERACTION",
+      "name": "FILTERREMOVE",
+      "builtinMethod": true
+    },
+    {
+      "codeName": "FilterSearch",
+      "methodType": "FILTERACTION",
+      "name": "FILTERSEARCH",
+      "builtinMethod": true
+    },
+    {
+      "codeName": "FilterUpdate",
+      "methodType": "FILTERACTION",
+      "name": "FILTERUPDATE",
+      "builtinMethod": true
+    }
+  ],
+  "getAllPSDEOPPrivs": [
+    {
+      "logicName": "建立",
+      "name": "CREATE"
+    },
+    {
+      "logicName": "删除",
+      "name": "DELETE"
+    },
+    {
+      "logicName": "读取",
+      "name": "READ"
+    },
+    {
+      "logicName": "更新",
+      "name": "UPDATE"
+    }
+  ],
+  "codeName": "ai_run",
+  "dEAPICodeName": "ai_run",
+  "dEAPICodeName2": "ai_runs",
+  "dEAPITag": "AI_RUN",
+  "dataAccCtrlArch": 1,
+  "dataAccCtrlMode": 1,
+  "dynaModelFilePath": "PSSYSAPPS/plmweb/PSAPPDATAENTITIES/ai_run.json",
+  "enableUIActions": 15,
+  "getKeyPSAppDEField": {
+    "name": "ID",
+    "codeName": "id"
+  },
+  "getLNPSLanguageRes": {
+    "lanResTag": "DE.LNAME.AI_RUN"
+  },
+  "logicName": "AI运行",
+  "getMajorPSAppDEField": {
+    "name": "NAME",
+    "codeName": "name"
+  },
+  "name": "AI_RUN",
+  "getPSDEName": "AI_RUN",
+  "getPSDEServiceAPI": {
+    "modelref": true,
+    "id": "ai_run"
+  },
+  "getPSDataEntity": {
+    "modelref": true,
+    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run.json"
+  },
+  "getPSSysServiceAPI": {
+    "modelref": true,
+    "path": "PSSYSSERVICEAPIS/ServiceAPI.json"
+  },
+  "getQuickSearchPSAppDEFields": [],
+  "storageMode": 0,
+  "sysAPITag": "ServiceAPI",
+  "defaultMode": true,
+  "enableFilterActions": true,
+  "enableUICreate": true,
+  "enableUIModify": true,
+  "enableUIRemove": true,
+  "enableWFActions": false,
+  "major": true
+}

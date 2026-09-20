@@ -81,12 +81,26 @@ services:
   emqx:
     profiles:
       - emqx  
-    image: ${IMAGE_URL}emqx:4.4
+    image: ${EMQX_IMAGE:-emqx/emqx:5.8.0}
     container_name: emqx
     ports:
+    - "1883:1883"
     - "${EMQX_PORT}:8083"
+    - "18083:18083"
     environment:
     - TZ=Asia/Shanghai
+    - EMQX_NAME=emqx
+    - EMQX_HOST=emqx
+    - EMQX_ALLOW_ANONYMOUS=true
+    - EMQX_DASHBOARD__DEFAULT_USERNAME=admin
+    - EMQX_DASHBOARD__DEFAULT_PASSWORD=admin
+    - EMQX_LISTENERS__TCP__DEFAULT__BIND=1883
+    - EMQX_LISTENERS__WS__DEFAULT__BIND=8083
+    - EMQX_RPC__PORT_DISCOVERY=manual
+    - EMQX_NODE__NAME=emqx@emqx
+    volumes:
+    - emqx_data:/opt/emqx/data
+    - emqx_log:/opt/emqx/log
     networks:
     - agent_network
 
@@ -104,12 +118,14 @@ services:
       - SPRING_CLOUD_NACOS_DISCOVERY_IP=ibiz-ebsx-allinone
       - SPRING_CLOUD_NACOS_DISCOVERY_SERVER-ADDR=http://${NACOS_HOST}:${NACOS_PORT}
       - SPRING_CLOUD_NACOS_CONFIG_SERVER-ADDR=http://${NACOS_HOST}:${NACOS_PORT}
-      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.jdbc.Driver
+      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.cj.jdbc.Driver
       - SPRING_DATASOURCE_PASSWORD=9d@A178@
       - SPRING_DATASOURCE_URL=jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/a_lab01_3f9ebc219?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false
       - SPRING_DATASOURCE_USERNAME=a_lab01_3f9ebc219
+      - SPRING_DATASOURCE_DEFAULTSCHEMA=a_lab01_3f9ebc219
       - JAVA_OPTS=-Xms512m -Xmx2048m -Xss1024K
       - IBIZ_SERVICEHUB_INITMODE=auto      
+      - ALLINONE_PREPARE_LIQUIBASE_DRIVER=true
     volumes:
       - allinone_data:/app/file
     networks:
@@ -169,6 +185,10 @@ volumes:
   mysql_data:
     driver: local
   allinone_data:
+    driver: local
+  emqx_data:
+    driver: local
+  emqx_log:
     driver: local
 
 networks:

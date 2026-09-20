@@ -125,6 +125,12 @@
   }, {
     "modelref" : true,
     "path" : "PSMODULES/ai/PSCODELISTS/retrieval_mode.json"
+  }, {
+    "modelref" : true,
+    "path" : "PSMODULES/ai/PSCODELISTS/ai_run_status.json"
+  }, {
+    "modelref" : true,
+    "path" : "PSMODULES/ai/PSCODELISTS/ai_run_step_status.json"
   } ],
   "getAllPSDataEntities" : [ {
     "modelref" : true,
@@ -213,6 +219,15 @@
   }, {
     "modelref" : true,
     "path" : "PSMODULES/ai/PSDATAENTITIES/ai_tool.json"
+  }, {
+    "modelref" : true,
+    "path" : "PSMODULES/ai/PSDATAENTITIES/ai_run.json"
+  }, {
+    "modelref" : true,
+    "path" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step.json"
+  }, {
+    "modelref" : true,
+    "path" : "PSMODULES/ai/PSDATAENTITIES/ai_run_event.json"
   } ],
   "codeName" : "ai",
   "dynaModelFilePath" : "PSMODULES/ai.json",

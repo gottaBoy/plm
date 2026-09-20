@@ -267,7 +267,7 @@
           "getPSEditor" : {
             "editorParams" : {
               "SRFNAVPARAM.n_pscoreprdfuncid_eq" : "%pscoreprdfunc%",
-              "SRFNAVPARAM.n_pscoreprdid_eq" : "%srfv2systemid%"
+              "SRFNAVPARAM.n_pscoreprdid_eq" : "%srfsystemid%"
             },
             "editorType" : "DROPDOWNLIST",
             "name" : "vers",
@@ -283,7 +283,7 @@
             }, {
               "key" : "n_pscoreprdid_eq",
               "name" : "n_pscoreprdid_eq",
-              "value" : "srfv2systemid",
+              "value" : "srfsystemid",
               "rawValue" : false
             } ],
             "placeHolder" : "请选择待安装版本",

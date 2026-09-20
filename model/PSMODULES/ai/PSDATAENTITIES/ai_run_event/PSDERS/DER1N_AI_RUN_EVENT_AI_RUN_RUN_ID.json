@@ -1,0 +1,31 @@
+{
+  "codeName": "AI_RUN",
+  "dERType": "DER1N",
+  "dynaModelFilePath": "PSMODULES/ai/PSDATAENTITIES/ai_run_event/PSDERS/DER1N_AI_RUN_EVENT_AI_RUN_RUN_ID.json",
+  "fKeyName": "AI_RUN_EVENT_RUN_ID",
+  "getMajorPSDataEntity": {
+    "modelref": true,
+    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run.json"
+  },
+  "masterOrder": -1,
+  "masterRS": 0,
+  "getMinorPSDataEntity": {
+    "modelref": true,
+    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run_event.json"
+  },
+  "name": "DER1N_AI_RUN_EVENT_AI_RUN_RUN_ID",
+  "orderValue": 100,
+  "getPSPickupDEField": {
+    "name": "RUN_ID",
+    "codeName": "run_id"
+  },
+  "getPSPickupTextDEField": {
+    "name": "NAME",
+    "codeName": "name"
+  },
+  "pickupDEFName": "RUN_ID",
+  "removeActionType": -1,
+  "removeOrder": 0,
+  "serviceCodeName": "ai_run",
+  "enableFKey": true
+}

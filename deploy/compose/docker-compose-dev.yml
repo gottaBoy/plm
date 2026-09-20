@@ -3,6 +3,7 @@ services:
   mysql:
     image: ${IMAGE_URL}mysql:5.7.26.ibiz
     container_name: mysql
+    restart: always
     ports:
     - "3306:3306"  
     environment:
@@ -17,8 +18,12 @@ services:
 
   #nacos
   nacos:
-    image: ${IMAGE_URL}nacos-server:v2.0.3
+    image: ${NACOS_IMAGE:-aibiz/nacos-server:v2.0.3-jre17}
+    build:
+      context: .
+      dockerfile: nacos-jre17.Dockerfile
     container_name: nacos
+    restart: always
     ports:
     - "8848:8848"
     environment:
@@ -31,19 +36,18 @@ services:
     - MYSQL_SERVICE_PORT=3306
     - MYSQL_SERVICE_USER=nacos
     - MYSQL_SERVICE_PASSWORD=Nacos@2022
-    - JVM_XMS=256m
-    - JVM_XMX=1024m
+    - JVM_XMS=64m
+    - JVM_XMX=256m
+    - JVM_XMN=128m
     networks:
       - agent_network
-    entrypoint:
-    - /entrypoint-waitfor.sh
-    command: mysql:3306
 
   
   #redis
   redis:
     image: ${IMAGE_URL}redis:6.2.6
     container_name: redis
+    restart: unless-stopped
     ports:
     - "6379:6379"
     environment:
@@ -59,24 +63,41 @@ services:
   zoo1:
     image: ${IMAGE_URL}zookeeper:3.7.0
     container_name: zoo1
+    restart: unless-stopped
     ports:
     - "2181:2181"
     environment:
     - TZ=Asia/Shanghai
     - ZOO_MY_ID=1
     - ZOO_SERVERS=server.1=0.0.0.0:2888:3888;2181
+    - ZK_SERVER_HEAP=256
     networks:
     - agent_network
 
 
   #emqx
   emqx:
-    image: ${IMAGE_URL}emqx:4.4
+    image: ${EMQX_IMAGE:-emqx/emqx:5.8.0}
     container_name: emqx
+    restart: unless-stopped
     ports:
+    - "1883:1883"
     - "8083:8083"
+    - "18083:18083"
     environment:
     - TZ=Asia/Shanghai
+    - EMQX_NAME=emqx
+    - EMQX_HOST=emqx
+    - EMQX_ALLOW_ANONYMOUS=true
+    - EMQX_DASHBOARD__DEFAULT_USERNAME=admin
+    - EMQX_DASHBOARD__DEFAULT_PASSWORD=admin
+    - EMQX_LISTENERS__TCP__DEFAULT__BIND=1883
+    - EMQX_LISTENERS__WS__DEFAULT__BIND=8083
+    - EMQX_RPC__PORT_DISCOVERY=manual
+    - EMQX_NODE__NAME=emqx@emqx
+    volumes:
+    - emqx_data:/opt/emqx/data
+    - emqx_log:/opt/emqx/log
     networks:
     - agent_network
 
@@ -94,20 +115,28 @@ services:
       - SPRING_CLOUD_NACOS_DISCOVERY_IP=ibiz-ebsx-allinone
       - SPRING_CLOUD_NACOS_DISCOVERY_SERVER-ADDR=http://nacos:8848
       - SPRING_CLOUD_NACOS_CONFIG_SERVER-ADDR=http://nacos:8848
-      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.jdbc.Driver
+      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.cj.jdbc.Driver
       - SPRING_DATASOURCE_PASSWORD=9d@A178@
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/a_lab01_3f9ebc219?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false
       - SPRING_DATASOURCE_USERNAME=a_lab01_3f9ebc219
-      - JAVA_OPTS=-Xms512m -Xmx2048m -Xss256K
+      - SPRING_DATASOURCE_DEFAULTSCHEMA=a_lab01_3f9ebc219
+      - JAVA_OPTS=-Xms1024m -Xmx3072m -Xss512K
       - IBIZ_SERVICEHUB_INITMODE=auto      
+      - ALLINONE_PREPARE_LIQUIBASE_DRIVER=true
     volumes:
       - allinone_data:/app/file
+      - ../../../scripts/allinone-entrypoint.sh:/usr/local/bin/allinone-entrypoint.sh:ro
     networks:
       agent_network:
-        aliases:
-          - nacos.ibizcloud.cn            
-    entrypoint: /entrypoint-waitfor.sh
-    command: nacos:8848
+    entrypoint: ["/bin/sh", "/usr/local/bin/allinone-entrypoint.sh"]
+    command: ["mysql:3306", "nacos:8848", "emqx:8083"]
+    stop_grace_period: 30s
+    healthcheck:
+      test: ["CMD", "/bin/sh", "/usr/local/bin/allinone-entrypoint.sh", "--healthcheck"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 300s
 
 
   #ibizlab-uaa-api
@@ -115,6 +144,7 @@ services:
     env_file: .dev
     image: ${IMAGE_URL}uaa-standalone:2.1.7
     container_name: ibizlab-uaa-api
+    restart: unless-stopped
     ports:
       - "32666:32666"
     environment:
@@ -126,9 +156,12 @@ services:
       - SPRING_CLOUD_NACOS_CONFIG_SERVER-ADDR=http://nacos:8848
       - SPRING_CLOUD_NACOS_DISCOVERY_GROUP=ibiz_config_group
       - SPRING_CLOUD_NACOS_CONFIG_GROUP=ibiz_config_group
-      - JAVA_OPTS=-Xms256m -Xmx1024m -Xss256K
+      - JAVA_OPTS=-Xms128m -Xmx512m -Xss256K
     networks:
       - agent_network
+    depends_on:
+      ibiz-ebsx-allinone:
+        condition: service_healthy
     entrypoint: /entrypoint-waitfor.sh
     command: ibiz-ebsx-allinone:30000
 
@@ -138,6 +171,7 @@ services:
     env_file: .dev
     image: ${IMAGE_URL}ibiz-ebsx-gateway:8.1.0.377-b2
     container_name: ibiz-ebsx-gateway
+    restart: unless-stopped
     ports:
       - "30086:30086"
     environment:
@@ -151,6 +185,9 @@ services:
       agent_network:
         aliases:
           - gateway.ibizcloud.cn
+    depends_on:
+      ibizlab-uaa-api:
+        condition: service_started
     entrypoint: /entrypoint-waitfor.sh
     command: ibizlab-uaa-api:32666
 
@@ -171,13 +208,24 @@ services:
       - SPRING_CLOUD_NACOS_DISCOVERY_IP=plmservice
       - SERVER_PORT=30251
       - IBIZ_SERVICEHUB_INITMODE=auto
-      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.jdbc.Driver
+      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.cj.jdbc.Driver
       - SPRING_DATASOURCE_PASSWORD=plm@2024
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/plm?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false
       - SPRING_DATASOURCE_USERNAME=plm
+      - MODEL_READINESS_LOGINNAME=${AIBIZ_LOGINNAME:-aibizhi}
+      - MODEL_READINESS_PASSWORD=${AIBIZ_PASSWORD:-123456}
       - JAVA_OPTS=-Xms512m -Xmx2048m -Xss256K -Dgroovy.grape.report.downloads=true
+    volumes:
+      - ../../../scripts/modeling-readiness.sh:/usr/local/bin/modeling-readiness.sh:ro
     entrypoint: /entrypoint-waitfor.sh
     command: ibiz-ebsx-gateway:30086
+    healthcheck:
+      test: ["CMD-SHELL", "/usr/local/bin/modeling-readiness.sh"]
+      interval: 15s
+      # Authentication (5s) + PLM request (8s), plus shell overhead.
+      timeout: 20s
+      retries: 30
+      start_period: 120s
 
 
   #plmweb
@@ -287,7 +335,8 @@ services:
   #modelingservice
   modelingservice:
     profiles:
-      - modeling  
+      - modeling
+    restart: unless-stopped
     env_file: .dev  
     image: ${IMAGE_URL}ibiz-service-runner:v8.1.0.570.33-modeling.250826
     container_name: modelingservice
@@ -297,14 +346,32 @@ services:
       - agent_network
     environment:
       - TZ=Asia/Shanghai
+      - SYSTEM_NAME=ibizmodeling
       - IBIZ_SERVICEHUB_ID=ibizmodelingservice
       - IBIZ_SERVICEHUB_ENABLEPRODMODE=true
+      - IBIZ_SERVICEHUB_INITMODE=auto
+      - IBIZ_SERVICEHUB_DEPLOYSYSTEMS_0=gateway
+      - IBIZ_SERVICEHUB_DEPLOYSYSTEMS_1=ibizmodeling
       - SPRING_CLOUD_NACOS_DISCOVERY_SERVER-ADDR=http://nacos:8848
       - SPRING_CLOUD_NACOS_CONFIG_SERVER-ADDR=http://nacos:8848
+      - SPRING_CLOUD_NACOS_DISCOVERY_GROUP=ibiz_config_group
+      - SPRING_CLOUD_NACOS_CONFIG_GROUP=ibiz_config_group
       - SPRING_CLOUD_NACOS_DISCOVERY_IP=modelingservice
+      - CLOUD_SERVICEURL=http://ibiz-ebsx-allinone:30000
+      - CLOUD_ACCESSTOKENURL=http://ibiz-ebsx-allinone:30000/v7/login
+      - CLOUD_CLIENTID=aibizhi
+      - CLOUD_CLIENTSECRET=123456
+      - IBIZ_SERVICEHUB_LOCALMODE=true
+      - IBIZ_DEPLOYSYSTEMS_IBIZMODELING_MODELPATH=/app/model
+      - IBIZ_DEPLOYSYSTEMS_IBIZMODELING_EXTENSION=false
+      - SPRING_DATASOURCE_USERNAME=ibizapi
+      - SPRING_DATASOURCE_PASSWORD=Ibizapi@2022
       - SERVER_PORT=32002
+      - JAVA_OPTS=-Xms512m -Xmx2048m -Xss512K
+    volumes:
+      - ../../model:/app/model
     entrypoint: /entrypoint-waitfor.sh
-    command: ibiz-ebsx-gateway:30086
+    command: nacos:8848 ibiz-ebsx-gateway:30086
 
 
   #modelingweb
@@ -314,6 +381,10 @@ services:
     env_file: .dev  
     image: ${IMAGE_URL}ibiz-cloud-web-runner:v9.0.7.40-alpha.19
     container_name: modelingweb
+    restart: unless-stopped
+    depends_on:
+      modeling-plugins:
+        condition: service_healthy
     ports:
       - 32003:80
     networks:
@@ -325,7 +396,59 @@ services:
       - APPCODE=modeldesign
       - APICODE=ibizmodeling__modeldesign
       - BASEURL=ibizmodeling__modeldesign
+      - ISSAASMODE=false
+      - ISLOCALMODEL=true
       - PLUGINBASEURL=http://js.ibizlab.cn
+    volumes:
+      - ../../../modelingweb/nginx-local.conf:/opt/aibiz/nginx-local.conf:ro
+      - ../../../modelingweb/start.sh:/opt/aibiz/local-start.sh:ro
+      - ../../model:/app/model:ro
+    command:
+      - /bin/sh
+      - -c
+      - cp /opt/aibiz/nginx-local.conf /etc/nginx/conf.d/nginx.conf &&
+        /bin/bash /opt/aibiz/local-start.sh
+
+  #modeling-plugins
+  modeling-plugins:
+    profiles:
+      - modeling
+    build:
+      context: ../../../modelingweb/app
+      dockerfile: Dockerfile.modeling-plugins
+      args:
+        NODE_IMAGE: ${MODELING_PLUGINS_NODE_IMAGE:-node:22-bookworm-slim}
+    image: ${MODELING_PLUGINS_IMAGE:-aibiz/modeling-plugins:local}
+    container_name: modeling-plugins
+    restart: unless-stopped
+    init: true
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 10s
+    expose:
+      - "4175"
+    networks:
+      - agent_network
+    environment:
+      - TZ=Asia/Shanghai
+      - MODELING_PLUGIN_HOST=0.0.0.0
+      - MODELING_PLUGIN_PORT=4175
+      - MODELING_PLUGIN_DATA=/data
+    volumes:
+      - modeling_plugins_data:/data
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:4175/healthz', {signal: AbortSignal.timeout(3000)}).then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
 
   #task
   task:
@@ -334,6 +457,9 @@ services:
     env_file: .dev  
     image: ${IMAGE_URL}task7:v124.2.opensource.25082603
     container_name: task
+    restart: unless-stopped
+    ports:
+      - "30088:8080"
     networks:
       - agent_network
     environment:
@@ -343,12 +469,25 @@ services:
       - COREDBNAME=ibizapi
       - DBSERVERIP=mysql
       - DBSERVERPORT=3306
-      - JAVA_OPTS=-Xms256m -Xmx${PLM_LIMITS_MEMORY:-4096m} -Xss1024K
+      - JAVA_OPTS=-Xms128m -Xmx${PLM_LIMITS_MEMORY:-512m} -Xss512K
+      - IMPORT_BATCH_SIZE=${TASK_IMPORT_BATCH_SIZE:-500}
     volumes:
       - task_data:/app/application/taskfile/nasfolder
-    entrypoint:
-    - /entrypoint-waitfor.sh
-    command: mysql:3306
+      - type: bind
+        source: ../../../scripts/task-entrypoint.sh
+        target: /usr/local/bin/task-entrypoint.sh
+        read_only: true
+        bind:
+          create_host_path: false
+    entrypoint: ["/bin/bash", "/usr/local/bin/task-entrypoint.sh"]
+    command: ["mysql:3306"]
+    stop_grace_period: 30s
+    healthcheck:
+      test: ["CMD", "/bin/bash", "/usr/local/bin/task-entrypoint.sh", "--healthcheck"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 480s
 
 volumes:
   task_data:
@@ -356,6 +495,12 @@ volumes:
   mysql_data:
     driver: local
   allinone_data:
+    driver: local
+  emqx_data:
+    driver: local
+  emqx_log:
+    driver: local
+  modeling_plugins_data:
     driver: local
 
 networks:

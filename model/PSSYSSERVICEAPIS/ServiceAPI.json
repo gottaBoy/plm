@@ -197636,7 +197636,1755 @@
     "enableDataExport" : true,
     "enableDataImport" : true,
     "major" : true
-  } ],
+  },
+    {
+      "aPIMode": 1,
+      "codeName": "ai_run",
+      "codeName2": "ai_runs",
+      "getLNPSLanguageRes": {
+        "lanResTag": "DE.LNAME.AI_RUN"
+      },
+      "logicName": "AI运行",
+      "name": "AI_RUN",
+      "getPSDEServiceAPIFields": [
+        {
+          "codeName": "id",
+          "codeName2": "id",
+          "logicName": "标识",
+          "name": "ID",
+          "orderValue": 1,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": true,
+          "majorField": false
+        },
+        {
+          "codeName": "name",
+          "codeName2": "name",
+          "logicName": "名称",
+          "name": "NAME",
+          "orderValue": 2,
+          "stdDataType": 25,
+          "stringLength": 200,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": true
+        },
+        {
+          "codeName": "create_man",
+          "codeName2": "create_man",
+          "logicName": "创建人",
+          "name": "CREATE_MAN",
+          "orderValue": 4,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "create_time",
+          "codeName2": "create_time",
+          "logicName": "创建时间",
+          "name": "CREATE_TIME",
+          "orderValue": 5,
+          "stdDataType": 5,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "update_man",
+          "codeName2": "update_man",
+          "logicName": "更新人",
+          "name": "UPDATE_MAN",
+          "orderValue": 6,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "update_time",
+          "codeName2": "update_time",
+          "logicName": "更新时间",
+          "name": "UPDATE_TIME",
+          "orderValue": 7,
+          "stdDataType": 5,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "status",
+          "codeName2": "status",
+          "logicName": "运行状态",
+          "name": "STATUS",
+          "orderValue": 1000,
+          "stdDataType": 25,
+          "stringLength": 60,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "run_type",
+          "codeName2": "run_type",
+          "logicName": "运行类型",
+          "name": "RUN_TYPE",
+          "orderValue": 1010,
+          "stdDataType": 25,
+          "stringLength": 60,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "tenant_id",
+          "codeName2": "tenant_id",
+          "logicName": "租户标识",
+          "name": "TENANT_ID",
+          "orderValue": 1020,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "user_id",
+          "codeName2": "user_id",
+          "logicName": "用户标识",
+          "name": "USER_ID",
+          "orderValue": 1030,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "project_id",
+          "codeName2": "project_id",
+          "logicName": "项目标识",
+          "name": "PROJECT_ID",
+          "orderValue": 1040,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "agent_id",
+          "codeName2": "agent_id",
+          "logicName": "智能体标识",
+          "name": "AGENT_ID",
+          "orderValue": 1050,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "agent_version",
+          "codeName2": "agent_version",
+          "logicName": "智能体版本",
+          "name": "AGENT_VERSION",
+          "orderValue": 1060,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "model_id",
+          "codeName2": "model_id",
+          "logicName": "模型标识",
+          "name": "MODEL_ID",
+          "orderValue": 1070,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "provider",
+          "codeName2": "provider",
+          "logicName": "提供商",
+          "name": "PROVIDER",
+          "orderValue": 1080,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "context_id",
+          "codeName2": "context_id",
+          "logicName": "上下文标识",
+          "name": "CONTEXT_ID",
+          "orderValue": 1090,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "conversation_id",
+          "codeName2": "conversation_id",
+          "logicName": "会话标识",
+          "name": "CONVERSATION_ID",
+          "orderValue": 1100,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "session_id",
+          "codeName2": "session_id",
+          "logicName": "会话外部标识",
+          "name": "SESSION_ID",
+          "orderValue": 1110,
+          "stdDataType": 25,
+          "stringLength": 200,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "parent_run_id",
+          "codeName2": "parent_run_id",
+          "logicName": "父运行标识",
+          "name": "PARENT_RUN_ID",
+          "orderValue": 1120,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "idempotency_key",
+          "codeName2": "idempotency_key",
+          "logicName": "幂等键",
+          "name": "IDEMPOTENCY_KEY",
+          "orderValue": 1130,
+          "stdDataType": 25,
+          "stringLength": 200,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "trace_id",
+          "codeName2": "trace_id",
+          "logicName": "追踪标识",
+          "name": "TRACE_ID",
+          "orderValue": 1140,
+          "stdDataType": 25,
+          "stringLength": 200,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "workspace",
+          "codeName2": "workspace",
+          "logicName": "工作区",
+          "name": "WORKSPACE",
+          "orderValue": 1150,
+          "stdDataType": 25,
+          "stringLength": 1000,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "request_json",
+          "codeName2": "request_json",
+          "logicName": "请求摘要",
+          "name": "REQUEST_JSON",
+          "orderValue": 1160,
+          "stdDataType": 25,
+          "stringLength": 1048576,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "result_json",
+          "codeName2": "result_json",
+          "logicName": "结果摘要",
+          "name": "RESULT_JSON",
+          "orderValue": 1170,
+          "stdDataType": 25,
+          "stringLength": 1048576,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "error_code",
+          "codeName2": "error_code",
+          "logicName": "错误码",
+          "name": "ERROR_CODE",
+          "orderValue": 1180,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "error_message",
+          "codeName2": "error_message",
+          "logicName": "错误摘要",
+          "name": "ERROR_MESSAGE",
+          "orderValue": 1190,
+          "stdDataType": 25,
+          "stringLength": 1000,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "budget_json",
+          "codeName2": "budget_json",
+          "logicName": "预算摘要",
+          "name": "BUDGET_JSON",
+          "orderValue": 1200,
+          "stdDataType": 25,
+          "stringLength": 1048576,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "deadline_at",
+          "codeName2": "deadline_at",
+          "logicName": "截止时间",
+          "name": "DEADLINE_AT",
+          "orderValue": 1210,
+          "stdDataType": 5,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "lease_owner",
+          "codeName2": "lease_owner",
+          "logicName": "租约持有者",
+          "name": "LEASE_OWNER",
+          "orderValue": 1220,
+          "stdDataType": 25,
+          "stringLength": 200,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "lease_until",
+          "codeName2": "lease_until",
+          "logicName": "租约截止时间",
+          "name": "LEASE_UNTIL",
+          "orderValue": 1230,
+          "stdDataType": 5,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "recovery_attempts",
+          "codeName2": "recovery_attempts",
+          "logicName": "恢复尝试次数",
+          "name": "RECOVERY_ATTEMPTS",
+          "orderValue": 1240,
+          "stdDataType": 9,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "next_attempt_at",
+          "codeName2": "next_attempt_at",
+          "logicName": "下次尝试时间",
+          "name": "NEXT_ATTEMPT_AT",
+          "orderValue": 1250,
+          "stdDataType": 5,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "started_at",
+          "codeName2": "started_at",
+          "logicName": "开始时间",
+          "name": "STARTED_AT",
+          "orderValue": 1260,
+          "stdDataType": 5,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "finished_at",
+          "codeName2": "finished_at",
+          "logicName": "结束时间",
+          "name": "FINISHED_AT",
+          "orderValue": 1270,
+          "stdDataType": 5,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "last_event_sequence",
+          "codeName2": "last_event_sequence",
+          "logicName": "最后事件序号",
+          "name": "LAST_EVENT_SEQUENCE",
+          "orderValue": 1280,
+          "stdDataType": 1,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        }
+      ],
+      "getPSDEServiceAPIMethods": [
+                                                                                                                                {
+                                                                                                                                  "codeName": "create",
+                                                                                                                                  "dataAccessAction": "CREATE",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "Create",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/Create.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "CreateInput",
+                                                                                                                                    "type": "DTO",
+                                                                                                                                    "output": true
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "name": "CreateResult",
+                                                                                                                                    "type": "VOID"
+                                                                                                                                  },
+                                                                                                                                  "requestMethod": "POST",
+                                                                                                                                  "requestParamType": "ENTITY",
+                                                                                                                                  "uniqueTag": "AI_RUN__DEACTION__CREATE",
+                                                                                                                                  "noServiceCodeName": true
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "codeName": "get",
+                                                                                                                                  "dataAccessAction": "READ",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "Get",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/Get.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getKeyPSDEServiceAPIField": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "id"
+                                                                                                                                    },
+                                                                                                                                    "name": "GetInput",
+                                                                                                                                    "type": "KEYFIELD"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "GetResult",
+                                                                                                                                    "type": "DTO"
+                                                                                                                                  },
+                                                                                                                                  "requestField": "ID",
+                                                                                                                                  "requestMethod": "GET",
+                                                                                                                                  "requestParamType": "FIELD",
+                                                                                                                                  "needResourceKey": true,
+                                                                                                                                  "uniqueTag": "AI_RUN__DEACTION__READ",
+                                                                                                                                  "noServiceCodeName": true
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "codeName": "remove",
+                                                                                                                                  "dataAccessAction": "DELETE",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "Remove",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/Remove.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getKeyPSDEServiceAPIField": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "id"
+                                                                                                                                    },
+                                                                                                                                    "name": "RemoveInput",
+                                                                                                                                    "type": "KEYFIELDS"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "name": "RemoveResult",
+                                                                                                                                    "type": "VOID"
+                                                                                                                                  },
+                                                                                                                                  "requestField": "ID",
+                                                                                                                                  "requestMethod": "DELETE",
+                                                                                                                                  "requestParamType": "FIELD",
+                                                                                                                                  "enableBatchAction": true,
+                                                                                                                                  "needResourceKey": true,
+                                                                                                                                  "uniqueTag": "AI_RUN__DEACTION__REMOVE",
+                                                                                                                                  "noServiceCodeName": true
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "codeName": "update",
+                                                                                                                                  "dataAccessAction": "UPDATE",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "Update",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/Update.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "UpdateInput",
+                                                                                                                                    "type": "DTO",
+                                                                                                                                    "output": true
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "name": "UpdateResult",
+                                                                                                                                    "type": "VOID"
+                                                                                                                                  },
+                                                                                                                                  "requestMethod": "PUT",
+                                                                                                                                  "requestParamType": "ENTITY",
+                                                                                                                                  "needResourceKey": true,
+                                                                                                                                  "uniqueTag": "AI_RUN__DEACTION__UPDATE",
+                                                                                                                                  "noServiceCodeName": true
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "codeName": "check_key",
+                                                                                                                                  "dataAccessAction": "CREATE",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "CheckKey",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/CheckKey.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "CheckKeyInput",
+                                                                                                                                    "type": "DTO"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "name": "CheckKeyResult",
+                                                                                                                                    "stdDataType": 9,
+                                                                                                                                    "type": "SIMPLE"
+                                                                                                                                  },
+                                                                                                                                  "requestMethod": "POST",
+                                                                                                                                  "requestParamType": "ENTITY",
+                                                                                                                                  "requestPath": "/check_key",
+                                                                                                                                  "uniqueTag": "AI_RUN__DEACTION__CHECKKEY"
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "codeName": "get_draft",
+                                                                                                                                  "dataAccessAction": "CREATE",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "GetDraft",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/GetDraft.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "GetDraftInput",
+                                                                                                                                    "type": "DTO"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "GetDraftResult",
+                                                                                                                                    "type": "DTO"
+                                                                                                                                  },
+                                                                                                                                  "requestMethod": "GET",
+                                                                                                                                  "requestParamType": "NONE",
+                                                                                                                                  "requestPath": "/get_draft",
+                                                                                                                                  "uniqueTag": "AI_RUN__DEACTION__GETDRAFT"
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "codeName": "save",
+                                                                                                                                  "dataAccessAction": "CREATE",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "Save",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEACTIONS/Save.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "SaveInput",
+                                                                                                                                    "type": "DTO",
+                                                                                                                                    "output": true
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "name": "SaveResult",
+                                                                                                                                    "type": "VOID"
+                                                                                                                                  },
+                                                                                                                                  "requestMethod": "POST",
+                                                                                                                                  "requestParamType": "ENTITY",
+                                                                                                                                  "requestPath": "/save",
+                                                                                                                                  "uniqueTag": "AI_RUN__DEACTION__SAVE"
+                                                                                                                                },
+                                                                {
+                                                                  "codeName": "fetch_default",
+                                                                  "dataAccessAction": "READ",
+                                                                  "methodType": "FETCH",
+                                                                  "name": "fetch_default",
+                                                                  "getPSDEDataSet": {
+                                                                    "modelref": true,
+                                                                    "id": "Default"
+                                                                  },
+                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                    "name": "输入对象",
+                                                                    "getPSDEMethodDTO": {
+                                                                      "modelref": true,
+                                                                      "id": "ai_run_filter_dto"
+                                                                    },
+                                                                    "type": "DTO"
+                                                                  },
+                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                    "name": "返回对象",
+                                                                    "getPSDEMethodDTO": {
+                                                                      "modelref": true,
+                                                                      "id": "ai_run_dto"
+                                                                    },
+                                                                    "type": "PAGE"
+                                                                  },
+                                                                  "requestMethod": "POST",
+                                                                  "requestParamType": "ENTITY",
+                                                                  "requestPath": "/fetch_default",
+                                                                  "uniqueTag": "AI_RUN__FETCH__DEFAULT"
+                                                                }
+      ],
+      "getPSDataEntity": {
+        "modelref": true,
+        "path": "PSMODULES/ai/PSDATAENTITIES/ai_run.json"
+      },
+      "enableDataExport": true,
+      "enableDataImport": true,
+      "major": true
+    },
+    {
+      "aPIMode": 1,
+      "codeName": "ai_run_step",
+      "codeName2": "ai_run_steps",
+      "getLNPSLanguageRes": {
+        "lanResTag": "DE.LNAME.AI_RUN_STEP"
+      },
+      "logicName": "AI运行步骤",
+      "name": "AI_RUN_STEP",
+      "getPSDEServiceAPIFields": [
+        {
+          "codeName": "id",
+          "codeName2": "id",
+          "logicName": "标识",
+          "name": "ID",
+          "orderValue": 1,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": true,
+          "majorField": false
+        },
+        {
+          "codeName": "name",
+          "codeName2": "name",
+          "logicName": "名称",
+          "name": "NAME",
+          "orderValue": 2,
+          "stdDataType": 25,
+          "stringLength": 200,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": true
+        },
+        {
+          "codeName": "create_man",
+          "codeName2": "create_man",
+          "logicName": "创建人",
+          "name": "CREATE_MAN",
+          "orderValue": 4,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "create_time",
+          "codeName2": "create_time",
+          "logicName": "创建时间",
+          "name": "CREATE_TIME",
+          "orderValue": 5,
+          "stdDataType": 5,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "update_man",
+          "codeName2": "update_man",
+          "logicName": "更新人",
+          "name": "UPDATE_MAN",
+          "orderValue": 6,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "update_time",
+          "codeName2": "update_time",
+          "logicName": "更新时间",
+          "name": "UPDATE_TIME",
+          "orderValue": 7,
+          "stdDataType": 5,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "run_id",
+          "codeName2": "run_id",
+          "logicName": "运行标识",
+          "name": "RUN_ID",
+          "orderValue": 1000,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "sequence",
+          "codeName2": "sequence",
+          "logicName": "步骤序号",
+          "name": "SEQUENCE",
+          "orderValue": 1010,
+          "stdDataType": 1,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "attempt",
+          "codeName2": "attempt",
+          "logicName": "尝试次数",
+          "name": "ATTEMPT",
+          "orderValue": 1020,
+          "stdDataType": 9,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "step_kind",
+          "codeName2": "step_kind",
+          "logicName": "步骤类型",
+          "name": "STEP_KIND",
+          "orderValue": 1030,
+          "stdDataType": 25,
+          "stringLength": 60,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "status",
+          "codeName2": "status",
+          "logicName": "步骤状态",
+          "name": "STATUS",
+          "orderValue": 1040,
+          "stdDataType": 25,
+          "stringLength": 60,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "input_json",
+          "codeName2": "input_json",
+          "logicName": "输入摘要",
+          "name": "INPUT_JSON",
+          "orderValue": 1050,
+          "stdDataType": 25,
+          "stringLength": 1048576,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "output_json",
+          "codeName2": "output_json",
+          "logicName": "输出摘要",
+          "name": "OUTPUT_JSON",
+          "orderValue": 1060,
+          "stdDataType": 25,
+          "stringLength": 1048576,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "tool_name",
+          "codeName2": "tool_name",
+          "logicName": "工具名称",
+          "name": "TOOL_NAME",
+          "orderValue": 1070,
+          "stdDataType": 25,
+          "stringLength": 200,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "tool_call_id",
+          "codeName2": "tool_call_id",
+          "logicName": "工具调用标识",
+          "name": "TOOL_CALL_ID",
+          "orderValue": 1080,
+          "stdDataType": 25,
+          "stringLength": 200,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "idempotency_key",
+          "codeName2": "idempotency_key",
+          "logicName": "幂等键",
+          "name": "IDEMPOTENCY_KEY",
+          "orderValue": 1090,
+          "stdDataType": 25,
+          "stringLength": 200,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "retry_count",
+          "codeName2": "retry_count",
+          "logicName": "重试次数",
+          "name": "RETRY_COUNT",
+          "orderValue": 1100,
+          "stdDataType": 9,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "error_code",
+          "codeName2": "error_code",
+          "logicName": "错误码",
+          "name": "ERROR_CODE",
+          "orderValue": 1110,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "error_message",
+          "codeName2": "error_message",
+          "logicName": "错误摘要",
+          "name": "ERROR_MESSAGE",
+          "orderValue": 1120,
+          "stdDataType": 25,
+          "stringLength": 1000,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "started_at",
+          "codeName2": "started_at",
+          "logicName": "开始时间",
+          "name": "STARTED_AT",
+          "orderValue": 1130,
+          "stdDataType": 5,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "finished_at",
+          "codeName2": "finished_at",
+          "logicName": "结束时间",
+          "name": "FINISHED_AT",
+          "orderValue": 1140,
+          "stdDataType": 5,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "duration_ms",
+          "codeName2": "duration_ms",
+          "logicName": "耗时毫秒",
+          "name": "DURATION_MS",
+          "orderValue": 1150,
+          "stdDataType": 1,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "last_event_sequence",
+          "codeName2": "last_event_sequence",
+          "logicName": "最后事件序号",
+          "name": "LAST_EVENT_SEQUENCE",
+          "orderValue": 1160,
+          "stdDataType": 1,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        }
+      ],
+      "getPSDEServiceAPIMethods": [
+                                                                                                                                {
+                                                                                                                                  "codeName": "create",
+                                                                                                                                  "dataAccessAction": "CREATE",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "Create",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEACTIONS/Create.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_step_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "CreateInput",
+                                                                                                                                    "type": "DTO",
+                                                                                                                                    "output": true
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "name": "CreateResult",
+                                                                                                                                    "type": "VOID"
+                                                                                                                                  },
+                                                                                                                                  "requestMethod": "POST",
+                                                                                                                                  "requestParamType": "ENTITY",
+                                                                                                                                  "uniqueTag": "AI_RUN_STEP__DEACTION__CREATE",
+                                                                                                                                  "noServiceCodeName": true
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "codeName": "get",
+                                                                                                                                  "dataAccessAction": "READ",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "Get",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEACTIONS/Get.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getKeyPSDEServiceAPIField": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "id"
+                                                                                                                                    },
+                                                                                                                                    "name": "GetInput",
+                                                                                                                                    "type": "KEYFIELD"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_step_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "GetResult",
+                                                                                                                                    "type": "DTO"
+                                                                                                                                  },
+                                                                                                                                  "requestField": "ID",
+                                                                                                                                  "requestMethod": "GET",
+                                                                                                                                  "requestParamType": "FIELD",
+                                                                                                                                  "needResourceKey": true,
+                                                                                                                                  "uniqueTag": "AI_RUN_STEP__DEACTION__READ",
+                                                                                                                                  "noServiceCodeName": true
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "codeName": "remove",
+                                                                                                                                  "dataAccessAction": "DELETE",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "Remove",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEACTIONS/Remove.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getKeyPSDEServiceAPIField": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "id"
+                                                                                                                                    },
+                                                                                                                                    "name": "RemoveInput",
+                                                                                                                                    "type": "KEYFIELDS"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "name": "RemoveResult",
+                                                                                                                                    "type": "VOID"
+                                                                                                                                  },
+                                                                                                                                  "requestField": "ID",
+                                                                                                                                  "requestMethod": "DELETE",
+                                                                                                                                  "requestParamType": "FIELD",
+                                                                                                                                  "enableBatchAction": true,
+                                                                                                                                  "needResourceKey": true,
+                                                                                                                                  "uniqueTag": "AI_RUN_STEP__DEACTION__REMOVE",
+                                                                                                                                  "noServiceCodeName": true
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "codeName": "update",
+                                                                                                                                  "dataAccessAction": "UPDATE",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "Update",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEACTIONS/Update.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_step_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "UpdateInput",
+                                                                                                                                    "type": "DTO",
+                                                                                                                                    "output": true
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "name": "UpdateResult",
+                                                                                                                                    "type": "VOID"
+                                                                                                                                  },
+                                                                                                                                  "requestMethod": "PUT",
+                                                                                                                                  "requestParamType": "ENTITY",
+                                                                                                                                  "needResourceKey": true,
+                                                                                                                                  "uniqueTag": "AI_RUN_STEP__DEACTION__UPDATE",
+                                                                                                                                  "noServiceCodeName": true
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "codeName": "check_key",
+                                                                                                                                  "dataAccessAction": "CREATE",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "CheckKey",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEACTIONS/CheckKey.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_step_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "CheckKeyInput",
+                                                                                                                                    "type": "DTO"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "name": "CheckKeyResult",
+                                                                                                                                    "stdDataType": 9,
+                                                                                                                                    "type": "SIMPLE"
+                                                                                                                                  },
+                                                                                                                                  "requestMethod": "POST",
+                                                                                                                                  "requestParamType": "ENTITY",
+                                                                                                                                  "requestPath": "/check_key",
+                                                                                                                                  "uniqueTag": "AI_RUN_STEP__DEACTION__CHECKKEY"
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "codeName": "get_draft",
+                                                                                                                                  "dataAccessAction": "CREATE",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "GetDraft",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEACTIONS/GetDraft.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_step_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "GetDraftInput",
+                                                                                                                                    "type": "DTO"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_step_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "GetDraftResult",
+                                                                                                                                    "type": "DTO"
+                                                                                                                                  },
+                                                                                                                                  "requestMethod": "GET",
+                                                                                                                                  "requestParamType": "NONE",
+                                                                                                                                  "requestPath": "/get_draft",
+                                                                                                                                  "uniqueTag": "AI_RUN_STEP__DEACTION__GETDRAFT"
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "codeName": "save",
+                                                                                                                                  "dataAccessAction": "CREATE",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "Save",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEACTIONS/Save.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_step_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "SaveInput",
+                                                                                                                                    "type": "DTO",
+                                                                                                                                    "output": true
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "name": "SaveResult",
+                                                                                                                                    "type": "VOID"
+                                                                                                                                  },
+                                                                                                                                  "requestMethod": "POST",
+                                                                                                                                  "requestParamType": "ENTITY",
+                                                                                                                                  "requestPath": "/save",
+                                                                                                                                  "uniqueTag": "AI_RUN_STEP__DEACTION__SAVE"
+                                                                                                                                },
+                                                                {
+                                                                  "codeName": "fetch_default",
+                                                                  "dataAccessAction": "READ",
+                                                                  "methodType": "FETCH",
+                                                                  "name": "fetch_default",
+                                                                  "getPSDEDataSet": {
+                                                                    "modelref": true,
+                                                                    "id": "Default"
+                                                                  },
+                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                    "name": "输入对象",
+                                                                    "getPSDEMethodDTO": {
+                                                                      "modelref": true,
+                                                                      "id": "ai_run_step_filter_dto"
+                                                                    },
+                                                                    "type": "DTO"
+                                                                  },
+                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                    "name": "返回对象",
+                                                                    "getPSDEMethodDTO": {
+                                                                      "modelref": true,
+                                                                      "id": "ai_run_step_dto"
+                                                                    },
+                                                                    "type": "PAGE"
+                                                                  },
+                                                                  "requestMethod": "POST",
+                                                                  "requestParamType": "ENTITY",
+                                                                  "requestPath": "/fetch_default",
+                                                                  "uniqueTag": "AI_RUN_STEP__FETCH__DEFAULT"
+                                                                }
+      ],
+      "getPSDataEntity": {
+        "modelref": true,
+        "path": "PSMODULES/ai/PSDATAENTITIES/ai_run_step.json"
+      },
+      "enableDataExport": true,
+      "enableDataImport": true,
+      "major": true
+    },
+    {
+      "aPIMode": 1,
+      "codeName": "ai_run_event",
+      "codeName2": "ai_run_events",
+      "getLNPSLanguageRes": {
+        "lanResTag": "DE.LNAME.AI_RUN_EVENT"
+      },
+      "logicName": "AI运行事件",
+      "name": "AI_RUN_EVENT",
+      "getPSDEServiceAPIFields": [
+        {
+          "codeName": "id",
+          "codeName2": "id",
+          "logicName": "标识",
+          "name": "ID",
+          "orderValue": 1,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": true,
+          "majorField": false
+        },
+        {
+          "codeName": "name",
+          "codeName2": "name",
+          "logicName": "名称",
+          "name": "NAME",
+          "orderValue": 2,
+          "stdDataType": 25,
+          "stringLength": 200,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": true
+        },
+        {
+          "codeName": "create_man",
+          "codeName2": "create_man",
+          "logicName": "创建人",
+          "name": "CREATE_MAN",
+          "orderValue": 4,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "create_time",
+          "codeName2": "create_time",
+          "logicName": "创建时间",
+          "name": "CREATE_TIME",
+          "orderValue": 5,
+          "stdDataType": 5,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "update_man",
+          "codeName2": "update_man",
+          "logicName": "更新人",
+          "name": "UPDATE_MAN",
+          "orderValue": 6,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "update_time",
+          "codeName2": "update_time",
+          "logicName": "更新时间",
+          "name": "UPDATE_TIME",
+          "orderValue": 7,
+          "stdDataType": 5,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "run_id",
+          "codeName2": "run_id",
+          "logicName": "运行标识",
+          "name": "RUN_ID",
+          "orderValue": 1000,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "step_id",
+          "codeName2": "step_id",
+          "logicName": "步骤标识",
+          "name": "STEP_ID",
+          "orderValue": 1010,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "sequence",
+          "codeName2": "sequence",
+          "logicName": "事件序号",
+          "name": "SEQUENCE",
+          "orderValue": 1020,
+          "stdDataType": 1,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "event_type",
+          "codeName2": "event_type",
+          "logicName": "事件类型",
+          "name": "EVENT_TYPE",
+          "orderValue": 1030,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "aggregate_version",
+          "codeName2": "aggregate_version",
+          "logicName": "聚合版本",
+          "name": "AGGREGATE_VERSION",
+          "orderValue": 1040,
+          "stdDataType": 1,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "idempotency_key",
+          "codeName2": "idempotency_key",
+          "logicName": "幂等键",
+          "name": "IDEMPOTENCY_KEY",
+          "orderValue": 1050,
+          "stdDataType": 25,
+          "stringLength": 300,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "actor_type",
+          "codeName2": "actor_type",
+          "logicName": "操作者类型",
+          "name": "ACTOR_TYPE",
+          "orderValue": 1060,
+          "stdDataType": 25,
+          "stringLength": 60,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "actor_id",
+          "codeName2": "actor_id",
+          "logicName": "操作者标识",
+          "name": "ACTOR_ID",
+          "orderValue": 1070,
+          "stdDataType": 25,
+          "stringLength": 100,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "trace_id",
+          "codeName2": "trace_id",
+          "logicName": "追踪标识",
+          "name": "TRACE_ID",
+          "orderValue": 1080,
+          "stdDataType": 25,
+          "stringLength": 200,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "occurred_at",
+          "codeName2": "occurred_at",
+          "logicName": "发生时间",
+          "name": "OCCURRED_AT",
+          "orderValue": 1090,
+          "stdDataType": 5,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        },
+        {
+          "codeName": "payload_json",
+          "codeName2": "payload_json",
+          "logicName": "事件载荷",
+          "name": "PAYLOAD_JSON",
+          "orderValue": 1100,
+          "stdDataType": 25,
+          "stringLength": 1048576,
+          "allowEmpty": false,
+          "enableCreate": true,
+          "enableModify": true,
+          "keyField": false,
+          "majorField": false
+        }
+      ],
+      "getPSDEServiceAPIMethods": [
+                                                                                                                                {
+                                                                                                                                  "codeName": "create",
+                                                                                                                                  "dataAccessAction": "CREATE",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "Create",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run_event/PSDEACTIONS/Create.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_event_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "CreateInput",
+                                                                                                                                    "type": "DTO",
+                                                                                                                                    "output": true
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "name": "CreateResult",
+                                                                                                                                    "type": "VOID"
+                                                                                                                                  },
+                                                                                                                                  "requestMethod": "POST",
+                                                                                                                                  "requestParamType": "ENTITY",
+                                                                                                                                  "uniqueTag": "AI_RUN_EVENT__DEACTION__CREATE",
+                                                                                                                                  "noServiceCodeName": true
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "codeName": "get",
+                                                                                                                                  "dataAccessAction": "READ",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "Get",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run_event/PSDEACTIONS/Get.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getKeyPSDEServiceAPIField": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "id"
+                                                                                                                                    },
+                                                                                                                                    "name": "GetInput",
+                                                                                                                                    "type": "KEYFIELD"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_event_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "GetResult",
+                                                                                                                                    "type": "DTO"
+                                                                                                                                  },
+                                                                                                                                  "requestField": "ID",
+                                                                                                                                  "requestMethod": "GET",
+                                                                                                                                  "requestParamType": "FIELD",
+                                                                                                                                  "needResourceKey": true,
+                                                                                                                                  "uniqueTag": "AI_RUN_EVENT__DEACTION__READ",
+                                                                                                                                  "noServiceCodeName": true
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "codeName": "remove",
+                                                                                                                                  "dataAccessAction": "DELETE",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "Remove",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run_event/PSDEACTIONS/Remove.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getKeyPSDEServiceAPIField": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "id"
+                                                                                                                                    },
+                                                                                                                                    "name": "RemoveInput",
+                                                                                                                                    "type": "KEYFIELDS"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "name": "RemoveResult",
+                                                                                                                                    "type": "VOID"
+                                                                                                                                  },
+                                                                                                                                  "requestField": "ID",
+                                                                                                                                  "requestMethod": "DELETE",
+                                                                                                                                  "requestParamType": "FIELD",
+                                                                                                                                  "enableBatchAction": true,
+                                                                                                                                  "needResourceKey": true,
+                                                                                                                                  "uniqueTag": "AI_RUN_EVENT__DEACTION__REMOVE",
+                                                                                                                                  "noServiceCodeName": true
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "codeName": "update",
+                                                                                                                                  "dataAccessAction": "UPDATE",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "Update",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run_event/PSDEACTIONS/Update.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_event_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "UpdateInput",
+                                                                                                                                    "type": "DTO",
+                                                                                                                                    "output": true
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "name": "UpdateResult",
+                                                                                                                                    "type": "VOID"
+                                                                                                                                  },
+                                                                                                                                  "requestMethod": "PUT",
+                                                                                                                                  "requestParamType": "ENTITY",
+                                                                                                                                  "needResourceKey": true,
+                                                                                                                                  "uniqueTag": "AI_RUN_EVENT__DEACTION__UPDATE",
+                                                                                                                                  "noServiceCodeName": true
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "codeName": "check_key",
+                                                                                                                                  "dataAccessAction": "CREATE",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "CheckKey",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run_event/PSDEACTIONS/CheckKey.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_event_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "CheckKeyInput",
+                                                                                                                                    "type": "DTO"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "name": "CheckKeyResult",
+                                                                                                                                    "stdDataType": 9,
+                                                                                                                                    "type": "SIMPLE"
+                                                                                                                                  },
+                                                                                                                                  "requestMethod": "POST",
+                                                                                                                                  "requestParamType": "ENTITY",
+                                                                                                                                  "requestPath": "/check_key",
+                                                                                                                                  "uniqueTag": "AI_RUN_EVENT__DEACTION__CHECKKEY"
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "codeName": "get_draft",
+                                                                                                                                  "dataAccessAction": "CREATE",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "GetDraft",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run_event/PSDEACTIONS/GetDraft.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_event_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "GetDraftInput",
+                                                                                                                                    "type": "DTO"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_event_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "GetDraftResult",
+                                                                                                                                    "type": "DTO"
+                                                                                                                                  },
+                                                                                                                                  "requestMethod": "GET",
+                                                                                                                                  "requestParamType": "NONE",
+                                                                                                                                  "requestPath": "/get_draft",
+                                                                                                                                  "uniqueTag": "AI_RUN_EVENT__DEACTION__GETDRAFT"
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                  "codeName": "save",
+                                                                                                                                  "dataAccessAction": "CREATE",
+                                                                                                                                  "methodType": "DEACTION",
+                                                                                                                                  "name": "Save",
+                                                                                                                                  "getPSDEAction": {
+                                                                                                                                    "modelref": true,
+                                                                                                                                    "path": "PSMODULES/ai/PSDATAENTITIES/ai_run_event/PSDEACTIONS/Save.json"
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                                                                                    "getPSDEMethodDTO": {
+                                                                                                                                      "modelref": true,
+                                                                                                                                      "id": "ai_run_event_dto"
+                                                                                                                                    },
+                                                                                                                                    "name": "SaveInput",
+                                                                                                                                    "type": "DTO",
+                                                                                                                                    "output": true
+                                                                                                                                  },
+                                                                                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                                                                                    "name": "SaveResult",
+                                                                                                                                    "type": "VOID"
+                                                                                                                                  },
+                                                                                                                                  "requestMethod": "POST",
+                                                                                                                                  "requestParamType": "ENTITY",
+                                                                                                                                  "requestPath": "/save",
+                                                                                                                                  "uniqueTag": "AI_RUN_EVENT__DEACTION__SAVE"
+                                                                                                                                },
+                                                                {
+                                                                  "codeName": "fetch_default",
+                                                                  "dataAccessAction": "READ",
+                                                                  "methodType": "FETCH",
+                                                                  "name": "fetch_default",
+                                                                  "getPSDEDataSet": {
+                                                                    "modelref": true,
+                                                                    "id": "Default"
+                                                                  },
+                                                                  "getPSDEServiceAPIMethodInput": {
+                                                                    "name": "输入对象",
+                                                                    "getPSDEMethodDTO": {
+                                                                      "modelref": true,
+                                                                      "id": "ai_run_event_filter_dto"
+                                                                    },
+                                                                    "type": "DTO"
+                                                                  },
+                                                                  "getPSDEServiceAPIMethodReturn": {
+                                                                    "name": "返回对象",
+                                                                    "getPSDEMethodDTO": {
+                                                                      "modelref": true,
+                                                                      "id": "ai_run_event_dto"
+                                                                    },
+                                                                    "type": "PAGE"
+                                                                  },
+                                                                  "requestMethod": "POST",
+                                                                  "requestParamType": "ENTITY",
+                                                                  "requestPath": "/fetch_default",
+                                                                  "uniqueTag": "AI_RUN_EVENT__FETCH__DEFAULT"
+                                                                }
+      ],
+      "getPSDataEntity": {
+        "modelref": true,
+        "path": "PSMODULES/ai/PSDATAENTITIES/ai_run_event.json"
+      },
+      "enableDataExport": true,
+      "enableDataImport": true,
+      "major": true
+    }
+  ],
   "serviceCodeName" : "ServiceAPI",
   "serviceType" : "DEFAULT",
   "enableServiceAPIDTO" : true,

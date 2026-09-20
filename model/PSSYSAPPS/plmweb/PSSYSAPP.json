@@ -15993,7 +15993,26 @@
     "path" : "PSSYSAPPS/plmweb/PSAPPDATAENTITIES/test_case.json",
     "name" : "TEST_CASE",
     "codeName" : "test_case"
-  } ],
+  },
+    {
+      "modelref": true,
+      "path": "PSSYSAPPS/plmweb/PSAPPDATAENTITIES/ai_run.json",
+      "name": "AI_RUN",
+      "codeName": "ai_run"
+    },
+    {
+      "modelref": true,
+      "path": "PSSYSAPPS/plmweb/PSAPPDATAENTITIES/ai_run_step.json",
+      "name": "AI_RUN_STEP",
+      "codeName": "ai_run_step"
+    },
+    {
+      "modelref": true,
+      "path": "PSSYSAPPS/plmweb/PSAPPDATAENTITIES/ai_run_event.json",
+      "name": "AI_RUN_EVENT",
+      "codeName": "ai_run_event"
+    }
+  ],
   "getAllPSAppEditorStyleRefs" : [ {
     "codeName" : "ANCHO_HTML",
     "containerType" : "FORMITEM",

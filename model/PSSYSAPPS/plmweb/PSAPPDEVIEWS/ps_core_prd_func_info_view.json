@@ -841,7 +841,7 @@
                         "getPSNavigateParams" : [ {
                           "key" : "n_pscoreprdid_eq",
                           "name" : "n_pscoreprdid_eq",
-                          "value" : "srfv2systemid",
+                          "value" : "srfsystemid",
                           "rawValue" : false
                         }, {
                           "key" : "reload",
@@ -976,7 +976,7 @@
                         "getPSNavigateParams" : [ {
                           "key" : "n_pscoreprdid_eq",
                           "name" : "n_pscoreprdid_eq",
-                          "value" : "srfv2systemid",
+                          "value" : "srfsystemid",
                           "rawValue" : false
                         }, {
                           "key" : "reload",
@@ -1223,7 +1223,7 @@
                     "getPSNavigateParams" : [ {
                       "key" : "n_pscoreprdid_eq",
                       "name" : "n_pscoreprdid_eq",
-                      "value" : "srfv2systemid",
+                      "value" : "srfsystemid",
                       "rawValue" : false
                     } ],
                     "successMsg" : "开始重新加载，请稍等片刻重新刷新页面！",
@@ -1653,7 +1653,7 @@
                   "getPSEditor" : {
                     "editorParams" : {
                       "SRFNAVPARAM.n_pscoreprdfuncid_eq" : "%pscoreprdfunc%",
-                      "SRFNAVPARAM.n_pscoreprdid_eq" : "%srfv2systemid%"
+                      "SRFNAVPARAM.n_pscoreprdid_eq" : "%srfsystemid%"
                     },
                     "editorType" : "MDROPDOWNLIST",
                     "name" : "category",
@@ -1669,7 +1669,7 @@
                     }, {
                       "key" : "n_pscoreprdid_eq",
                       "name" : "n_pscoreprdid_eq",
-                      "value" : "srfv2systemid",
+                      "value" : "srfsystemid",
                       "rawValue" : false
                     } ],
                     "singleSelect" : false

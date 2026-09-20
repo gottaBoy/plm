@@ -1,0 +1,69 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t1.`AGENT_ID`", "name" : "AGENT_ID"
+  }, {
+    "expression" : "t1.`AGENT_VERSION`", "name" : "AGENT_VERSION"
+  }, {
+    "expression" : "t1.`BUDGET_JSON`", "name" : "BUDGET_JSON"
+  }, {
+    "expression" : "t1.`CONTEXT_ID`", "name" : "CONTEXT_ID"
+  }, {
+    "expression" : "t1.`CONVERSATION_ID`", "name" : "CONVERSATION_ID"
+  }, {
+    "expression" : "t1.`CREATE_MAN`", "name" : "CREATE_MAN"
+  }, {
+    "expression" : "t1.`CREATE_TIME`", "name" : "CREATE_TIME"
+  }, {
+    "expression" : "t1.`DEADLINE_AT`", "name" : "DEADLINE_AT"
+  }, {
+    "expression" : "t1.`ERROR_CODE`", "name" : "ERROR_CODE"
+  }, {
+    "expression" : "t1.`ERROR_MESSAGE`", "name" : "ERROR_MESSAGE"
+  }, {
+    "expression" : "t1.`FINISHED_AT`", "name" : "FINISHED_AT"
+  }, {
+    "expression" : "t1.`ID`", "name" : "ID"
+  }, {
+    "expression" : "t1.`IDEMPOTENCY_KEY`", "name" : "IDEMPOTENCY_KEY"
+  }, {
+    "expression" : "t1.`LAST_EVENT_SEQUENCE`", "name" : "LAST_EVENT_SEQUENCE"
+  }, {
+    "expression" : "t1.`MODEL_ID`", "name" : "MODEL_ID"
+  }, {
+    "expression" : "t1.`NAME`", "name" : "NAME"
+  }, {
+    "expression" : "t1.`PARENT_RUN_ID`", "name" : "PARENT_RUN_ID"
+  }, {
+    "expression" : "t1.`PROJECT_ID`", "name" : "PROJECT_ID"
+  }, {
+    "expression" : "t1.`PROVIDER`", "name" : "PROVIDER"
+  }, {
+    "expression" : "t1.`REQUEST_JSON`", "name" : "REQUEST_JSON"
+  }, {
+    "expression" : "t1.`RESULT_JSON`", "name" : "RESULT_JSON"
+  }, {
+    "expression" : "t1.`RUN_TYPE`", "name" : "RUN_TYPE"
+  }, {
+    "expression" : "t1.`SESSION_ID`", "name" : "SESSION_ID"
+  }, {
+    "expression" : "t1.`STARTED_AT`", "name" : "STARTED_AT"
+  }, {
+    "expression" : "t1.`STATUS`", "name" : "STATUS"
+  }, {
+    "expression" : "t1.`TENANT_ID`", "name" : "TENANT_ID"
+  }, {
+    "expression" : "t1.`TRACE_ID`", "name" : "TRACE_ID"
+  }, {
+    "expression" : "t1.`UPDATE_MAN`", "name" : "UPDATE_MAN"
+  }, {
+    "expression" : "t1.`UPDATE_TIME`", "name" : "UPDATE_TIME"
+  }, {
+    "expression" : "t1.`USER_ID`", "name" : "USER_ID"
+  }, {
+    "expression" : "t1.`WORKSPACE`", "name" : "WORKSPACE"
+  } ],
+  "queryCode" : "SELECT\nt1.`AGENT_ID`,\nt1.`AGENT_VERSION`,\nt1.`BUDGET_JSON`,\nt1.`CONTEXT_ID`,\nt1.`CONVERSATION_ID`,\nt1.`CREATE_MAN`,\nt1.`CREATE_TIME`,\nt1.`DEADLINE_AT`,\nt1.`ERROR_CODE`,\nt1.`ERROR_MESSAGE`,\nt1.`FINISHED_AT`,\nt1.`ID`,\nt1.`IDEMPOTENCY_KEY`,\nt1.`LAST_EVENT_SEQUENCE`,\nt1.`MODEL_ID`,\nt1.`NAME`,\nt1.`PARENT_RUN_ID`,\nt1.`PROJECT_ID`,\nt1.`PROVIDER`,\nt1.`REQUEST_JSON`,\nt1.`RESULT_JSON`,\nt1.`RUN_TYPE`,\nt1.`SESSION_ID`,\nt1.`STARTED_AT`,\nt1.`STATUS`,\nt1.`TENANT_ID`,\nt1.`TRACE_ID`,\nt1.`UPDATE_MAN`,\nt1.`UPDATE_TIME`,\nt1.`USER_ID`,\nt1.`WORKSPACE`\nFROM `AI_RUN` t1 \n",
+  "id" : "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEDATAQUERIES/Default/PSDEDQCODES/MYSQL5.json"
+}

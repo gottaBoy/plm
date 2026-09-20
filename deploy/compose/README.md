@@ -35,6 +35,54 @@ $ docker compose -f docker-compose.yml --env-file .env up -d
 # docker compose -f docker-compose-dev.yml --env-file .dev up -d
 ```
 
+本地修改 `modelingweb/app` 后，先构建前端，再使用显式 overlay 部署本地产物：
+
+```bash
+$ cd /Users/minyi/workspace/aibiz/modelingweb/app
+$ pnpm build
+$ cd /Users/minyi/workspace/aibiz
+$ AIBIZ_USE_LOCAL_WEB_DIST=true scripts/restart-modeling-stack.sh
+```
+
+该脚本重建 `ibiz-ebsx-allinone`、`modeling-plugins` 和 `modelingweb`，确保 `emqx`、
+`task` 已启动（配置发生变化时 Compose 可能重建），
+并等待 allinone 健康后再继续；不会删除或重建已有的 `plmservice`、
+Gateway、UAA、建模后端容器。`task_data` 和 `modeling_plugins_data`
+数据卷会保留。
+
+如果出现容器名称冲突，先执行只读诊断：
+
+```bash
+$ scripts/inspect-compose-conflicts.sh
+```
+
+脚本识别 allinone 的实际 project 标签和 `docker-compose-platform.yml` 或
+`docker-compose-dev.yml` 配置；不认识的 Compose 栈不会被自动接管。
+
+插件静态页面由 `modeling-plugins` sidecar 提供，路径为
+`/modeling-plugins/`；草稿数据保存在独立的 `modeling_plugins_data` 卷中。
+`scripts/harness-baseline.sh` 会额外检查 allinone 的
+`SysOperator` 字典接口，避免只验证登录成功而漏掉字典错误。服务端源码在人员集合
+为空时可返回 `{"code":"SysOperator"}`；baseline 接受该精确形状，但只授予响应契约
+通过，不证明机构选择、实际人员数据或数据库实时查询正确。
+
+在获准访问本机服务且浏览器可启动的环境，可运行 23 插件双语流程：
+
+```bash
+$ cd /Users/minyi/workspace/aibiz/modelingweb/app
+$ CHROME_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" pnpm smoke:plugins:deployed
+```
+
+该流程先核对客户端产物校验和，再执行真实 `32003` 页面、sidecar API、双语和视口
+用例；2026-09-15 已部署模式报告
+`.artifacts/modeling-plugins/2026-09-15T04-33-37.313Z-aa48b19c/report.json`
+为 46/46 双语用例、92/92 视口通过。测试文档按本次记录的内容/版本清理，清理失败
+会导致 FAIL 并保留 `cleanup.retained` 清单。此模式不重启已有 sidecar，不验证
+PLM 原生模型集成；独立模式 `pnpm smoke:plugins` 才测试临时服务重启恢复。
+新部署 smoke 要求目录接口声明 `conditionalDelete: "revision+sha256"`：
+清理附带 `If-Match` 和 `X-Document-SHA256`，服务端持锁原子检查，避免删除
+同 ID/同数字版本但内容已改变的文档。运行旧镜像时预检会失败，不会自动修改数据。
+
 > [!TIP]
 > 如果你遇到 Docker 镜像拉不下来的问题，可以在 **deploy/compose/.env** 文件内根据变量 `IMAGE_URL` 的注释提示选择青云（需登录）或者阿里云的相应镜像。
 >

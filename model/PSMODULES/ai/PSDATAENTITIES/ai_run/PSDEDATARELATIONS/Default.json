@@ -1,0 +1,9 @@
+{
+  "codeName": "Default",
+  "dynaModelFilePath": "PSMODULES/ai/PSDATAENTITIES/ai_run/PSDEDATARELATIONS/Default.json",
+  "getFormCapPSLanguageRes": {
+    "lanResTag": "DE.LNAME.AI_RUN"
+  },
+  "formCaption": "AI运行",
+  "name": "AI运行默认关系界面组"
+}

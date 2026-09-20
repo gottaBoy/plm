@@ -20,7 +20,7 @@
   "getPSAppViewNavParams" : [ {
     "key" : "n_pscoreprdid_eq",
     "name" : "n_pscoreprdid_eq",
-    "value" : "srfv2systemid",
+    "value" : "srfsystemid",
     "rawValue" : false
   } ],
   "getPSDEViewCodeName" : "setting_edit_view",

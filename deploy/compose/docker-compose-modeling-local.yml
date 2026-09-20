@@ -1,0 +1,16 @@
+# Opt-in overlay for serving the locally built modelingweb/app/dist.
+#
+# Build first:
+#   cd modelingweb/app && pnpm build
+#
+# Then start with:
+#   docker compose -f plm/deploy/compose/docker-compose-dev.yml \
+#     -f plm/deploy/compose/docker-compose-modeling-local.yml \
+#     --env-file plm/deploy/compose/.dev --profile modeling up -d --build
+
+services:
+  modelingweb:
+    environment:
+      - LOCAL_DIST_SOURCE=/opt/aibiz/local-dist
+    volumes:
+      - ../../../modelingweb/app/dist:/opt/aibiz/local-dist:ro

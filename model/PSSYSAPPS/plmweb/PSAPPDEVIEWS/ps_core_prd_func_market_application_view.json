@@ -19,7 +19,7 @@
   "getPSAppViewNavParams" : [ {
     "key" : "n_pscoreprdid_eq",
     "name" : "n_pscoreprdid_eq",
-    "value" : "srfv2systemid",
+    "value" : "srfsystemid",
     "rawValue" : false
   } ],
   "getPSDEViewCodeName" : "MarketApplicationView",
@@ -804,7 +804,7 @@
                           "getPSNavigateParams" : [ {
                             "key" : "n_pscoreprdid_eq",
                             "name" : "n_pscoreprdid_eq",
-                            "value" : "srfv2systemid",
+                            "value" : "srfsystemid",
                             "rawValue" : false
                           }, {
                             "key" : "reload",
@@ -913,7 +913,7 @@
                           "getPSNavigateParams" : [ {
                             "key" : "n_pscoreprdid_eq",
                             "name" : "n_pscoreprdid_eq",
-                            "value" : "srfv2systemid",
+                            "value" : "srfsystemid",
                             "rawValue" : false
                           }, {
                             "key" : "reload",
@@ -1052,7 +1052,7 @@
                       "getPSNavigateParams" : [ {
                         "key" : "n_pscoreprdid_eq",
                         "name" : "n_pscoreprdid_eq",
-                        "value" : "srfv2systemid",
+                        "value" : "srfsystemid",
                         "rawValue" : false
                       } ],
                       "successMsg" : "开始重新加载，请稍等片刻重新刷新页面！",

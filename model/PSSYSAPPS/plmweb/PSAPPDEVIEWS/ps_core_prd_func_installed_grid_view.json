@@ -24,7 +24,7 @@
   }, {
     "key" : "n_pscoreprdid_eq",
     "name" : "n_pscoreprdid_eq",
-    "value" : "srfv2systemid",
+    "value" : "srfsystemid",
     "rawValue" : false
   } ],
   "getPSDEViewCodeName" : "InstalledGridView",
@@ -499,7 +499,7 @@
               "getPSNavigateParams" : [ {
                 "key" : "n_pscoreprdid_eq",
                 "name" : "n_pscoreprdid_eq",
-                "value" : "srfv2systemid",
+                "value" : "srfsystemid",
                 "rawValue" : false
               }, {
                 "key" : "reload",

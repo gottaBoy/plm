@@ -1,0 +1,53 @@
+{
+  "codeListTag" : "ai__ai_run_status",
+  "codeListType" : "STATIC",
+  "codeName" : "ai_run_status",
+  "dynaInstMode" : 0,
+  "dynaModelFilePath" : "PSMODULES/ai/PSCODELISTS/ai_run_status.json",
+  "emptyText" : "未定义",
+  "name" : "AI Run状态",
+  "getPSCodeItems" : [ {
+    "codeName" : "queued",
+    "text" : "排队中",
+    "value" : "queued"
+  }, {
+    "codeName" : "running",
+    "text" : "运行中",
+    "value" : "running"
+  }, {
+    "codeName" : "waiting_approval",
+    "text" : "等待审批",
+    "value" : "waiting_approval"
+  }, {
+    "codeName" : "paused",
+    "text" : "已暂停",
+    "value" : "paused"
+  }, {
+    "codeName" : "retrying",
+    "text" : "重试中",
+    "value" : "retrying"
+  }, {
+    "codeName" : "completed",
+    "text" : "已完成",
+    "value" : "completed"
+  }, {
+    "codeName" : "failed",
+    "text" : "失败",
+    "value" : "failed"
+  }, {
+    "codeName" : "cancelled",
+    "text" : "已取消",
+    "value" : "cancelled"
+  } ],
+  "getPSSystemModule" : {
+    "modelref" : true,
+    "path" : "PSMODULES/ai.json"
+  },
+  "refFlag" : true,
+  "systemTag" : "iBizPLM",
+  "codeItemValueNumber" : false,
+  "enableCache" : true,
+  "subSysAsCloud" : false,
+  "subSysCodeList" : false,
+  "userScope" : false
+}

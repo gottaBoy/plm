@@ -6,7 +6,7 @@
   "caption" : "接口说明",
   "codeName" : "ps_core_prd_func_api_show_html_view",
   "dynaModelFilePath" : "PSSYSAPPS/plmweb/PSAPPDEVIEWS/ps_core_prd_func_api_show_html_view.json",
-  "htmlUrl" : "https://plm.ibizlab.cn/doc#/api/ServiceAPI/ServiceAPI",
+  "htmlUrl" : "./doc/#/api/ServiceAPI/ServiceAPI",
   "name" : "PSCorePrdFuncapi_show_html_view",
   "getPSAppDataEntity" : {
     "modelref" : true,

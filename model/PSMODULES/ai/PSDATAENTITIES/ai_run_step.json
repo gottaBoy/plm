@@ -1,0 +1,539 @@
+{
+  "getAllPSDEACModes" : [ {
+    "codeName" : "Default",
+    "logicName" : "DEFAULT",
+    "name" : "DEFAULT",
+    "getPSDEACModeDataItems" : [ {
+      "dataType" : 25,
+      "name" : "value",
+      "getPSDEField" : { "name" : "ID", "codeName" : "id" }
+    }, {
+      "dataType" : 25,
+      "name" : "text",
+      "getPSDEField" : { "name" : "NAME", "codeName" : "name" }
+    } ],
+    "pagingSize" : 50,
+    "defaultMode" : true,
+    "enablePagingBar" : false,
+    "id" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEACMODES/Default.json"
+  } ],
+  "getAllPSDEActions" : [ {
+    "actionMode" : "CREATE",
+    "actionType" : "BUILTIN",
+    "codeName" : "Create",
+    "dataAccessAction" : "CREATE",
+    "dynaModelFilePath" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEACTIONS/Create.json",
+    "logicName" : "Create",
+    "name" : "Create",
+    "orderValue" : 1,
+    "getPSDEActionInput" : {
+      "name" : "CreateInput",
+      "getPSDEMethodDTO" : { "modelref" : true, "id" : "ai_run_step_dto" },
+      "type" : "DTO",
+      "output" : true
+    },
+    "getPSDEActionReturn" : { "name" : "CreateResult", "type" : "VOID" },
+    "builtinAction" : true
+  }, {
+    "actionMode" : "UPDATE",
+    "actionType" : "BUILTIN",
+    "codeName" : "Update",
+    "dataAccessAction" : "UPDATE",
+    "dynaModelFilePath" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEACTIONS/Update.json",
+    "logicName" : "Update",
+    "name" : "Update",
+    "orderValue" : 11,
+    "getPSDEActionInput" : {
+      "name" : "UpdateInput",
+      "getPSDEMethodDTO" : { "modelref" : true, "id" : "ai_run_step_dto" },
+      "type" : "DTO",
+      "output" : true
+    },
+    "getPSDEActionReturn" : { "name" : "UpdateResult", "type" : "VOID" },
+    "builtinAction" : true
+  }, {
+    "actionMode" : "DELETE",
+    "actionType" : "BUILTIN",
+    "batchActionMode" : 1,
+    "codeName" : "Remove",
+    "dataAccessAction" : "DELETE",
+    "dynaModelFilePath" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEACTIONS/Remove.json",
+    "logicName" : "Remove",
+    "name" : "Remove",
+    "orderValue" : 21,
+    "getPSDEActionInput" : {
+      "getKeyPSDEField" : { "name" : "ID", "codeName" : "id" },
+      "name" : "RemoveInput",
+      "type" : "KEYFIELDS"
+    },
+    "getPSDEActionReturn" : { "name" : "RemoveResult", "type" : "VOID" },
+    "batchAction" : true,
+    "builtinAction" : true
+  }, {
+    "actionMode" : "READ",
+    "actionType" : "BUILTIN",
+    "codeName" : "Get",
+    "dataAccessAction" : "READ",
+    "dynaModelFilePath" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEACTIONS/Get.json",
+    "logicName" : "Get",
+    "name" : "Get",
+    "orderValue" : 31,
+    "getPSDEActionInput" : {
+      "getKeyPSDEField" : { "name" : "ID", "codeName" : "id" },
+      "name" : "GetInput",
+      "type" : "KEYFIELD"
+    },
+    "getPSDEActionReturn" : {
+      "name" : "GetResult",
+      "getPSDEMethodDTO" : { "modelref" : true, "id" : "ai_run_step_dto" },
+      "type" : "DTO"
+    },
+    "builtinAction" : true
+  }, {
+    "actionMode" : "GETDRAFT",
+    "actionType" : "BUILTIN",
+    "codeName" : "GetDraft",
+    "dataAccessAction" : "CREATE",
+    "dynaModelFilePath" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEACTIONS/GetDraft.json",
+    "logicName" : "GetDraft",
+    "name" : "GetDraft",
+    "orderValue" : 41,
+    "getPSDEActionInput" : {
+      "name" : "GetDraftInput",
+      "getPSDEMethodDTO" : { "modelref" : true, "id" : "ai_run_step_dto" },
+      "type" : "DTO"
+    },
+    "getPSDEActionReturn" : {
+      "name" : "GetDraftResult",
+      "getPSDEMethodDTO" : { "modelref" : true, "id" : "ai_run_step_dto" },
+      "type" : "DTO"
+    },
+    "builtinAction" : true
+  }, {
+    "actionMode" : "CHECKKEY",
+    "actionType" : "BUILTIN",
+    "codeName" : "CheckKey",
+    "dataAccessAction" : "CREATE",
+    "dynaModelFilePath" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEACTIONS/CheckKey.json",
+    "logicName" : "CheckKey",
+    "name" : "CheckKey",
+    "getPSDEActionInput" : {
+      "name" : "CheckKeyInput",
+      "getPSDEMethodDTO" : { "modelref" : true, "id" : "ai_run_step_dto" },
+      "type" : "DTO"
+    },
+    "getPSDEActionReturn" : {
+      "name" : "CheckKeyResult",
+      "stdDataType" : 9,
+      "type" : "SIMPLE"
+    },
+    "builtinAction" : true
+  }, {
+    "actionMode" : "SAVE",
+    "actionType" : "BUILTIN",
+    "codeName" : "Save",
+    "dataAccessAction" : "CREATE",
+    "dynaModelFilePath" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEACTIONS/Save.json",
+    "logicName" : "Save",
+    "name" : "Save",
+    "getPSDEActionInput" : {
+      "name" : "SaveInput",
+      "getPSDEMethodDTO" : { "modelref" : true, "id" : "ai_run_step_dto" },
+      "type" : "DTO",
+      "output" : true
+    },
+    "getPSDEActionReturn" : { "name" : "SaveResult", "type" : "VOID" },
+    "builtinAction" : true
+  } ],
+  "getAllPSDEDBConfigs" : [ {
+    "dBType" : "POSTGRESQL",
+    "name" : "POSTGRESQL",
+    "objNameCase" : "DEFAULT",
+    "standardTableName" : "AI_RUN_STEP",
+    "tableName" : "AI_RUN_STEP",
+    "valid" : true
+  }, {
+    "dBType" : "MYSQL5",
+    "name" : "MYSQL5",
+    "objNameCase" : "DEFAULT",
+    "standardTableName" : "`AI_RUN_STEP`",
+    "tableName" : "AI_RUN_STEP",
+    "valid" : true
+  } ],
+  "getAllPSDEDBTables" : [ {
+    "getAllPSDEFields" : [ {
+      "name" : "ID", "codeName" : "id"
+    }, {
+      "name" : "NAME", "codeName" : "name"
+    }, {
+      "name" : "CREATE_MAN", "codeName" : "create_man"
+    }, {
+      "name" : "CREATE_TIME", "codeName" : "create_time"
+    }, {
+      "name" : "UPDATE_MAN", "codeName" : "update_man"
+    }, {
+      "name" : "UPDATE_TIME", "codeName" : "update_time"
+    }, {
+      "name" : "RUN_ID", "codeName" : "run_id"
+    }, {
+      "name" : "SEQUENCE", "codeName" : "sequence"
+    }, {
+      "name" : "ATTEMPT", "codeName" : "attempt"
+    }, {
+      "name" : "STEP_KIND", "codeName" : "step_kind"
+    }, {
+      "name" : "STATUS", "codeName" : "status"
+    }, {
+      "name" : "INPUT_JSON", "codeName" : "input_json"
+    }, {
+      "name" : "OUTPUT_JSON", "codeName" : "output_json"
+    }, {
+      "name" : "TOOL_NAME", "codeName" : "tool_name"
+    }, {
+      "name" : "TOOL_CALL_ID", "codeName" : "tool_call_id"
+    }, {
+      "name" : "IDEMPOTENCY_KEY", "codeName" : "idempotency_key"
+    }, {
+      "name" : "RETRY_COUNT", "codeName" : "retry_count"
+    }, {
+      "name" : "ERROR_CODE", "codeName" : "error_code"
+    }, {
+      "name" : "ERROR_MESSAGE", "codeName" : "error_message"
+    }, {
+      "name" : "STARTED_AT", "codeName" : "started_at"
+    }, {
+      "name" : "FINISHED_AT", "codeName" : "finished_at"
+    }, {
+      "name" : "DURATION_MS", "codeName" : "duration_ms"
+    }, {
+      "name" : "LAST_EVENT_SEQUENCE", "codeName" : "last_event_sequence"
+    } ],
+    "codeName" : "Table",
+    "name" : "AI_RUN_STEP",
+    "getPSSysDBTable" : { "modelref" : true, "id" : "AI_RUN_STEP" },
+    "tableType" : "MAIN"
+  } ],
+  "getAllPSDEDataQueries" : [ {
+    "getAllPSDEDataQueryCodes" : [ {
+      "modelref" : true,
+      "path" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEDATAQUERIES/Default/PSDEDQCODES/MYSQL5.json"
+    }, {
+      "modelref" : true,
+      "path" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEDATAQUERIES/Default/PSDEDQCODES/POSTGRESQL.json"
+    } ],
+    "codeName" : "Default",
+    "logicName" : "DEFAULT",
+    "name" : "DEFAULT",
+    "getPSDEDQMain" : {
+      "getJoinPSDataEntity" : { "modelref" : true, "path" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step.json" },
+      "joinType" : "MAIN",
+      "name" : "AI_RUN_STEP"
+    },
+    "getPSDEDataQueryInput" : {
+      "name" : "DefaultInput",
+      "getPSDEFilterDTO" : { "modelref" : true, "id" : "ai_run_step_filter_dto" },
+      "type" : "DTO"
+    },
+    "getPSDEDataQueryReturn" : {
+      "name" : "DefaultResult",
+      "getPSDEMethodDTO" : { "modelref" : true, "id" : "ai_run_step_dto" },
+      "type" : "DTOS"
+    },
+    "defaultMode" : true
+  }, {
+    "getAllPSDEDataQueryCodes" : [ {
+      "modelref" : true,
+      "path" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEDATAQUERIES/View/PSDEDQCODES/MYSQL5.json"
+    }, {
+      "modelref" : true,
+      "path" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEDATAQUERIES/View/PSDEDQCODES/POSTGRESQL.json"
+    } ],
+    "codeName" : "View",
+    "logicName" : "默认（全部数据）",
+    "name" : "VIEW",
+    "getPSDEDQMain" : {
+      "getJoinPSDataEntity" : { "modelref" : true, "path" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step.json" },
+      "joinType" : "MAIN",
+      "name" : "AI_RUN_STEP"
+    },
+    "getPSDEDataQueryInput" : {
+      "name" : "ViewInput",
+      "getPSDEFilterDTO" : { "modelref" : true, "id" : "ai_run_step_filter_dto" },
+      "type" : "DTO"
+    },
+    "getPSDEDataQueryReturn" : {
+      "name" : "ViewResult",
+      "getPSDEMethodDTO" : { "modelref" : true, "id" : "ai_run_step_dto" },
+      "type" : "DTOS"
+    },
+    "viewLevel" : 0
+  } ],
+  "getAllPSDEDataRelations" : [ {
+    "modelref" : true,
+    "path" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEDATARELATIONS/Default.json"
+  } ],
+  "getAllPSDEDataSets" : [ {
+    "codeName" : "Default",
+    "logicName" : "DEFAULT",
+    "name" : "DEFAULT",
+    "getPSDEDataQueries" : [ { "modelref" : true, "id" : "Default" } ],
+    "getPSDEDataSetInput" : {
+      "name" : "DefaultInput",
+      "getPSDEFilterDTO" : { "modelref" : true, "id" : "ai_run_step_filter_dto" },
+      "type" : "DTO"
+    },
+    "getPSDEDataSetReturn" : {
+      "name" : "DefaultResult",
+      "getPSDEMethodDTO" : { "modelref" : true, "id" : "ai_run_step_dto" },
+      "type" : "PAGE"
+    },
+    "defaultMode" : true,
+    "enableBackend" : true,
+    "enableFront" : true
+  } ],
+  "getAllPSDEFields" : [ {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "ID", "dBType" : "POSTGRESQL", "name" : "ID", "queryCodeExp" : "t1.ID", "standardColumnName" : "ID" }, { "columnName" : "ID", "dBType" : "MYSQL5", "name" : "ID", "queryCodeExp" : "t1.`ID`", "standardColumnName" : "`ID`" } ],
+    "getAllPSDEFSearchModes" : [ { "codeName" : "N_ID_EQ", "name" : "N_ID_EQ", "stdDataType" : 25, "valueOP" : "EQ" } ],
+    "codeName" : "id", "dEFType" : 1, "dataType" : "GUID", "length" : 100, "logicName" : "标识", "name" : "ID", "orderValue" : 1,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "ID" },
+    "serviceCodeName" : "id", "stdDataType" : 25, "stringLength" : 100, "valueFormat" : "%1$s", "allowEmpty" : false, "keyDEField" : true
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "NAME", "dBType" : "POSTGRESQL", "name" : "NAME", "queryCodeExp" : "t1.NAME", "standardColumnName" : "NAME" }, { "columnName" : "NAME", "dBType" : "MYSQL5", "name" : "NAME", "queryCodeExp" : "t1.`NAME`", "standardColumnName" : "`NAME`" } ],
+    "getAllPSDEFSearchModes" : [ { "codeName" : "N_NAME_LIKE", "name" : "N_NAME_LIKE", "stdDataType" : 25, "valueOP" : "LIKE" } ],
+    "codeName" : "name", "dEFType" : 1, "dataType" : "TEXT", "length" : 200, "logicName" : "名称", "name" : "NAME", "orderValue" : 2,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "NAME" },
+    "serviceCodeName" : "name", "stdDataType" : 25, "stringLength" : 200, "valueFormat" : "%1$s", "majorDEField" : true
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "CREATE_MAN", "dBType" : "POSTGRESQL", "name" : "CREATE_MAN", "queryCodeExp" : "t1.CREATE_MAN", "standardColumnName" : "CREATE_MAN" }, { "columnName" : "CREATE_MAN", "dBType" : "MYSQL5", "name" : "CREATE_MAN", "queryCodeExp" : "t1.`CREATE_MAN`", "standardColumnName" : "`CREATE_MAN`" } ],
+    "codeName" : "create_man", "dEFType" : 1, "dataType" : "TEXT", "length" : 100, "logicName" : "创建人", "name" : "CREATE_MAN", "orderValue" : 4,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "CREATE_MAN" }, "predefinedType" : "CREATEMAN", "serviceCodeName" : "create_man", "stdDataType" : 25, "stringLength" : 100, "valueFormat" : "%1$s", "allowEmpty" : false, "systemReserver" : true
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "CREATE_TIME", "dBType" : "POSTGRESQL", "name" : "CREATE_TIME", "queryCodeExp" : "t1.CREATE_TIME", "standardColumnName" : "CREATE_TIME" }, { "columnName" : "CREATE_TIME", "dBType" : "MYSQL5", "name" : "CREATE_TIME", "queryCodeExp" : "t1.`CREATE_TIME`", "standardColumnName" : "`CREATE_TIME`" } ],
+    "codeName" : "create_time", "dEFType" : 1, "dataType" : "DATETIME", "logicName" : "创建时间", "name" : "CREATE_TIME", "orderValue" : 5,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "CREATE_TIME" }, "predefinedType" : "CREATEDATE", "serviceCodeName" : "create_time", "stdDataType" : 5, "jsonFormat" : "yyyy-MM-dd HH:mm:ss", "valueFormat" : "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS", "allowEmpty" : false, "systemReserver" : true
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "UPDATE_MAN", "dBType" : "POSTGRESQL", "name" : "UPDATE_MAN", "queryCodeExp" : "t1.UPDATE_MAN", "standardColumnName" : "UPDATE_MAN" }, { "columnName" : "UPDATE_MAN", "dBType" : "MYSQL5", "name" : "UPDATE_MAN", "queryCodeExp" : "t1.`UPDATE_MAN`", "standardColumnName" : "`UPDATE_MAN`" } ],
+    "codeName" : "update_man", "dEFType" : 1, "dataType" : "TEXT", "length" : 100, "logicName" : "更新人", "name" : "UPDATE_MAN", "orderValue" : 6,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "UPDATE_MAN" }, "predefinedType" : "UPDATEMAN", "serviceCodeName" : "update_man", "stdDataType" : 25, "stringLength" : 100, "valueFormat" : "%1$s", "allowEmpty" : false, "systemReserver" : true
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "UPDATE_TIME", "dBType" : "POSTGRESQL", "name" : "UPDATE_TIME", "queryCodeExp" : "t1.UPDATE_TIME", "standardColumnName" : "UPDATE_TIME" }, { "columnName" : "UPDATE_TIME", "dBType" : "MYSQL5", "name" : "UPDATE_TIME", "queryCodeExp" : "t1.`UPDATE_TIME`", "standardColumnName" : "`UPDATE_TIME`" } ],
+    "codeName" : "update_time", "dEFType" : 1, "dataType" : "DATETIME", "logicName" : "更新时间", "name" : "UPDATE_TIME", "orderValue" : 7,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "UPDATE_TIME" }, "predefinedType" : "UPDATEDATE", "serviceCodeName" : "update_time", "stdDataType" : 5, "jsonFormat" : "yyyy-MM-dd HH:mm:ss", "valueFormat" : "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS", "allowEmpty" : false, "systemReserver" : true
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "RUN_ID", "dBType" : "POSTGRESQL", "name" : "RUN_ID", "queryCodeExp" : "t1.RUN_ID", "standardColumnName" : "RUN_ID" }, { "columnName" : "RUN_ID", "dBType" : "MYSQL5", "name" : "RUN_ID", "queryCodeExp" : "t1.`RUN_ID`", "standardColumnName" : "`RUN_ID`" } ],
+    "getAllPSDEFSearchModes" : [ { "codeName" : "N_RUN_ID_EQ", "name" : "N_RUN_ID_EQ", "stdDataType" : 25, "valueOP" : "EQ" } ],
+    "codeName" : "run_id", "dEFType" : 1, "dataType" : "PICKUP", "length" : 100, "logicName" : "运行标识", "name" : "RUN_ID", "orderValue" : 1000,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSDER" : { "modelref" : true, "path" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDERS/DER1N_AI_RUN_STEP_AI_RUN_RUN_ID.json" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "RUN_ID" },
+    "getRealPSDEField" : { "name" : "ID", "codeName" : "id" }, "getRealPSDataEntity" : { "modelref" : true, "path" : "PSMODULES/ai/PSDATAENTITIES/ai_run.json" },
+    "getRelatedPSDEField" : { "name" : "ID", "codeName" : "id" }, "getRelatedPSDataEntity" : { "modelref" : true, "path" : "PSMODULES/ai/PSDATAENTITIES/ai_run.json" },
+    "serviceCodeName" : "run_id", "stdDataType" : 25, "stringLength" : 100, "valueFormat" : "%1$s", "allowEmpty" : false, "linkDEField" : true
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "SEQUENCE", "dBType" : "POSTGRESQL", "name" : "SEQUENCE", "queryCodeExp" : "t1.SEQUENCE", "standardColumnName" : "SEQUENCE" }, { "columnName" : "SEQUENCE", "dBType" : "MYSQL5", "name" : "SEQUENCE", "queryCodeExp" : "t1.`SEQUENCE`", "standardColumnName" : "`SEQUENCE`" } ],
+    "getAllPSDEFSearchModes" : [ { "codeName" : "N_SEQUENCE_EQ", "name" : "N_SEQUENCE_EQ", "stdDataType" : 1, "valueOP" : "EQ" } ],
+    "codeName" : "sequence", "dEFType" : 1, "dataType" : "BIGINT", "logicName" : "步骤序号", "name" : "SEQUENCE", "orderValue" : 1010,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "SEQUENCE" }, "serviceCodeName" : "sequence", "stdDataType" : 1, "valueFormat" : "%1$s", "allowEmpty" : false
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "ATTEMPT", "dBType" : "POSTGRESQL", "name" : "ATTEMPT", "queryCodeExp" : "t1.ATTEMPT", "standardColumnName" : "ATTEMPT" }, { "columnName" : "ATTEMPT", "dBType" : "MYSQL5", "name" : "ATTEMPT", "queryCodeExp" : "t1.`ATTEMPT`", "standardColumnName" : "`ATTEMPT`" } ],
+    "codeName" : "attempt", "dEFType" : 1, "dataType" : "INT", "defaultValue" : "0", "logicName" : "尝试次数", "name" : "ATTEMPT", "orderValue" : 1020,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "ATTEMPT" }, "serviceCodeName" : "attempt", "stdDataType" : 9, "valueFormat" : "%1$s", "allowEmpty" : false
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "STEP_KIND", "dBType" : "POSTGRESQL", "name" : "STEP_KIND", "queryCodeExp" : "t1.STEP_KIND", "standardColumnName" : "STEP_KIND" }, { "columnName" : "STEP_KIND", "dBType" : "MYSQL5", "name" : "STEP_KIND", "queryCodeExp" : "t1.`STEP_KIND`", "standardColumnName" : "`STEP_KIND`" } ],
+    "getAllPSDEFSearchModes" : [ { "codeName" : "N_STEP_KIND_EQ", "name" : "N_STEP_KIND_EQ", "stdDataType" : 25, "valueOP" : "EQ" } ],
+    "codeName" : "step_kind", "dEFType" : 1, "dataType" : "TEXT", "length" : 60, "logicName" : "步骤类型", "name" : "STEP_KIND", "orderValue" : 1030,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "STEP_KIND" }, "serviceCodeName" : "step_kind", "stdDataType" : 25, "stringLength" : 60, "valueFormat" : "%1$s", "allowEmpty" : false
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "STATUS", "dBType" : "POSTGRESQL", "name" : "STATUS", "queryCodeExp" : "t1.STATUS", "standardColumnName" : "STATUS" }, { "columnName" : "STATUS", "dBType" : "MYSQL5", "name" : "STATUS", "queryCodeExp" : "t1.`STATUS`", "standardColumnName" : "`STATUS`" } ],
+    "getAllPSDEFSearchModes" : [ { "codeName" : "N_STATUS_EQ", "name" : "N_STATUS_EQ", "stdDataType" : 25, "valueOP" : "EQ" } ],
+    "codeName" : "status", "dEFType" : 1, "dataType" : "TEXT", "defaultValue" : "queued", "length" : 60, "logicName" : "步骤状态", "name" : "STATUS", "orderValue" : 1040,
+    "getPSCodeList" : { "modelref" : true, "path" : "PSMODULES/ai/PSCODELISTS/ai_run_step_status.json" }, "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "STATUS" },
+    "serviceCodeName" : "status", "stdDataType" : 25, "stringLength" : 60, "valueFormat" : "%1$s", "allowEmpty" : false
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "INPUT_JSON", "dBType" : "POSTGRESQL", "name" : "INPUT_JSON", "queryCodeExp" : "t1.INPUT_JSON", "standardColumnName" : "INPUT_JSON" }, { "columnName" : "INPUT_JSON", "dBType" : "MYSQL5", "name" : "INPUT_JSON", "queryCodeExp" : "t1.`INPUT_JSON`", "standardColumnName" : "`INPUT_JSON`" } ],
+    "codeName" : "input_json", "dEFType" : 5, "dataType" : "LONGTEXT", "length" : 1048576, "logicName" : "输入摘要", "name" : "INPUT_JSON", "orderValue" : 1050,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "INPUT_JSON" }, "serviceCodeName" : "input_json", "stdDataType" : 25, "stringLength" : 1048576, "valueFormat" : "%1$s"
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "OUTPUT_JSON", "dBType" : "POSTGRESQL", "name" : "OUTPUT_JSON", "queryCodeExp" : "t1.OUTPUT_JSON", "standardColumnName" : "OUTPUT_JSON" }, { "columnName" : "OUTPUT_JSON", "dBType" : "MYSQL5", "name" : "OUTPUT_JSON", "queryCodeExp" : "t1.`OUTPUT_JSON`", "standardColumnName" : "`OUTPUT_JSON`" } ],
+    "codeName" : "output_json", "dEFType" : 5, "dataType" : "LONGTEXT", "length" : 1048576, "logicName" : "输出摘要", "name" : "OUTPUT_JSON", "orderValue" : 1060,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "OUTPUT_JSON" }, "serviceCodeName" : "output_json", "stdDataType" : 25, "stringLength" : 1048576, "valueFormat" : "%1$s"
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "TOOL_NAME", "dBType" : "POSTGRESQL", "name" : "TOOL_NAME", "queryCodeExp" : "t1.TOOL_NAME", "standardColumnName" : "TOOL_NAME" }, { "columnName" : "TOOL_NAME", "dBType" : "MYSQL5", "name" : "TOOL_NAME", "queryCodeExp" : "t1.`TOOL_NAME`", "standardColumnName" : "`TOOL_NAME`" } ],
+    "codeName" : "tool_name", "dEFType" : 1, "dataType" : "TEXT", "length" : 200, "logicName" : "工具名称", "name" : "TOOL_NAME", "orderValue" : 1070,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "TOOL_NAME" }, "serviceCodeName" : "tool_name", "stdDataType" : 25, "stringLength" : 200, "valueFormat" : "%1$s"
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "TOOL_CALL_ID", "dBType" : "POSTGRESQL", "name" : "TOOL_CALL_ID", "queryCodeExp" : "t1.TOOL_CALL_ID", "standardColumnName" : "TOOL_CALL_ID" }, { "columnName" : "TOOL_CALL_ID", "dBType" : "MYSQL5", "name" : "TOOL_CALL_ID", "queryCodeExp" : "t1.`TOOL_CALL_ID`", "standardColumnName" : "`TOOL_CALL_ID`" } ],
+    "codeName" : "tool_call_id", "dEFType" : 1, "dataType" : "TEXT", "length" : 200, "logicName" : "工具调用标识", "name" : "TOOL_CALL_ID", "orderValue" : 1080,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "TOOL_CALL_ID" }, "serviceCodeName" : "tool_call_id", "stdDataType" : 25, "stringLength" : 200, "valueFormat" : "%1$s"
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "IDEMPOTENCY_KEY", "dBType" : "POSTGRESQL", "name" : "IDEMPOTENCY_KEY", "queryCodeExp" : "t1.IDEMPOTENCY_KEY", "standardColumnName" : "IDEMPOTENCY_KEY" }, { "columnName" : "IDEMPOTENCY_KEY", "dBType" : "MYSQL5", "name" : "IDEMPOTENCY_KEY", "queryCodeExp" : "t1.`IDEMPOTENCY_KEY`", "standardColumnName" : "`IDEMPOTENCY_KEY`" } ],
+    "getAllPSDEFSearchModes" : [ { "codeName" : "N_IDEMPOTENCY_KEY_EQ", "name" : "N_IDEMPOTENCY_KEY_EQ", "stdDataType" : 25, "valueOP" : "EQ" } ],
+    "codeName" : "idempotency_key", "dEFType" : 1, "dataType" : "TEXT", "length" : 200, "logicName" : "幂等键", "name" : "IDEMPOTENCY_KEY", "orderValue" : 1090,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "IDEMPOTENCY_KEY" }, "serviceCodeName" : "idempotency_key", "stdDataType" : 25, "stringLength" : 200, "valueFormat" : "%1$s", "allowEmpty" : false
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "RETRY_COUNT", "dBType" : "POSTGRESQL", "name" : "RETRY_COUNT", "queryCodeExp" : "t1.RETRY_COUNT", "standardColumnName" : "RETRY_COUNT" }, { "columnName" : "RETRY_COUNT", "dBType" : "MYSQL5", "name" : "RETRY_COUNT", "queryCodeExp" : "t1.`RETRY_COUNT`", "standardColumnName" : "`RETRY_COUNT`" } ],
+    "codeName" : "retry_count", "dEFType" : 1, "dataType" : "INT", "defaultValue" : "0", "logicName" : "重试次数", "name" : "RETRY_COUNT", "orderValue" : 1100,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "RETRY_COUNT" }, "serviceCodeName" : "retry_count", "stdDataType" : 9, "valueFormat" : "%1$s", "allowEmpty" : false
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "ERROR_CODE", "dBType" : "POSTGRESQL", "name" : "ERROR_CODE", "queryCodeExp" : "t1.ERROR_CODE", "standardColumnName" : "ERROR_CODE" }, { "columnName" : "ERROR_CODE", "dBType" : "MYSQL5", "name" : "ERROR_CODE", "queryCodeExp" : "t1.`ERROR_CODE`", "standardColumnName" : "`ERROR_CODE`" } ],
+    "codeName" : "error_code", "dEFType" : 1, "dataType" : "TEXT", "length" : 100, "logicName" : "错误码", "name" : "ERROR_CODE", "orderValue" : 1110,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "ERROR_CODE" }, "serviceCodeName" : "error_code", "stdDataType" : 25, "stringLength" : 100, "valueFormat" : "%1$s"
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "ERROR_MESSAGE", "dBType" : "POSTGRESQL", "name" : "ERROR_MESSAGE", "queryCodeExp" : "t1.ERROR_MESSAGE", "standardColumnName" : "ERROR_MESSAGE" }, { "columnName" : "ERROR_MESSAGE", "dBType" : "MYSQL5", "name" : "ERROR_MESSAGE", "queryCodeExp" : "t1.`ERROR_MESSAGE`", "standardColumnName" : "`ERROR_MESSAGE`" } ],
+    "codeName" : "error_message", "dEFType" : 5, "dataType" : "LONGTEXT_1000", "length" : 1000, "logicName" : "错误摘要", "name" : "ERROR_MESSAGE", "orderValue" : 1120,
+    "getPSSysDBColumn" : { "modelref" : true, "id" : "ERROR_MESSAGE" }, "serviceCodeName" : "error_message", "stdDataType" : 25, "stringLength" : 1000, "valueFormat" : "%1$s"
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "STARTED_AT", "dBType" : "POSTGRESQL", "name" : "STARTED_AT", "queryCodeExp" : "t1.STARTED_AT", "standardColumnName" : "STARTED_AT" }, { "columnName" : "STARTED_AT", "dBType" : "MYSQL5", "name" : "STARTED_AT", "queryCodeExp" : "t1.`STARTED_AT`", "standardColumnName" : "`STARTED_AT`" } ],
+    "codeName" : "started_at", "dEFType" : 1, "dataType" : "DATETIME", "logicName" : "开始时间", "name" : "STARTED_AT", "orderValue" : 1130,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "STARTED_AT" }, "serviceCodeName" : "started_at", "stdDataType" : 5, "jsonFormat" : "yyyy-MM-dd HH:mm:ss", "valueFormat" : "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS"
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "FINISHED_AT", "dBType" : "POSTGRESQL", "name" : "FINISHED_AT", "queryCodeExp" : "t1.FINISHED_AT", "standardColumnName" : "FINISHED_AT" }, { "columnName" : "FINISHED_AT", "dBType" : "MYSQL5", "name" : "FINISHED_AT", "queryCodeExp" : "t1.`FINISHED_AT`", "standardColumnName" : "`FINISHED_AT`" } ],
+    "codeName" : "finished_at", "dEFType" : 1, "dataType" : "DATETIME", "logicName" : "结束时间", "name" : "FINISHED_AT", "orderValue" : 1140,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "FINISHED_AT" }, "serviceCodeName" : "finished_at", "stdDataType" : 5, "jsonFormat" : "yyyy-MM-dd HH:mm:ss", "valueFormat" : "%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS"
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "DURATION_MS", "dBType" : "POSTGRESQL", "name" : "DURATION_MS", "queryCodeExp" : "t1.DURATION_MS", "standardColumnName" : "DURATION_MS" }, { "columnName" : "DURATION_MS", "dBType" : "MYSQL5", "name" : "DURATION_MS", "queryCodeExp" : "t1.`DURATION_MS`", "standardColumnName" : "`DURATION_MS`" } ],
+    "codeName" : "duration_ms", "dEFType" : 1, "dataType" : "BIGINT", "logicName" : "耗时毫秒", "name" : "DURATION_MS", "orderValue" : 1150,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "DURATION_MS" }, "serviceCodeName" : "duration_ms", "stdDataType" : 1, "valueFormat" : "%1$s"
+  }, {
+    "getAllPSDEFDTColumns" : [ { "columnName" : "LAST_EVENT_SEQUENCE", "dBType" : "POSTGRESQL", "name" : "LAST_EVENT_SEQUENCE", "queryCodeExp" : "t1.LAST_EVENT_SEQUENCE", "standardColumnName" : "LAST_EVENT_SEQUENCE" }, { "columnName" : "LAST_EVENT_SEQUENCE", "dBType" : "MYSQL5", "name" : "LAST_EVENT_SEQUENCE", "queryCodeExp" : "t1.`LAST_EVENT_SEQUENCE`", "standardColumnName" : "`LAST_EVENT_SEQUENCE`" } ],
+    "codeName" : "last_event_sequence", "dEFType" : 1, "dataType" : "BIGINT", "defaultValue" : "0", "logicName" : "最后事件序号", "name" : "LAST_EVENT_SEQUENCE", "orderValue" : 1160,
+    "getPSDEDBTable" : { "modelref" : true, "id" : "Table" }, "getPSSysDBColumn" : { "modelref" : true, "id" : "LAST_EVENT_SEQUENCE" }, "serviceCodeName" : "last_event_sequence", "stdDataType" : 1, "valueFormat" : "%1$s", "allowEmpty" : false
+  } ],
+  "getAllPSDEMethodDTOs" : [ {
+    "name" : "ai_run_step_dto",
+    "getPSDEMethodDTOFields" : [ {
+      "name" : "id", "getPSDEField" : { "name" : "ID", "codeName" : "id" }, "sourceType" : "DEFIELD", "stdDataType" : 25, "stringLength" : 100, "type" : "SIMPLE", "allowEmpty" : false
+    }, {
+      "name" : "name", "getPSDEField" : { "name" : "NAME", "codeName" : "name" }, "sourceType" : "DEFIELD", "stdDataType" : 25, "stringLength" : 200, "type" : "SIMPLE"
+    }, {
+      "name" : "create_man", "getPSDEField" : { "name" : "CREATE_MAN", "codeName" : "create_man" }, "sourceType" : "DEFIELD", "stdDataType" : 25, "stringLength" : 100, "type" : "SIMPLE", "readOnly" : true
+    }, {
+      "name" : "create_time", "getPSDEField" : { "name" : "CREATE_TIME", "codeName" : "create_time" }, "sourceType" : "DEFIELD", "stdDataType" : 5, "type" : "SIMPLE", "readOnly" : true
+    }, {
+      "name" : "update_man", "getPSDEField" : { "name" : "UPDATE_MAN", "codeName" : "update_man" }, "sourceType" : "DEFIELD", "stdDataType" : 25, "stringLength" : 100, "type" : "SIMPLE", "readOnly" : true
+    }, {
+      "name" : "update_time", "getPSDEField" : { "name" : "UPDATE_TIME", "codeName" : "update_time" }, "sourceType" : "DEFIELD", "stdDataType" : 5, "type" : "SIMPLE", "readOnly" : true
+    }, {
+      "name" : "run_id", "getPSDEField" : { "name" : "RUN_ID", "codeName" : "run_id" }, "sourceType" : "DEFIELD", "stdDataType" : 25, "stringLength" : 100, "type" : "SIMPLE", "allowEmpty" : false
+    }, {
+      "name" : "sequence", "getPSDEField" : { "name" : "SEQUENCE", "codeName" : "sequence" }, "sourceType" : "DEFIELD", "stdDataType" : 1, "type" : "SIMPLE", "allowEmpty" : false
+    }, {
+      "name" : "attempt", "getPSDEField" : { "name" : "ATTEMPT", "codeName" : "attempt" }, "sourceType" : "DEFIELD", "stdDataType" : 9, "type" : "SIMPLE", "allowEmpty" : false
+    }, {
+      "name" : "step_kind", "getPSDEField" : { "name" : "STEP_KIND", "codeName" : "step_kind" }, "sourceType" : "DEFIELD", "stdDataType" : 25, "stringLength" : 60, "type" : "SIMPLE", "allowEmpty" : false
+    }, {
+      "name" : "status", "getPSDEField" : { "name" : "STATUS", "codeName" : "status" }, "sourceType" : "DEFIELD", "stdDataType" : 25, "stringLength" : 60, "type" : "SIMPLE", "allowEmpty" : false
+    }, {
+      "name" : "input_json", "getPSDEField" : { "name" : "INPUT_JSON", "codeName" : "input_json" }, "sourceType" : "DEFIELD", "stdDataType" : 25, "stringLength" : 1048576, "type" : "SIMPLE"
+    }, {
+      "name" : "output_json", "getPSDEField" : { "name" : "OUTPUT_JSON", "codeName" : "output_json" }, "sourceType" : "DEFIELD", "stdDataType" : 25, "stringLength" : 1048576, "type" : "SIMPLE"
+    }, {
+      "name" : "tool_name", "getPSDEField" : { "name" : "TOOL_NAME", "codeName" : "tool_name" }, "sourceType" : "DEFIELD", "stdDataType" : 25, "stringLength" : 200, "type" : "SIMPLE"
+    }, {
+      "name" : "tool_call_id", "getPSDEField" : { "name" : "TOOL_CALL_ID", "codeName" : "tool_call_id" }, "sourceType" : "DEFIELD", "stdDataType" : 25, "stringLength" : 200, "type" : "SIMPLE"
+    }, {
+      "name" : "idempotency_key", "getPSDEField" : { "name" : "IDEMPOTENCY_KEY", "codeName" : "idempotency_key" }, "sourceType" : "DEFIELD", "stdDataType" : 25, "stringLength" : 200, "type" : "SIMPLE", "allowEmpty" : false
+    }, {
+      "name" : "retry_count", "getPSDEField" : { "name" : "RETRY_COUNT", "codeName" : "retry_count" }, "sourceType" : "DEFIELD", "stdDataType" : 9, "type" : "SIMPLE", "allowEmpty" : false
+    }, {
+      "name" : "error_code", "getPSDEField" : { "name" : "ERROR_CODE", "codeName" : "error_code" }, "sourceType" : "DEFIELD", "stdDataType" : 25, "stringLength" : 100, "type" : "SIMPLE"
+    }, {
+      "name" : "error_message", "getPSDEField" : { "name" : "ERROR_MESSAGE", "codeName" : "error_message" }, "sourceType" : "DEFIELD", "stdDataType" : 25, "stringLength" : 1000, "type" : "SIMPLE"
+    }, {
+      "name" : "started_at", "getPSDEField" : { "name" : "STARTED_AT", "codeName" : "started_at" }, "sourceType" : "DEFIELD", "stdDataType" : 5, "type" : "SIMPLE"
+    }, {
+      "name" : "finished_at", "getPSDEField" : { "name" : "FINISHED_AT", "codeName" : "finished_at" }, "sourceType" : "DEFIELD", "stdDataType" : 5, "type" : "SIMPLE"
+    }, {
+      "name" : "duration_ms", "getPSDEField" : { "name" : "DURATION_MS", "codeName" : "duration_ms" }, "sourceType" : "DEFIELD", "stdDataType" : 1, "type" : "SIMPLE"
+    }, {
+      "name" : "last_event_sequence", "getPSDEField" : { "name" : "LAST_EVENT_SEQUENCE", "codeName" : "last_event_sequence" }, "sourceType" : "DEFIELD", "stdDataType" : 1, "type" : "SIMPLE", "allowEmpty" : false
+    } ],
+    "sourceType" : "DE", "type" : "DEFAULT", "defaultMode" : true
+  }, {
+    "name" : "ai_run_step_filter_dto",
+    "getPSDEFilterDTOFields" : [ {
+      "name" : "n_id_eq", "getPSDEFSearchMode" : { "modelref" : true, "id" : "N_ID_EQ" }, "getPSDEField" : { "name" : "ID", "codeName" : "id" }, "sourceType" : "DEFSEARCHMODE", "stdDataType" : 25, "type" : "SIMPLE"
+    }, {
+      "name" : "n_run_id_eq", "getPSDEFSearchMode" : { "modelref" : true, "id" : "N_RUN_ID_EQ" }, "getPSDEField" : { "name" : "RUN_ID", "codeName" : "run_id" }, "sourceType" : "DEFSEARCHMODE", "stdDataType" : 25, "type" : "SIMPLE"
+    }, {
+      "name" : "n_sequence_eq", "getPSDEFSearchMode" : { "modelref" : true, "id" : "N_SEQUENCE_EQ" }, "getPSDEField" : { "name" : "SEQUENCE", "codeName" : "sequence" }, "sourceType" : "DEFSEARCHMODE", "stdDataType" : 1, "type" : "SIMPLE"
+    }, {
+      "name" : "n_status_eq", "getPSDEFSearchMode" : { "modelref" : true, "id" : "N_STATUS_EQ" }, "getPSDEField" : { "name" : "STATUS", "codeName" : "status" }, "sourceType" : "DEFSEARCHMODE", "stdDataType" : 25, "type" : "SIMPLE"
+    }, {
+      "name" : "n_idempotency_key_eq", "getPSDEFSearchMode" : { "modelref" : true, "id" : "N_IDEMPOTENCY_KEY_EQ" }, "getPSDEField" : { "name" : "IDEMPOTENCY_KEY", "codeName" : "idempotency_key" }, "sourceType" : "DEFSEARCHMODE", "stdDataType" : 25, "type" : "SIMPLE"
+    } ],
+    "sourceType" : "DE", "type" : "DEFILTER", "defaultMode" : true
+  } ],
+  "getAllPSDEOPPrivs" : [ { "logicName" : "建立", "name" : "CREATE" }, { "logicName" : "删除", "name" : "DELETE" }, { "logicName" : "读取", "name" : "READ" }, { "logicName" : "更新", "name" : "UPDATE" } ],
+  "getAllPSDEUserRoles" : [ {
+    "dynaModelFilePath" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDEUSERROLES/ALL_RW.json",
+    "name" : "全部数据（读写）",
+    "roleTag" : "ALL_RW",
+    "userCat" : "CAT1",
+    "userDRAction" : "READ",
+    "allData" : true,
+    "systemReserved" : true
+  } ],
+  "getAllPSModelDatas" : [],
+  "codeName" : "ai_run_step",
+  "dEType" : 1,
+  "dSLink" : "DEFAULT",
+  "dataAccCtrlArch" : 1,
+  "dataAccCtrlMode" : 1,
+  "dataChangeLogMode" : 0,
+  "dataImpExpMode" : 3,
+  "getDefaultPSDEDataQuery" : { "modelref" : true, "id" : "Default" },
+  "getDefaultPSDEDataSet" : { "modelref" : true, "id" : "Default" },
+  "getDefaultPSDEFilterDTO" : { "modelref" : true, "id" : "ai_run_step_filter_dto" },
+  "getDefaultPSDEMethodDTO" : { "modelref" : true, "id" : "ai_run_step_dto" },
+  "dynaInstMode" : 0,
+  "dynaModelFilePath" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step.json",
+  "enableActions" : 7,
+  "enableUIActions" : 15,
+  "enableViewLevel" : 0,
+  "extendMode" : 0,
+  "getKeyPSDEField" : { "name" : "ID", "codeName" : "id" },
+  "getLNPSLanguageRes" : { "lanResTag" : "DE.LNAME.AI_RUN_STEP" },
+  "logicName" : "AI运行步骤",
+  "getMajorPSDEField" : { "name" : "NAME", "codeName" : "name" },
+  "getMinorPSDERs" : [ {
+    "codeName" : "AI_RUN",
+    "dERType" : "DER1N",
+    "dynaModelFilePath" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step/PSDERS/DER1N_AI_RUN_STEP_AI_RUN_RUN_ID.json",
+    "fKeyName" : "AI_RUN_STEP_RUN_ID",
+    "getMajorPSDataEntity" : { "modelref" : true, "path" : "PSMODULES/ai/PSDATAENTITIES/ai_run.json" },
+    "masterOrder" : -1,
+    "masterRS" : 0,
+    "getMinorPSDataEntity" : { "modelref" : true, "path" : "PSMODULES/ai/PSDATAENTITIES/ai_run_step.json" },
+    "name" : "DER1N_AI_RUN_STEP_AI_RUN_RUN_ID",
+    "orderValue" : 100,
+    "getPSPickupDEField" : { "name" : "RUN_ID", "codeName" : "run_id" },
+    "getPSPickupTextDEField" : { "name" : "NAME", "codeName" : "name" },
+    "pickupDEFName" : "RUN_ID",
+    "removeActionType" : -1,
+    "removeOrder" : 0,
+    "serviceCodeName" : "ai_run",
+    "enableFKey" : true
+  } ],
+  "name" : "AI_RUN_STEP",
+  "getPSSysDBScheme" : { "modelref" : true, "path" : "PSSYSDBSCHEMES/DEFAULT.json" },
+  "getPSSystemModule" : { "modelref" : true, "path" : "PSMODULES/ai.json" },
+  "saaSMode" : 0,
+  "serviceAPIMode" : 1,
+  "serviceCodeName" : "ai_run_step",
+  "storageMode" : 1,
+  "systemTag" : "iBizPLM",
+  "tableName" : "AI_RUN_STEP",
+  "getViewPSDEDataQuery" : { "modelref" : true, "id" : "View" },
+  "enableAPIStorage" : false,
+  "enableCreate" : true,
+  "enableDataVer" : false,
+  "enableEntityCache" : false,
+  "enableModify" : true,
+  "enableMultiDS" : false,
+  "enableMultiForm" : false,
+  "enableMultiStorage" : false,
+  "enableNoSQLStorage" : false,
+  "enableRemove" : true,
+  "enableSQLStorage" : true,
+  "logicValid" : false,
+  "subSysAsCloud" : false
+}
