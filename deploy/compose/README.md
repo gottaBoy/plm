@@ -35,6 +35,14 @@ $ docker compose -f docker-compose.yml --env-file .env up -d
 # docker compose -f docker-compose-dev.yml --env-file .dev up -d
 ```
 
+数据库补充迁移在容器健康启动后执行一次。脚本会按文件名顺序执行
+`migrations/` 下全部 SQL，并且可以重复执行：
+
+```bash
+$ cd plm/deploy/compose
+$ ./migrate.sh
+```
+
 本地修改 `modelingweb/app` 后，先构建前端，再使用显式 overlay 部署本地产物：
 
 ```bash
