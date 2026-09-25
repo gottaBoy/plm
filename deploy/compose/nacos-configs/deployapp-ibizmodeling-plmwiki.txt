@@ -1,0 +1,141 @@
+{
+  "routes" : [ {
+    "id" : "ibizmodeling__plmwiki__appdata",
+    "uri" : "lb://servicehub-ibizmodeling",
+    "order" : 50,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/appdata/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__cloud_uaa",
+    "uri" : "lb://ibizcloud-uaa",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/v7/**,/ibizmodeling__plmwiki/uaa/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__cloud_oss",
+    "uri" : "lb://ibizcloud-oss",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/ibizutil/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__cloud_conf",
+    "uri" : "lb://ibizcloud-conf",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/configs/**,/ibizmodeling__plmwiki/dictionaries/**,/ibizmodeling__plmwiki/dictionarys/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__cloud_workflow",
+    "uri" : "lb://ibizcloud-wf",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/wfcore/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__cloud_devops",
+    "uri" : "lb://ibizcloud-devops",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/remotemodel/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/devops/dynamodels/pssysapps/plmwiki" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__cloud_devops_jsonschema",
+    "uri" : "lb://ibizcloud-devops",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/jsonschema/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/devops/jsonschemas/pssysapps/plmwiki" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__cloud_portal",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/portal/markopendata/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__cloud_portal_collaborate",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/portal/collaborate/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__cloud_portal_asyncaction",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/portal/asyncaction/**", "Method=GET" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__cloud_portal_asyncaction_select",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/portal/asyncaction/executing,/ibizmodeling__plmwiki/portal/asyncaction/finished,/ibizmodeling__plmwiki/portal/asyncaction/error,/ibizmodeling__plmwiki/portal/asyncaction/all" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__cloud_portal_mqtt",
+    "uri" : "lb:ws://ibizcloud-portal-mqtt",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/portal/mqtt/**" ],
+    "filters" : [ "StripPrefix=3" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__cloud_saas_extension",
+    "uri" : "lb://extension-api",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/extension/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/extension/api" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__webhooks",
+    "uri" : "lb://servicehub-ibizmodeling",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/webhooks/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/ibizmodeling/extension/webhooks" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__shared_space",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/shared_spaces/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__article_page",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/article_pages/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__template",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/templates/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__oldou__ibzemployees",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/ibzemployees/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__oldou__sysemployees",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/sysemployees/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__oldou__ibzdepartments",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/ibzdepartments/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__oldou__sysdepartments",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/sysdepartments/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__oldou__ibzorganizations",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/ibzorganizations/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ibizmodeling__plmwiki__oldou__sysorganizations",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ibizmodeling__plmwiki/sysorganizations/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  } ]
+}

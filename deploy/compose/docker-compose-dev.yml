@@ -42,22 +42,6 @@ services:
     networks:
       - agent_network
 
-  
-  #redis
-  redis:
-    image: ${IMAGE_URL}redis:6.2.6
-    container_name: redis
-    restart: unless-stopped
-    ports:
-    - "6379:6379"
-    environment:
-    - TZ=Asia/Shanghai
-    logging:
-      driver: "json-file"
-    networks:
-    - agent_network   
-    command: redis-server
-
 
   #zookeeper
   zoo1:
@@ -142,7 +126,7 @@ services:
   #ibizlab-uaa-api
   ibizlab-uaa-api:
     env_file: .dev
-    image: ${IMAGE_URL}uaa-standalone:2.1.7
+    image: ${IMAGE_URL}uaa-standalone:2.1.9-arm64
     container_name: ibizlab-uaa-api
     restart: unless-stopped
     ports:
@@ -169,7 +153,7 @@ services:
   #ibiz-ebsx-gateway
   ibiz-ebsx-gateway:
     env_file: .dev
-    image: ${IMAGE_URL}ibiz-ebsx-gateway:8.1.0.377-b2
+    image: ${IMAGE_URL}ibiz-ebsx-gateway:8.1.0.377-b2-arm64
     container_name: ibiz-ebsx-gateway
     restart: unless-stopped
     ports:
@@ -195,7 +179,7 @@ services:
   #plmservice
   plmservice:
     env_file: .dev
-    image: ${IMAGE_URL}ibiz-service-runner:v8.1.0.575.34.plm.251228
+    image: ${IMAGE_URL}ibiz-service-runner:v8.1.0.577.77.plm.260322-arm64
     container_name: plmservice
     ports:
       - "30251:30251"
@@ -212,8 +196,10 @@ services:
       - SPRING_DATASOURCE_PASSWORD=plm@2024
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/plm?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false
       - SPRING_DATASOURCE_USERNAME=plm
+      - SYSTEM_REPO=${AIBIZ_SYSTEM_REPO:-https://gitee.com/ibizlab/plm/releases/download/v1.0.2/v1.0.2.zip}
       - MODEL_READINESS_LOGINNAME=${AIBIZ_LOGINNAME:-aibizhi}
       - MODEL_READINESS_PASSWORD=${AIBIZ_PASSWORD:-123456}
+      - MODEL_READINESS_URL=http://127.0.0.1:30251/ibizservicerunner/serviceapi/psdelogics/fetchdefault
       - JAVA_OPTS=-Xms512m -Xmx2048m -Xss256K -Dgroovy.grape.report.downloads=true
     volumes:
       - ../../../scripts/modeling-readiness.sh:/usr/local/bin/modeling-readiness.sh:ro
@@ -249,6 +235,8 @@ services:
       - PLUGINBASEURL=./plugins
       - UPLOADFILEURL=/ibizutil/upload/ibizplm
       - DOWNLOADFILEURL=/ibizutil/download/ibizplm
+    volumes:
+      - ../../../plm-web/public/plugins:/dist/plugins:ro
     entrypoint: /entrypoint-waitfor.sh
     command: plmservice:30251
 
@@ -338,7 +326,7 @@ services:
       - modeling
     restart: unless-stopped
     env_file: .dev  
-    image: ${IMAGE_URL}ibiz-service-runner:v8.1.0.570.33-modeling.250826
+    image: ${AIBIZ_MODELING_IMAGE:-aibiz/modelingservice-arm64:local}
     container_name: modelingservice
     ports:
       - "32002:32002"
@@ -469,6 +457,7 @@ services:
       - COREDBNAME=ibizapi
       - DBSERVERIP=mysql
       - DBSERVERPORT=3306
+      - TASK_STARTUP_TIMEOUT=${TASK_STARTUP_TIMEOUT:-1800}
       - JAVA_OPTS=-Xms128m -Xmx${PLM_LIMITS_MEMORY:-512m} -Xss512K
       - IMPORT_BATCH_SIZE=${TASK_IMPORT_BATCH_SIZE:-500}
     volumes:
@@ -487,7 +476,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
-      start_period: 480s
+      start_period: 1800s
 
 volumes:
   task_data:

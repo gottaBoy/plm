@@ -1,6 +1,7 @@
 [submodule "backend"]
 	path = backend
-	url = https://github.com/ibizlab/plm-service
+	url = https://github.com/gottaBoy/plm-service.git
+	branch = main
 [submodule "frontend"]
 	path = frontend
 	url = https://github.com/ibizlab/plm-web

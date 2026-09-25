@@ -1,6 +1,27 @@
 -- Seed the personal dashboard requested by the PLM web workspace.
 -- Target database: plm, MySQL 5.7.
 
+CREATE TABLE IF NOT EXISTS `DYNADASHBOARD` (
+  `IS_SYSTEM` int(11) DEFAULT NULL COMMENT '是否系统类型',
+  `TYPE` varchar(100) DEFAULT NULL COMMENT '看板类型',
+  `OWNER_TYPE` varchar(100) DEFAULT NULL COMMENT '所属数据类型',
+  `OWNER_ID` varchar(100) DEFAULT NULL COMMENT '所属数据标识',
+  `DESC` mediumtext COMMENT '描述',
+  `EXAMPLE_CHART` mediumtext COMMENT '示例图',
+  `SEQUENCES` decimal(12,0) DEFAULT NULL COMMENT '序号',
+  `DYNADASHBOARDID` varchar(200) NOT NULL COMMENT '动态数据看板标识',
+  `DYNADASHBOARDNAME` varchar(200) DEFAULT NULL COMMENT '名称',
+  `CREATEMAN` varchar(60) DEFAULT NULL COMMENT '建立人',
+  `CREATEDATE` datetime DEFAULT NULL COMMENT '建立时间',
+  `UPDATE_MAN` varchar(100) DEFAULT NULL COMMENT '更新人',
+  `UPDATE_TIME` datetime DEFAULT NULL COMMENT '更新时间',
+  `USERID` varchar(100) DEFAULT NULL COMMENT '用户标识',
+  `MODELID` varchar(100) DEFAULT NULL COMMENT '模型标识',
+  `APPID` varchar(100) DEFAULT NULL COMMENT '应用标识',
+  `MODEL` mediumtext COMMENT '模型',
+  PRIMARY KEY (`DYNADASHBOARDID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='动态数据看板';
+
 INSERT INTO `DYNADASHBOARD` (
   `APPID`,
   `CREATEDATE`,

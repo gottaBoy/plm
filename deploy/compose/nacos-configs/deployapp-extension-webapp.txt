@@ -1,0 +1,135 @@
+{
+  "routes" : [ {
+    "id" : "extension__webapp__appdata",
+    "uri" : "lb://servicehub-extension",
+    "order" : 50,
+    "predicates" : [ "Path=/extension__webapp/appdata/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/extension" ]
+  }, {
+    "id" : "extension__webapp__cloud_uaa",
+    "uri" : "lb://ibizcloud-uaa",
+    "order" : 60,
+    "predicates" : [ "Path=/extension__webapp/v7/**,/extension__webapp/uaa/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "extension__webapp__cloud_oss",
+    "uri" : "lb://ibizcloud-oss",
+    "order" : 60,
+    "predicates" : [ "Path=/extension__webapp/ibizutil/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "extension__webapp__cloud_conf",
+    "uri" : "lb://ibizcloud-conf",
+    "order" : 60,
+    "predicates" : [ "Path=/extension__webapp/configs/**,/extension__webapp/dictionaries/**,/extension__webapp/dictionarys/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "extension__webapp__cloud_workflow",
+    "uri" : "lb://ibizcloud-wf",
+    "order" : 60,
+    "predicates" : [ "Path=/extension__webapp/wfcore/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "extension__webapp__cloud_devops",
+    "uri" : "lb://ibizcloud-devops",
+    "order" : 60,
+    "predicates" : [ "Path=/extension__webapp/remotemodel/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/devops/dynamodels/pssysapps/WebApp" ]
+  }, {
+    "id" : "extension__webapp__cloud_devops_jsonschema",
+    "uri" : "lb://ibizcloud-devops",
+    "order" : 60,
+    "predicates" : [ "Path=/extension__webapp/jsonschema/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/devops/jsonschemas/pssysapps/WebApp" ]
+  }, {
+    "id" : "extension__webapp__cloud_portal",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/extension__webapp/portal/markopendata/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "extension__webapp__cloud_portal_collaborate",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/extension__webapp/portal/collaborate/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "extension__webapp__cloud_portal_asyncaction",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/extension__webapp/portal/asyncaction/**", "Method=GET" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "extension__webapp__cloud_portal_asyncaction_select",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/extension__webapp/portal/asyncaction/executing,/extension__webapp/portal/asyncaction/finished,/extension__webapp/portal/asyncaction/error,/extension__webapp/portal/asyncaction/all" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "extension__webapp__cloud_portal_mqtt",
+    "uri" : "lb:ws://ibizcloud-portal-mqtt",
+    "order" : 60,
+    "predicates" : [ "Path=/extension__webapp/portal/mqtt/**" ],
+    "filters" : [ "StripPrefix=3" ]
+  }, {
+    "id" : "extension__webapp__cloud_saas_extension",
+    "uri" : "lb://extension-api",
+    "order" : 60,
+    "predicates" : [ "Path=/extension__webapp/extension/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/extension/api" ]
+  }, {
+    "id" : "extension__webapp__webhooks",
+    "uri" : "lb://servicehub-extension",
+    "order" : 60,
+    "predicates" : [ "Path=/extension__webapp/webhooks/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/extension/extension/webhooks" ]
+  }, {
+    "id" : "extension__webapp__import_schema",
+    "uri" : "lb://extension-core",
+    "order" : 100,
+    "predicates" : [ "Path=/extension__webapp/import_schemas/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/extension/core" ]
+  }, {
+    "id" : "extension__webapp__import_action",
+    "uri" : "lb://extension-core",
+    "order" : 100,
+    "predicates" : [ "Path=/extension__webapp/import_actions/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/extension/core" ]
+  }, {
+    "id" : "extension__webapp__oldou__ibzemployees",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/extension__webapp/ibzemployees/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "extension__webapp__oldou__sysemployees",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/extension__webapp/sysemployees/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "extension__webapp__oldou__ibzdepartments",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/extension__webapp/ibzdepartments/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "extension__webapp__oldou__sysdepartments",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/extension__webapp/sysdepartments/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "extension__webapp__oldou__ibzorganizations",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/extension__webapp/ibzorganizations/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "extension__webapp__oldou__sysorganizations",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/extension__webapp/sysorganizations/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  } ]
+}

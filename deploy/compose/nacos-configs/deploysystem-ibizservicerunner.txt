@@ -1,0 +1,27 @@
+deploysystemid: ibizservicerunner
+settings:
+  repo: https://gitee.com/ibizlab/plm/releases/download/v1.0.2/v1.0.2.zip
+  branch: main
+  product: ibizservicerunner
+  group: /EE/OFFICE
+  appdatactx:
+    modeldesignpath: https://open.ibizlab.cn/modeldesign/#/
+    modeldesignmode: v9
+  sysdbscheme:
+    default:
+      datasource: ibizservicerunner__default
+    ebsx:
+      DB2:
+        datasource: rtds
+  subsysserviceapi:
+    ibizsysmgr:
+      ibizsysmgr:
+        serviceurl: lb://uaa-api
+        clientid: aibizhi
+        clientsecret: '123456'
+        ibizsysmgr:
+          serviceurl: lb://uaa-api
+          clientid: aibizhi
+          clientsecret: '123456'
+extension: true
+updatedbschema: true

@@ -1,0 +1,31 @@
+deploysystems:
+- gateway
+- ibizservicerunner
+filefolder: /app/file/datafile
+systemsettings:
+  cloudclientutil:
+    serviceurl: lb://ebsx-oldapi
+    accesstokenurl: lb://ibizcloud-uaa/v7/login
+    clientid: aibizhi
+    clientsecret: '123456'
+enableprodmode: true
+enableappgateway: true
+datasources:
+  ibizservicerunner__default:
+    username: plm
+    password: plm@2024
+    url: jdbc:mysql://mysql:3306/plm?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    datasourceid: ibizservicerunner__default
+  rtds:
+    username: a_lab01_3f9ebc219
+    password: 9d@A178@
+    url: jdbc:mysql://mysql:3306/a_lab01_3f9ebc219?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+publish-config: true
+initmode: auto
+id: ibizservicerunner
+localmode: false
+register-naming-service: true
+tempfolder: /app/file/tempfile
+monitordebugmodelpathstimer: '-1'

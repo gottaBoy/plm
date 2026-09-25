@@ -1,0 +1,417 @@
+{
+  "routes" : [ {
+    "id" : "ebsx__dcmgr__appdata",
+    "uri" : "lb://servicehub-ebsx",
+    "order" : 50,
+    "predicates" : [ "Path=/ebsx__dcmgr/appdata/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx" ]
+  }, {
+    "id" : "ebsx__dcmgr__cloud_uaa",
+    "uri" : "lb://ibizcloud-uaa",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__dcmgr/v7/**,/ebsx__dcmgr/uaa/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ebsx__dcmgr__cloud_oss",
+    "uri" : "lb://ibizcloud-oss",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__dcmgr/ibizutil/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ebsx__dcmgr__cloud_conf",
+    "uri" : "lb://ibizcloud-conf",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__dcmgr/configs/**,/ebsx__dcmgr/dictionaries/**,/ebsx__dcmgr/dictionarys/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ebsx__dcmgr__cloud_workflow",
+    "uri" : "lb://ibizcloud-wf",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__dcmgr/wfcore/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ebsx__dcmgr__cloud_devops",
+    "uri" : "lb://ibizcloud-devops",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__dcmgr/remotemodel/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/devops/dynamodels/pssysapps/DCMgr" ]
+  }, {
+    "id" : "ebsx__dcmgr__cloud_devops_jsonschema",
+    "uri" : "lb://ibizcloud-devops",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__dcmgr/jsonschema/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/devops/jsonschemas/pssysapps/DCMgr" ]
+  }, {
+    "id" : "ebsx__dcmgr__cloud_portal",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__dcmgr/portal/markopendata/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ebsx__dcmgr__cloud_portal_collaborate",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__dcmgr/portal/collaborate/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ebsx__dcmgr__cloud_portal_asyncaction",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__dcmgr/portal/asyncaction/**", "Method=GET" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ebsx__dcmgr__cloud_portal_asyncaction_select",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__dcmgr/portal/asyncaction/executing,/ebsx__dcmgr/portal/asyncaction/finished,/ebsx__dcmgr/portal/asyncaction/error,/ebsx__dcmgr/portal/asyncaction/all" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ebsx__dcmgr__cloud_portal_mqtt",
+    "uri" : "lb:ws://ibizcloud-portal-mqtt",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__dcmgr/portal/mqtt/**" ],
+    "filters" : [ "StripPrefix=3" ]
+  }, {
+    "id" : "ebsx__dcmgr__cloud_saas_extension",
+    "uri" : "lb://extension-api",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__dcmgr/extension/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/extension/api" ]
+  }, {
+    "id" : "ebsx__dcmgr__webhooks",
+    "uri" : "lb://servicehub-ebsx",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__dcmgr/webhooks/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/ebsx/extension/webhooks" ]
+  }, {
+    "id" : "ebsx__dcmgr__jobsinfo",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/jobsinfos/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__syspo",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/syspos/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__metadynamodel",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/metadynamodels/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__sysrole",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/sysroles/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__openaccess",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/openaccesses/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__sysuserrole",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/sysuserroles/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__wfinstance",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/wfinstances/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__jobslog",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/jobslogs/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__initsystem_wizard",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/initsystem_wizards/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__msgsendqueue",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/msgsendqueues/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__sysrolepermission",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/sysrolepermissions/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__syspermissionaction",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/syspermissionactions/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__sysemployee",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/sysemployees/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__msgsendqueuehis",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/msgsendqueuehis/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__wfdefinitionnode",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/wfdefinitionnodes/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__dictcatalog",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/dictcatalogs/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__deptmember",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/deptmembers/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__msgtemplate",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/msgtemplates/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__sysorgsystem",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/sysorgsystems/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__metafield",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/metafields/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__systeammember",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/systeammembers/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__metaentity",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/metaentities/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__sysdcsystem",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/sysdcsystems/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__sysdynainst",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/sysdynainsts/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__sysevent",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/sysevents/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__opendept",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/opendepts/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__wfgroup",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/wfgroups/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__wfmember",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/wfmembers/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__jobsregistry",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/jobsregistries/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__openuser",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/openusers/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__metadataset",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/metadatasets/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__sysdepartment",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/sysdepartments/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__syscenter",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/syscenters/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__syspost",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/sysposts/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__syspermission",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/syspermissions/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__userauth",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/userauths/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__systeam",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/systeams/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__sysorganization",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/sysorganizations/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__dataaudit",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/dataaudits/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__dcsystem",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/dcsystems/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__metarelationship",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/metarelationships/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__syslog",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/syslogs/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__sysbulletin",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/sysbulletins/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__metalookup",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/metalookups/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__sysaudit",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/sysaudits/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__msgopenaccess",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/msgopenaccesses/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__msgaccount",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/msgaccounts/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__dictoption",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/dictoptions/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__wfdefinition",
+    "uri" : "lb://ebsx-oldapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__dcmgr/wfdefinitions/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldapi" ]
+  }, {
+    "id" : "ebsx__dcmgr__oldou__ibzemployees",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ebsx__dcmgr/ibzemployees/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ebsx__dcmgr__oldou__sysemployees",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ebsx__dcmgr/sysemployees/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ebsx__dcmgr__oldou__ibzdepartments",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ebsx__dcmgr/ibzdepartments/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ebsx__dcmgr__oldou__sysdepartments",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ebsx__dcmgr/sysdepartments/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ebsx__dcmgr__oldou__ibzorganizations",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ebsx__dcmgr/ibzorganizations/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ebsx__dcmgr__oldou__sysorganizations",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ebsx__dcmgr/sysorganizations/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  } ]
+}

@@ -1,0 +1,23 @@
+deploysystemid: gateway
+settings:
+  sysutil:
+    unistate:
+      serviceurl: zoo1:2181
+      servicehost: zoo1
+      serviceport: '2181'
+    cache:
+      serviceurl: redis:6379
+      servicehost: redis
+      serviceport: '6379'
+    uaa:
+      newrtuaa: true
+      signature: RSA
+      secret: sec
+    hubextension:
+      productmarket:
+        serviceurl: https://code.ibizlab.cn/api/v4
+        mode: V2
+        projectid: plm_addons/public
+  sysdbscheme:
+    default:
+      datasource: rtds

@@ -1,7 +1,7 @@
 # SYSTEM：系统配置，支持：iBizPLM以及后续即将开源的iBizEHR、iBizEAM系统部署(业务系统、建模工具Modeling、在线开发Code-Server)
 ## 业务系统配置信息
 SYSTEM_NAME=ibizplm
-SYSTEM_REPO=https://oauth2:XXXXXX替换私人令牌XXXXXXX@gitee.com/find1024/plm.git    #fork默认仓库，提供fork后的仓库地址如：https://oauth2:XXXXX私人令牌XXXXXX@gitee.com/find1024/plm.git
+SYSTEM_REPO=https://gitee.com/ibizlab/plm/releases/download/v1.0.2/v1.0.2.zip
 SYSTEM_BRANCH=main
 ## 建模工具Modeling配置信息：iBiz建模平台，提供系统建模能力
 SYSTEM_MODEL_PROFILE=modeling    #将modeling改为null     

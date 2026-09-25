@@ -1,0 +1,7 @@
+appgateway: default
+devmode: 'true'
+gitpassword: cloud_devops_token
+dynamodelpath: /app/file/datafile/dynamicmodel
+gitusername: cloud_devops_gituser
+modelpath: /app/file/datafile/model
+devcenter: demo

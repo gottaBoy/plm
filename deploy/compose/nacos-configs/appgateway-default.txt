@@ -1,0 +1,7 @@
+deployapps:
+- ibizservicerunner-plmmob
+- ibizservicerunner-plmweb
+- ibizservicerunner-plmwiki
+- default-ex
+- ibizmodeling-apigateway
+- ibizservicerunner-apigateway

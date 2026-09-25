@@ -1,0 +1,49 @@
+services:
+  plmservice:
+    image: aibiz/plmservice:local
+    entrypoint:
+      - sh
+      - -c
+      - exec java $${JAVA_OPTS} -jar /app/plm-provider.jar
+    command: []
+    volumes:
+      - ../../../plm/model:/app/model:ro
+    environment:
+      SERVER_PORT: "30251"
+      SYSTEM_NAME: ibizservicerunner
+      IBIZ_SERVICEHUB_ID: ibizservicerunner
+      IBIZ_SERVICEHUB_INITMODE: auto
+      IBIZ_SERVICEHUB_LOCALMODE: "true"
+      IBIZ_SERVICEHUB_PUBLISH_CONFIG: "false"
+      IBIZ_SERVICEHUB_DEPLOYSYSTEMS_0: gateway
+      IBIZ_SERVICEHUB_DEPLOYSYSTEMS_1: ibizservicerunner
+      IBIZ_SERVICEHUB_ENABLEPRODMODE: "true"
+      IBIZ_DEPLOYSYSTEMS_IBIZSERVICERUNNER_MODELPATH: /app/model
+      IBIZ_DEPLOYSYSTEMS_IBIZSERVICERUNNER_EXTENSION: "false"
+      IBIZ_DEPLOYSYSTEMS_IBIZSERVICERUNNER_UPDATEDBSCHEMA: "false"
+      SPRING_CLOUD_NACOS_DISCOVERY_SERVER_ADDR: http://nacos:8848
+      SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR: http://nacos:8848
+      SPRING_CLOUD_NACOS_DISCOVERY_GROUP: ibiz_config_group
+      SPRING_CLOUD_NACOS_CONFIG_GROUP: ibiz_config_group
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/plm?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: plm
+      SPRING_DATASOURCE_PASSWORD: plm@2024
+      SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MASTER_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MASTER_URL: jdbc:mysql://mysql:3306/plm?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false
+      SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MASTER_USERNAME: plm
+      SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MASTER_PASSWORD: plm@2024
+      SPRING_DATASOURCE_DYNAMIC_DATASOURCE_DB2_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_DATASOURCE_DYNAMIC_DATASOURCE_DB2_URL: jdbc:mysql://mysql:3306/plm?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false
+      SPRING_DATASOURCE_DYNAMIC_DATASOURCE_DB2_USERNAME: plm
+      SPRING_DATASOURCE_DYNAMIC_DATASOURCE_DB2_PASSWORD: plm@2024
+      IBIZ_SERVICEHUB_DATASOURCES_RTDS_USERNAME: a_lab01_3f9ebc219
+      IBIZ_SERVICEHUB_DATASOURCES_RTDS_PASSWORD: 9d@A178@
+      IBIZ_SERVICEHUB_DATASOURCES_RTDS_URL: jdbc:mysql://mysql:3306/a_lab01_3f9ebc219?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false
+      IBIZ_SERVICEHUB_DATASOURCES_RTDS_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      CLOUD_SERVICEURL: http://ibiz-ebsx-allinone:30000
+      CLOUD_ACCESSTOKENURL: http://ibiz-ebsx-allinone:30000/v7/login
+      CLOUD_CLIENTID: aibizhi
+      CLOUD_CLIENTSECRET: 123456
+      MODEL_READINESS_URL: http://127.0.0.1:30251/ibizservicerunner/serviceapi/psdelogics/fetchdefault
+      MODEL_READINESS_AUTH_URL: http://ibiz-ebsx-allinone:30000/v7/login

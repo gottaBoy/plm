@@ -1,0 +1,207 @@
+{
+  "routes" : [ {
+    "id" : "ebsx__saasmgr__appdata",
+    "uri" : "lb://servicehub-ebsx",
+    "order" : 50,
+    "predicates" : [ "Path=/ebsx__saasmgr/appdata/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx" ]
+  }, {
+    "id" : "ebsx__saasmgr__cloud_uaa",
+    "uri" : "lb://ibizcloud-uaa",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__saasmgr/v7/**,/ebsx__saasmgr/uaa/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ebsx__saasmgr__cloud_oss",
+    "uri" : "lb://ibizcloud-oss",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__saasmgr/ibizutil/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ebsx__saasmgr__cloud_conf",
+    "uri" : "lb://ibizcloud-conf",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__saasmgr/configs/**,/ebsx__saasmgr/dictionaries/**,/ebsx__saasmgr/dictionarys/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ebsx__saasmgr__cloud_workflow",
+    "uri" : "lb://ibizcloud-wf",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__saasmgr/wfcore/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ebsx__saasmgr__cloud_devops",
+    "uri" : "lb://ibizcloud-devops",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__saasmgr/remotemodel/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/devops/dynamodels/pssysapps/SAASMgr" ]
+  }, {
+    "id" : "ebsx__saasmgr__cloud_devops_jsonschema",
+    "uri" : "lb://ibizcloud-devops",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__saasmgr/jsonschema/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/devops/jsonschemas/pssysapps/SAASMgr" ]
+  }, {
+    "id" : "ebsx__saasmgr__cloud_portal",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__saasmgr/portal/markopendata/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ebsx__saasmgr__cloud_portal_collaborate",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__saasmgr/portal/collaborate/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ebsx__saasmgr__cloud_portal_asyncaction",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__saasmgr/portal/asyncaction/**", "Method=GET" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ebsx__saasmgr__cloud_portal_asyncaction_select",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__saasmgr/portal/asyncaction/executing,/ebsx__saasmgr/portal/asyncaction/finished,/ebsx__saasmgr/portal/asyncaction/error,/ebsx__saasmgr/portal/asyncaction/all" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ebsx__saasmgr__cloud_portal_mqtt",
+    "uri" : "lb:ws://ibizcloud-portal-mqtt",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__saasmgr/portal/mqtt/**" ],
+    "filters" : [ "StripPrefix=3" ]
+  }, {
+    "id" : "ebsx__saasmgr__cloud_saas_extension",
+    "uri" : "lb://extension-api",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__saasmgr/extension/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/extension/api" ]
+  }, {
+    "id" : "ebsx__saasmgr__webhooks",
+    "uri" : "lb://servicehub-ebsx",
+    "order" : 60,
+    "predicates" : [ "Path=/ebsx__saasmgr/webhooks/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/ebsx/extension/webhooks" ]
+  }, {
+    "id" : "ebsx__saasmgr__sysdynainst",
+    "uri" : "lb://ebsx-oldcoreapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__saasmgr/sysdynainsts/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldcoreapi" ]
+  }, {
+    "id" : "ebsx__saasmgr__dcorgsystem",
+    "uri" : "lb://ebsx-oldcoreapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__saasmgr/dcorgsystems/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldcoreapi" ]
+  }, {
+    "id" : "ebsx__saasmgr__openaccess",
+    "uri" : "lb://ebsx-oldcoreapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__saasmgr/openaccesses/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldcoreapi" ]
+  }, {
+    "id" : "ebsx__saasmgr__oldapp",
+    "uri" : "lb://ebsx-oldcoreapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__saasmgr/oldapps/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldcoreapi" ]
+  }, {
+    "id" : "ebsx__saasmgr__syspssystem",
+    "uri" : "lb://ebsx-oldcoreapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__saasmgr/syspssystems/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldcoreapi" ]
+  }, {
+    "id" : "ebsx__saasmgr__metadynamodel",
+    "uri" : "lb://ebsx-oldcoreapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__saasmgr/metadynamodels/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldcoreapi" ]
+  }, {
+    "id" : "ebsx__saasmgr__dcmetadynamodel",
+    "uri" : "lb://ebsx-oldcoreapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__saasmgr/dcmetadynamodels/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldcoreapi" ]
+  }, {
+    "id" : "ebsx__saasmgr__syscenter",
+    "uri" : "lb://ebsx-oldcoreapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__saasmgr/syscenters/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldcoreapi" ]
+  }, {
+    "id" : "ebsx__saasmgr__sysdcsystem",
+    "uri" : "lb://ebsx-oldcoreapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__saasmgr/sysdcsystems/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldcoreapi" ]
+  }, {
+    "id" : "ebsx__saasmgr__organization",
+    "uri" : "lb://ebsx-oldcoreapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__saasmgr/organizations/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldcoreapi" ]
+  }, {
+    "id" : "ebsx__saasmgr__sysorgsystem",
+    "uri" : "lb://ebsx-oldcoreapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__saasmgr/sysorgsystems/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldcoreapi" ]
+  }, {
+    "id" : "ebsx__saasmgr__dcdynainst",
+    "uri" : "lb://ebsx-oldcoreapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__saasmgr/dcdynainsts/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldcoreapi" ]
+  }, {
+    "id" : "ebsx__saasmgr__department",
+    "uri" : "lb://ebsx-oldcoreapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__saasmgr/departments/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldcoreapi" ]
+  }, {
+    "id" : "ebsx__saasmgr__sysuser",
+    "uri" : "lb://ebsx-oldcoreapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ebsx__saasmgr/sysusers/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldcoreapi" ]
+  }, {
+    "id" : "ebsx__saasmgr__oldou__ibzemployees",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ebsx__saasmgr/ibzemployees/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ebsx__saasmgr__oldou__sysemployees",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ebsx__saasmgr/sysemployees/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ebsx__saasmgr__oldou__ibzdepartments",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ebsx__saasmgr/ibzdepartments/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ebsx__saasmgr__oldou__sysdepartments",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ebsx__saasmgr/sysdepartments/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ebsx__saasmgr__oldou__ibzorganizations",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ebsx__saasmgr/ibzorganizations/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ebsx__saasmgr__oldou__sysorganizations",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ebsx__saasmgr/sysorganizations/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  } ]
+}

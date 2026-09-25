@@ -1,0 +1,27 @@
+deploysystemid: ibizplm
+settings:
+  repo: 'https://oauth2:XXXXXX替换私人令牌XXXXXXX@gitee.com/find1024/plm.git    #fork默认仓库，提供fork后的仓库地址如：https://oauth2:XXXXX私人令牌XXXXXX@gitee.com/find1024/plm.git'
+  branch: main
+  product: ibizplm
+  group: /EE/OFFICE
+  appdatactx:
+    modeldesignpath: https://open.ibizlab.cn/modeldesign/#/
+    modeldesignmode: v9
+  sysdbscheme:
+    default:
+      datasource: ibizplm__default
+    ebsx:
+      DB2:
+        datasource: rtds
+  subsysserviceapi:
+    ibizsysmgr:
+      ibizsysmgr:
+        serviceurl: lb://uaa-api
+        clientid: aibizhi
+        clientsecret: '123456'
+        ibizsysmgr:
+          serviceurl: lb://uaa-api
+          clientid: aibizhi
+          clientsecret: '123456'
+extension: true
+updatedbschema: true

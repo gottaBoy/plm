@@ -1,0 +1,11 @@
+deploysystemid: ebsx
+settings:
+  sysdbscheme:
+    default:
+      datasource: rtds
+    db2:
+      datasource: rtds
+    db3:
+      datasource: rtds
+updatedbschema: true
+runtimeclassname: net.ibizsys.central.cloud.saas.ebsx.EBSXSystemRuntime

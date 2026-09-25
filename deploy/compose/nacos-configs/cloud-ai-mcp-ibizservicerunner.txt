@@ -1,0 +1,4 @@
+serviceurl: http://plmservice:30251/ibizservicerunner/mcp
+api_auth_type: BEARER_TOKEN
+accesstoken: 4288a7ca32b2c1f82499300a52d2a496
+disabled: 0

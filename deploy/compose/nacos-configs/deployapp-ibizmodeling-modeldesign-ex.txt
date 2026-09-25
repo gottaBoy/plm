@@ -1,0 +1,11 @@
+{
+  "routes" : [
+    {
+    "id" : "ibizmodeling__modeldesign__pregen",
+    "uri" : "http://task:80/",
+    "order" : 51,
+    "predicates" : [ "Path=/ibizmodeling__modeldesign/pregen/**" ],
+    "filters" : [ "StripPrefix=2","PrefixPath=/" ]
+    }
+  ]
+}

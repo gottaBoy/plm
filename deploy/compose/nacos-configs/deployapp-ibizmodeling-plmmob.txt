@@ -1,0 +1,423 @@
+{
+  "routes" : [ {
+    "id" : "ibizmodeling__plmmob__appdata",
+    "uri" : "lb://servicehub-ibizmodeling",
+    "order" : 50,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/appdata/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__cloud_uaa",
+    "uri" : "lb://ibizcloud-uaa",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/v7/**,/ibizmodeling__plmmob/uaa/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__cloud_oss",
+    "uri" : "lb://ibizcloud-oss",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/ibizutil/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__cloud_conf",
+    "uri" : "lb://ibizcloud-conf",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/configs/**,/ibizmodeling__plmmob/dictionaries/**,/ibizmodeling__plmmob/dictionarys/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__cloud_workflow",
+    "uri" : "lb://ibizcloud-wf",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/wfcore/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__cloud_devops",
+    "uri" : "lb://ibizcloud-devops",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/remotemodel/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/devops/dynamodels/pssysapps/plmmob" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__cloud_devops_jsonschema",
+    "uri" : "lb://ibizcloud-devops",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/jsonschema/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/devops/jsonschemas/pssysapps/plmmob" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__cloud_portal",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/portal/markopendata/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__cloud_portal_collaborate",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/portal/collaborate/**" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__cloud_portal_asyncaction",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/portal/asyncaction/**", "Method=GET" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__cloud_portal_asyncaction_select",
+    "uri" : "lb://ibizcloud-portal",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/portal/asyncaction/executing,/ibizmodeling__plmmob/portal/asyncaction/finished,/ibizmodeling__plmmob/portal/asyncaction/error,/ibizmodeling__plmmob/portal/asyncaction/all" ],
+    "filters" : [ "StripPrefix=1" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__cloud_portal_mqtt",
+    "uri" : "lb:ws://ibizcloud-portal-mqtt",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/portal/mqtt/**" ],
+    "filters" : [ "StripPrefix=3" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__cloud_saas_extension",
+    "uri" : "lb://extension-api",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/extension/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/extension/api" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__webhooks",
+    "uri" : "lb://servicehub-ibizmodeling",
+    "order" : 60,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/webhooks/**" ],
+    "filters" : [ "StripPrefix=2", "PrefixPath=/ibizmodeling/extension/webhooks" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__product",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/products/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__recent",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/recents/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__workload_type",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/workload_types/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__library",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/libraries/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__user",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/users/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__search_comment",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/search_comments/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__work_item_state",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/work_item_states/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__member",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/members/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__release",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/releases/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__article_page",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/article_pages/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__work_item",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/work_items/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__product_member",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/product_members/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__template",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/templates/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__search_hub",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/search_hubs/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__discuss_post",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/discuss_posts/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__workload",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/workloads/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__idea",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/ideas/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__library_member",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/library_members/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__search_attachment",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/search_attachments/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__project_tag",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/project_tags/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__run_attachment",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/run_attachments/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__product_tag",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/product_tags/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__space",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/spaces/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__discuss_reply",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/discuss_replies/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__department",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/departments/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__project_member",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/project_members/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__psdenotify",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/psdenotifies/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__test_case",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/test_cases/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__stage",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/stages/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__customer",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/customers/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__ticket_type",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/ticket_types/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__view_theme_setting",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/view_theme_settings/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__relation",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/relations/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__group",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/groups/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__deliverable",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/deliverables/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__discuss_topic",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/discuss_topics/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__project",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/projects/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__test_plan",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/test_plans/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__work_item_type",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/work_item_types/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__category",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/categories/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__dictionary_data",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/dictionary_data/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__run",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/runs/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__activity",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/activities/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__test_suite",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/test_suites/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__sprint",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/sprints/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__version",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/versions/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__ticket",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/tickets/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__insight_view",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/insight_views/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__discuss_member",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/discuss_members/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__space_member",
+    "uri" : "lb://ibizmodeling-serviceapi",
+    "order" : 100,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/space_members/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ibizmodeling/serviceapi" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__oldou__ibzemployees",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/ibzemployees/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__oldou__sysemployees",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/sysemployees/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__oldou__ibzdepartments",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/ibzdepartments/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__oldou__sysdepartments",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/sysdepartments/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__oldou__ibzorganizations",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/ibzorganizations/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  }, {
+    "id" : "ibizmodeling__plmmob__oldou__sysorganizations",
+    "uri" : "lb://ebsx-oldou",
+    "order" : 120,
+    "predicates" : [ "Path=/ibizmodeling__plmmob/sysorganizations/**" ],
+    "filters" : [ "StripPrefix=1", "PrefixPath=/ebsx/oldou" ]
+  } ]
+}

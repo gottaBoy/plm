@@ -1,0 +1,29 @@
+modelpath: __REMOTE__
+updatedbschema: true
+extension: true
+settings:
+  appdatactx:
+    modeldesignpath: http://modelingweb:32003/modeldesign/#/
+  subsysserviceapi:
+    ibizsysmgr:
+      ibizsysmgr:
+        serviceurl: lb://uaa-api
+        clientid: aibizhi
+        clientsecret: '123456'
+        ibizsysmgr:
+          serviceurl: lb://uaa-api
+          clientid: aibizhi
+          clientsecret: '123456'
+    sysdevstudio:
+      ibizrtclient:
+        clientid: aibizhi
+        clientsecret: '123456'
+      v5coreapi:
+        serviceurl: http://task:8080/SAPAAS
+        clientid: demo_admin
+        clientsecret: '123456'
+    addin:
+      plmclient:
+        accesstokenurl: http://plmweb:30250/api/ibizplm__plmweb/v7/login
+        clientid: aibizhi
+        clientsecret: '123456'

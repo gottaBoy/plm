@@ -2784,7 +2784,7 @@
     "path" : "PSSYSMODELGROUPS/ibizsysmgr/PSMODULES/ibizsysmgr.json"
   },
   "serviceCodeName" : "ibizsysmgr",
-  "servicePath" : "lb://ibizsysmgr-serviceapi/ibizsysmgr/serviceapi",
+  "servicePath" : "lb://uaa-api",
   "serviceType" : "DEFAULT",
   "enableServiceAPIDTO" : true
 }
