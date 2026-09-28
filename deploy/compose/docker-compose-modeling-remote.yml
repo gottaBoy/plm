@@ -1,0 +1,27 @@
+# Rollback overlay for the previous prebuilt Modeling Web runner.
+#
+# Use only when the local static image is unavailable:
+#   docker compose \
+#     -f plm/deploy/compose/docker-compose-dev.yml \
+#     -f plm/deploy/compose/docker-compose-modeling-remote.yml \
+#     --env-file plm/deploy/compose/.dev --profile modeling up -d
+#
+# This overlay restores the former runner and command while leaving the local
+# Modeling Web definition in docker-compose-dev.yml easy to re-enable later.
+
+services:
+  modelingweb:
+    build: !reset null
+    image: ${MODELING_WEB_REMOTE_IMAGE:-swr.ap-southeast-1.myhuaweicloud.com/find1024/ibiz-cloud-web-runner:v9.0.7.40-alpha.19}
+    pull_policy: missing
+    entrypoint: null
+    command:
+      - /bin/sh
+      - -c
+      - cp /opt/aibiz/nginx-local.conf /etc/nginx/conf.d/nginx.conf &&
+        /bin/bash /opt/aibiz/local-start.sh
+    tmpfs: !reset []
+    volumes: !override
+      - ../../../modelingweb/nginx-local.conf:/opt/aibiz/nginx-local.conf:ro
+      - ../../../modelingweb/start.sh:/opt/aibiz/local-start.sh:ro
+      - ../../model:/app/model:ro

@@ -10,6 +10,9 @@ const directory = dirname(fileURLToPath(import.meta.url));
 const root = resolve(directory, '../../../..');
 const script = join(root, 'scripts/modeling-readiness.sh');
 const mockCurl = join(directory, 'fixtures/readiness-curl.mjs');
+const composeFile = join(root, 'plm/deploy/compose/docker-compose-dev.yml');
+const remoteComposeFile = join(root, 'plm/deploy/compose/docker-compose-modeling-remote.yml');
+const envFile = join(root, 'plm/deploy/compose/.dev');
 const credentials = {
   MODEL_READINESS_LOGINNAME: 'probe-user',
   MODEL_READINESS_PASSWORD: 'probe-password-secret',
@@ -17,6 +20,109 @@ const credentials = {
 const token = 'test-token-do-not-print';
 const login = { http: '200', body: JSON.stringify({ token }) };
 const ready = { http: '200', body: '[]' };
+
+function renderCompose(files) {
+  return spawnSync('docker', [
+    'compose',
+    ...files.flatMap(file => ['-f', file]),
+    '--env-file',
+    envFile,
+    '--profile',
+    'modeling',
+    'config',
+    '--format',
+    'json',
+  ], {
+    cwd: root,
+    encoding: 'utf8',
+    timeout: 10000,
+  });
+}
+
+test('the formal Modeling Web service is local and does not use the remote runner', () => {
+  const rendered = renderCompose([composeFile]);
+  assert.equal(rendered.status, 0, rendered.stderr || rendered.error?.message);
+  const service = JSON.parse(rendered.stdout).services.modelingweb;
+  assert.equal(service.image, 'aibiz/modelingweb:local');
+  assert.equal(service.build.context, join(root, 'modelingweb'));
+  assert.equal(service.build.dockerfile, 'Dockerfile.modelingweb');
+  assert.equal(service.pull_policy, 'never');
+  assert.deepEqual(service.entrypoint, ['/start.sh']);
+  assert.deepEqual(service.command, []);
+  assert.deepEqual(service.tmpfs, ['/dist:uid=101,gid=101,mode=0755']);
+  assert.ok(service.volumes.some(value =>
+    value.type === 'bind' &&
+    value.source === join(root, 'modelingweb/app/dist') &&
+    value.target === '/opt/aibiz/local-dist' &&
+    value.read_only === true));
+  assert.doesNotMatch(service.image, /ibiz-cloud-web-runner/);
+});
+
+test('the remote Modeling Web overlay restores the previous runner configuration', () => {
+  const rendered = renderCompose([composeFile, remoteComposeFile]);
+  assert.equal(rendered.status, 0, rendered.stderr || rendered.error?.message);
+  const service = JSON.parse(rendered.stdout).services.modelingweb;
+  assert.equal(
+    service.image,
+    'swr.ap-southeast-1.myhuaweicloud.com/find1024/ibiz-cloud-web-runner:v9.0.7.40-alpha.19',
+  );
+  assert.equal(service.build, undefined);
+  assert.deepEqual(service.command, [
+    '/bin/sh',
+    '-c',
+    'cp /opt/aibiz/nginx-local.conf /etc/nginx/conf.d/nginx.conf && /bin/bash /opt/aibiz/local-start.sh',
+  ]);
+  assert.equal(service.entrypoint, null);
+  assert.equal(service.tmpfs, undefined);
+  assert.equal(
+    service.volumes.some(value => value.target === '/opt/aibiz/local-dist'),
+    false,
+  );
+});
+
+test('the development Compose stack uses the local source-built Modeling image', () => {
+  const compose = readFileSync(composeFile, 'utf8');
+  const start = compose.indexOf('  modelingservice:\n');
+  const end = compose.indexOf('\n\n  #modelingweb', start);
+  assert.ok(start >= 0 && end > start, 'modelingservice block must exist');
+  const service = compose.slice(start, end);
+  assert.match(
+    service,
+    /image: \$\{AIBIZ_MODELING_IMAGE:-aibiz\/modelingservice-arm64:source-built\}/,
+  );
+  assert.match(service, /pull_policy: never/);
+});
+
+test('the development Compose stack pins Modeling to the ibizapi datasource', () => {
+  const rendered = spawnSync('docker', [
+    'compose',
+    '-f',
+    composeFile,
+    '--env-file',
+    envFile,
+    'config',
+    '--format',
+    'json',
+  ], {
+    cwd: root,
+    encoding: 'utf8',
+    timeout: 10000,
+  });
+  assert.equal(rendered.status, 0, rendered.stderr || rendered.error?.message);
+  const service = JSON.parse(rendered.stdout).services.modelingservice;
+  assert.equal(service.environment.SPRING_DATASOURCE_DRIVER_CLASS_NAME, 'com.mysql.cj.jdbc.Driver');
+  assert.equal(service.environment.SPRING_DATASOURCE_USERNAME, 'ibizapi');
+  assert.equal(service.environment.SPRING_DATASOURCE_PASSWORD, 'Ibizapi@2022');
+  assert.match(service.environment.SPRING_DATASOURCE_URL, /\/ibizapi\?/);
+  assert.equal(service.environment.SPRING_DATASOURCE_DEFAULTSCHEMA, 'ibizapi');
+  assert.equal(
+    service.environment.SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MASTER_DRIVER_CLASS_NAME,
+    'com.mysql.cj.jdbc.Driver',
+  );
+  assert.equal(service.environment.SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MASTER_USERNAME, 'ibizapi');
+  assert.equal(service.environment.SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MASTER_PASSWORD, 'Ibizapi@2022');
+  assert.match(service.environment.SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MASTER_URL, /\/ibizapi\?/);
+});
 
 function probe(t, responses, overrides = {}, { missingCurl = false } = {}) {
   const temp = mkdtempSync(join(tmpdir(), 'plm-readiness-test-'));
@@ -78,7 +184,7 @@ test('logs in through UAA, then performs the actual read-only PLM POST', t => {
     loginname: credentials.MODEL_READINESS_LOGINNAME,
     password: credentials.MODEL_READINESS_PASSWORD,
   });
-  assert.equal(api.args.at(-1), 'http://127.0.0.1:30251/ibizplm/serviceapi/psdelogics/fetchdefault');
+  assert.equal(api.args.at(-1), 'http://127.0.0.1:30251/ibizservicerunner/serviceapi/psdelogics/fetchdefault');
   assert.deepEqual(JSON.parse(option(api, '--data-raw')), { page: 0, size: 1 });
   assert.ok(headers(api).includes(`Authorization: Bearer ${token}`));
   assert.ok(headers(api).includes('Content-Type: application/json'));
@@ -101,7 +207,7 @@ test('an explicit authentication URL remains configurable', t => {
 });
 
 test('a supplied token bypasses login and preserves the configured API URL', t => {
-  const url = 'http://127.0.0.1:30252/ibizplm/serviceapi/psdelogics/fetchdefault';
+  const url = 'http://127.0.0.1:30252/ibizservicerunner/serviceapi/psdelogics/fetchdefault';
   const result = probe(t, [ready], {
     ...credentials,
     MODEL_READINESS_TOKEN: token,
@@ -119,7 +225,7 @@ test('the default API URL honors SERVER_PORT', t => {
     SERVER_PORT: '30252',
   });
   assert.equal(result.status, 0, result.stderr);
-  assert.equal(result.calls[0].args.at(-1), 'http://127.0.0.1:30252/ibizplm/serviceapi/psdelogics/fetchdefault');
+  assert.equal(result.calls[0].args.at(-1), 'http://127.0.0.1:30252/ibizservicerunner/serviceapi/psdelogics/fetchdefault');
 });
 
 test('the OAuth access_token response is still supported', t => {

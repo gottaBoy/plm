@@ -35,6 +35,15 @@ $ docker compose -f docker-compose.yml --env-file .env up -d
 # docker compose -f docker-compose-dev.yml --env-file .dev up -d
 ```
 
+开发模式的 `docker-compose-dev.yml` 已默认使用本地 `aibiz/modelingweb:local`
+镜像，并将 `modelingweb/app/dist` 以只读方式覆盖到容器 `/dist`。首次启动或
+修改 `Dockerfile.modelingweb` 后使用 `--build`：
+
+```bash
+$ docker compose -f docker-compose-dev.yml --env-file .dev \
+    --profile modeling up -d --build modeling-plugins modelingweb
+```
+
 数据库补充迁移在容器健康启动后执行一次。脚本会按文件名顺序执行
 `migrations/` 下全部 SQL，并且可以重复执行：
 
@@ -43,7 +52,8 @@ $ cd plm/deploy/compose
 $ ./migrate.sh
 ```
 
-本地修改 `modelingweb/app` 后，先构建前端，再使用显式 overlay 部署本地产物：
+本地修改 `modelingweb/app` 后，先构建前端；需要将宿主机最新 `dist` 覆盖进
+正在运行的容器时，再使用可选的 local dist overlay：
 
 ```bash
 $ cd /Users/minyi/workspace/aibiz/modelingweb/app
@@ -57,6 +67,66 @@ $ AIBIZ_USE_LOCAL_WEB_DIST=true scripts/restart-modeling-stack.sh
 并等待 allinone 健康后再继续；不会删除或重建已有的 `plmservice`、
 Gateway、UAA、建模后端容器。`task_data` 和 `modeling_plugins_data`
 数据卷会保留。
+
+正式本地镜像不可用时，使用显式 remote overlay 回滚到原来的预构建
+`ibiz-cloud-web-runner`。该 overlay 会清除本地 build 和 tmpfs 配置，不会改变
+基础 Compose 文件：
+
+```bash
+$ docker compose \
+    -f docker-compose-dev.yml \
+    -f docker-compose-modeling-remote.yml \
+    --env-file .dev --profile modeling up -d modelingweb
+```
+
+#### 本地源码构建 allinone 和 Gateway
+
+`ibiz-ebsx-runtime` 和 `ibiz-ebsx-gateway` 可以从本地 Maven reactor 构建为
+可复现的 ARM64 Docker 镜像。构建脚本会校验两个 Spring Boot 产物，固定 JDK 17
+基础镜像 digest，并生成构建回执：
+
+```bash
+$ cd ibiz-service-hub
+$ ./scripts/build-local-images.sh \
+    --platform linux/arm64 \
+    --tag 8.1.0.584.1-local \
+    --record /tmp/backend-local-build.json
+```
+
+回执至少包含源码 SHA256、Git commit/dirty 状态、reactor/module 版本、目标架构、
+Maven/JDK 请求 tag 与解析后的 digest、两个 JAR SHA256、镜像 ID 和 OCI 版本标签。
+本次版本关系为 `8.1.0.584.1` -> `8.1.0.584.1-local`，目标为 `linux/arm64`；
+JDK 基础镜像记录为
+`eclipse-temurin@sha256:bc033b57e11b773c3043babfd664e7a5ef110805548b921cbfc3e8c67a0725d6`。
+
+需要让源码镜像占用正式端口 `30000` 和 `30086` 时，先停止正式的
+`ibiz-ebsx-allinone`、`ibiz-ebsx-gateway` 容器，再启动 target-port Compose：
+
+```bash
+$ cd plm/deploy/compose
+$ docker compose --env-file source-built-target.env \
+    -f docker-compose-platform-local.yml up -d --build \
+    ibiz-ebsx-allinone-local ibiz-ebsx-gateway-local
+$ docker compose --env-file source-built-target.env \
+    -f docker-compose-platform-local.yml config --quiet
+```
+
+`source-built-target.env` 只覆盖源码镜像、JDK digest 和正式端口，不会替换
+middleware 配置。若正式栈仍在运行，请使用默认的 `30100`/`30186` 端口或先处理
+端口冲突。启动后执行认证与路由 smoke：
+
+```bash
+$ AIBIZ_ALLINONE_PORT=30000 AIBIZ_GATEWAY_PORT=30086 \
+    ./source-platform-smoke.sh
+```
+
+脚本覆盖 allinone 根路径、登录、无 token/带 token API、Gateway 根路径及目标路由；
+网络错误、404 路由错误和认证失败均会失败退出，报告写入
+`.artifacts/source-platform-smoke/<timestamp>/`，不会输出密码或 token。
+
+当前本地化范围覆盖 Modeling Web 静态镜像、插件 sidecar 和部署 harness；真实
+iBizModeling Central/ModelDesign 核心模型源码仍未找到，核心模型审计保持
+fail-closed，不能用 PLM 模型替代，也不能据此宣称原生 ModelDesign 集成已完成。
 
 如果出现容器名称冲突，先执行只读诊断：
 

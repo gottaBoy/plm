@@ -17,3 +17,4 @@
 .DS_Store
 *mysql_data
 *rt_data
+.artifacts/

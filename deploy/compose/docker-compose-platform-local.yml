@@ -1,0 +1,89 @@
+# Local source-reactor platform overlay.
+#
+# The included ARM64 base keeps the existing middleware configuration. The
+# formal iBiz service containers are opt-in only; the default services below
+# use source-built local images and distinct names/ports/volumes.
+include:
+  - ./docker-compose-base-arm64.yml
+
+services:
+  ibiz-ebsx-allinone:
+    profiles:
+      - formal
+
+  ibizlab-uaa-api:
+    profiles:
+      - formal
+
+  ibiz-ebsx-gateway:
+    profiles:
+      - formal
+
+  ibiz-ebsx-allinone-local:
+    build:
+      context: ../../../ibiz-service-hub/ibiz-ebsx-runtime
+      dockerfile: Dockerfile.local
+      args:
+        JAVA_IMAGE: ${IBIZ_JAVA_IMAGE:-eclipse-temurin:17-jdk}
+        IBIZ_VERSION: ${IBIZ_LOCAL_VERSION:-8.1.0.584.1}
+    image: ${IBIZ_LOCAL_ALLINONE_IMAGE:-aibiz/ibiz-ebsx-allinone-rt:8.1.0.584.1-local}
+    pull_policy: never
+    container_name: ibiz-ebsx-allinone-local
+    env_file:
+      - .env
+    ports:
+      - "${IBIZ_LOCAL_ALLINONE_PORT:-30100}:30000"
+    environment:
+      TZ: Asia/Shanghai
+      SERVER_PORT: "30000"
+      SPRING_CLOUD_NACOS_DISCOVERY_IP: ibiz-ebsx-allinone-local
+      SPRING_CLOUD_NACOS_DISCOVERY_SERVER-ADDR: http://${NACOS_HOST:-nacos}:${NACOS_PORT:-8848}
+      SPRING_CLOUD_NACOS_CONFIG_SERVER-ADDR: http://${NACOS_HOST:-nacos}:${NACOS_PORT:-8848}
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: com.mysql.cj.jdbc.Driver
+      SPRING_DATASOURCE_PASSWORD: 9d@A178@
+      SPRING_DATASOURCE_URL: jdbc:mysql://${MYSQL_HOST:-mysql}:${MYSQL_PORT:-3306}/a_lab01_3f9ebc219?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: a_lab01_3f9ebc219
+      SPRING_DATASOURCE_DEFAULTSCHEMA: a_lab01_3f9ebc219
+      JAVA_OPTS: >-
+        -Xms512m -Xmx2048m -Xss1024K
+        --add-exports=java.naming/com.sun.jndi.ldap=ALL-UNNAMED
+      IBIZ_SERVICEHUB_INITMODE: auto
+      ALLINONE_PREPARE_LIQUIBASE_DRIVER: "true"
+    volumes:
+      - allinone_local_data:/app/file
+    networks:
+      agent_network:
+        aliases:
+          - nacos.ibizcloud.cn-local
+
+  ibiz-ebsx-gateway-local:
+    build:
+      context: ../../../ibiz-service-hub/ibiz-ebsx-gateway
+      dockerfile: Dockerfile.local
+      args:
+        JAVA_IMAGE: ${IBIZ_JAVA_IMAGE:-eclipse-temurin:17-jdk}
+        IBIZ_VERSION: ${IBIZ_LOCAL_VERSION:-8.1.0.584.1}
+    image: ${IBIZ_LOCAL_GATEWAY_IMAGE:-aibiz/ibiz-ebsx-gateway:8.1.0.584.1-local}
+    pull_policy: never
+    container_name: ibiz-ebsx-gateway-local
+    env_file:
+      - .env
+    ports:
+      - "${IBIZ_LOCAL_GATEWAY_PORT:-30186}:30086"
+    environment:
+      TZ: Asia/Shanghai
+      SERVER_PORT: "30086"
+      SPRING_CLOUD_NACOS_DISCOVERY_IP: ibiz-ebsx-gateway-local
+      SPRING_CLOUD_NACOS_DISCOVERY_SERVER-ADDR: http://${NACOS_HOST:-nacos}:${NACOS_PORT:-8848}
+      SPRING_CLOUD_NACOS_CONFIG_SERVER-ADDR: http://${NACOS_HOST:-nacos}:${NACOS_PORT:-8848}
+      JAVA_OPTS: -Xms256m -Xmx512m -Xss512K
+    depends_on:
+      - ibiz-ebsx-allinone-local
+    networks:
+      agent_network:
+        aliases:
+          - gateway.ibizcloud.cn-local
+
+volumes:
+  allinone_local_data:
+    name: ibiz-ebsx-allinone-local-data

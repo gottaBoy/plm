@@ -1,4 +1,5 @@
-# Opt-in overlay for serving the locally built modelingweb/app/dist.
+# Optional overlay for replacing the packaged local Modeling Web dist with the
+# current host build. The formal modeling profile is already local by default.
 #
 # Build first:
 #   cd modelingweb/app && pnpm build
@@ -10,7 +11,20 @@
 
 services:
   modelingweb:
+    # Keep this overlay independently usable for older scripts and for a
+    # read-only host dist during frontend iteration.
+    build:
+      context: ../../../modelingweb
+      dockerfile: Dockerfile.modelingweb
+      args:
+        NGINX_IMAGE: ${MODELING_WEB_NGINX_IMAGE:-nginxinc/nginx-unprivileged:alpine}
+    image: ${MODELING_WEB_IMAGE:-aibiz/modelingweb:local}
+    entrypoint:
+      - /start.sh
+    command: []
     environment:
       - LOCAL_DIST_SOURCE=/opt/aibiz/local-dist
     volumes:
       - ../../../modelingweb/app/dist:/opt/aibiz/local-dist:ro
+    tmpfs:
+      - /dist:uid=101,gid=101,mode=0755

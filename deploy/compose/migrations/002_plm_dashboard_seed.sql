@@ -1,4 +1,4 @@
--- Seed the personal dashboard requested by the PLM web workspace.
+-- Seed the personal dashboards requested by the PLM web workspace.
 -- Target database: plm, MySQL 5.7.
 
 CREATE TABLE IF NOT EXISTS `DYNADASHBOARD` (
@@ -40,7 +40,8 @@ INSERT INTO `DYNADASHBOARD` (
   `UPDATE_MAN`,
   `UPDATE_TIME`,
   `USERID`
-) VALUES (
+) VALUES
+(
   'ibizplm__plmweb',
   CURRENT_TIMESTAMP,
   'demo_admin',
@@ -58,6 +59,25 @@ INSERT INTO `DYNADASHBOARD` (
   'demo_admin',
   CURRENT_TIMESTAMP,
   'demo_admin'
+),
+(
+  'ibizplm__plmweb',
+  CURRENT_TIMESTAMP,
+  'aibizhi',
+  NULL,
+  'ibizplm__plmweb_dashboard_plmweb.recent_dashboard_aibizhi',
+  '最近访问',
+  NULL,
+  0,
+  '{"model":[],"colNum":12,"rowH":80,"config":{},"filter":{}}',
+  'plmweb.recent_dashboard.dashboard',
+  NULL,
+  NULL,
+  0,
+  'personal',
+  'aibizhi',
+  CURRENT_TIMESTAMP,
+  'aibizhi'
 ) ON DUPLICATE KEY UPDATE
   `APPID` = VALUES(`APPID`),
   `MODEL` = VALUES(`MODEL`),

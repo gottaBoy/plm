@@ -326,7 +326,8 @@ services:
       - modeling
     restart: unless-stopped
     env_file: .dev  
-    image: ${AIBIZ_MODELING_IMAGE:-aibiz/modelingservice-arm64:local}
+    image: ${AIBIZ_MODELING_IMAGE:-aibiz/modelingservice-arm64:source-built}
+    pull_policy: never
     container_name: modelingservice
     ports:
       - "32002:32002"
@@ -352,8 +353,15 @@ services:
       - IBIZ_SERVICEHUB_LOCALMODE=true
       - IBIZ_DEPLOYSYSTEMS_IBIZMODELING_MODELPATH=/app/model
       - IBIZ_DEPLOYSYSTEMS_IBIZMODELING_EXTENSION=false
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
       - SPRING_DATASOURCE_USERNAME=ibizapi
       - SPRING_DATASOURCE_PASSWORD=Ibizapi@2022
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/ibizapi?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false
+      - SPRING_DATASOURCE_DEFAULTSCHEMA=ibizapi
+      - SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MASTER_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
+      - SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MASTER_USERNAME=ibizapi
+      - SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MASTER_PASSWORD=Ibizapi@2022
+      - SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MASTER_URL=jdbc:mysql://mysql:3306/ibizapi?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false
       - SERVER_PORT=32002
       - JAVA_OPTS=-Xms512m -Xmx2048m -Xss512K
     volumes:
@@ -367,14 +375,20 @@ services:
     profiles:
       - modeling  
     env_file: .dev  
-    image: ${IMAGE_URL}ibiz-cloud-web-runner:v9.0.7.40-alpha.19
+    build:
+      context: ../../../modelingweb
+      dockerfile: Dockerfile.modelingweb
+      args:
+        NGINX_IMAGE: ${MODELING_WEB_NGINX_IMAGE:-nginxinc/nginx-unprivileged:alpine}
+    image: ${MODELING_WEB_IMAGE:-aibiz/modelingweb:local}
+    pull_policy: never
     container_name: modelingweb
     restart: unless-stopped
     depends_on:
       modeling-plugins:
         condition: service_healthy
     ports:
-      - 32003:80
+      - 32003:8080
     networks:
       - agent_network
     environment:
@@ -387,15 +401,17 @@ services:
       - ISSAASMODE=false
       - ISLOCALMODEL=true
       - PLUGINBASEURL=http://js.ibizlab.cn
+      - LOCAL_DIST_SOURCE=/opt/aibiz/local-dist
     volumes:
       - ../../../modelingweb/nginx-local.conf:/opt/aibiz/nginx-local.conf:ro
       - ../../../modelingweb/start.sh:/opt/aibiz/local-start.sh:ro
       - ../../model:/app/model:ro
-    command:
-      - /bin/sh
-      - -c
-      - cp /opt/aibiz/nginx-local.conf /etc/nginx/conf.d/nginx.conf &&
-        /bin/bash /opt/aibiz/local-start.sh
+      - ../../../modelingweb/app/dist:/opt/aibiz/local-dist:ro
+    entrypoint:
+      - /start.sh
+    command: []
+    tmpfs:
+      - /dist:uid=101,gid=101,mode=0755
 
   #modeling-plugins
   modeling-plugins:
