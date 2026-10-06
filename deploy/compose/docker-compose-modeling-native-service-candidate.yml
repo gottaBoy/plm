@@ -1,0 +1,5 @@
+# Apply after the plugin-only candidate compose. This is a separate model/API migration.
+services:
+  modelingweb-candidate-central:
+    volumes:
+      - ${NATIVE_SERVICE_CANDIDATE_ROOT:?Generate a native service candidate first}/model/PSSYSAPPS/Central/PSAPPDEVIEWS/PSDevSlnGridView.json:/app/model/PSSYSAPPS/Central/PSAPPDEVIEWS/PSDevSlnGridView.json:ro

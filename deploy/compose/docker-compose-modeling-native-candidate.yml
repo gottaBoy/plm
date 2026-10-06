@@ -1,0 +1,67 @@
+x-native-candidate-web: &native-candidate-web
+  profiles: [modeling-native-candidate]
+  image: ${MODELING_WEB_IMAGE:-aibiz/modelingweb:local}
+  pull_policy: never
+  restart: unless-stopped
+  networks: [agent_network]
+  depends_on:
+    modelingservice:
+      condition: service_healthy
+  entrypoint: ["/bin/sh", "/start.sh"]
+  command: []
+  tmpfs:
+    - /dist:uid=101,gid=101,mode=0755
+  healthcheck:
+    test:
+      - CMD-SHELL
+      - "wget -q -O /dev/null --timeout=3 http://127.0.0.1:8080/$$APPCODE/"
+    interval: 10s
+    timeout: 5s
+    retries: 6
+    start_period: 15s
+  volumes:
+    - ${NATIVE_CANDIDATE_ROOT:-../../../.artifacts/native-model-migration/design-index-binding-20261006}/nginx-native.conf:/opt/aibiz/nginx-native.conf:ro
+    - ${NATIVE_CANDIDATE_ROOT:-../../../.artifacts/native-model-migration/design-index-binding-20261006}/plugins:/opt/aibiz/native-candidate-plugins:ro
+    - ../../../modelingweb/start.sh:/start.sh:ro
+    - ../../../modelingweb/environment.config:/environment.config:ro
+    - ../../../modelingweb/app/dist:/opt/aibiz/local-dist:ro
+    - ${MODELING_SERVICE_MODEL_ROOT:-../../../vendor-upstream/ibizmodeling-standard/modelapi-core/src/main/resources/model/net/ibizsys/modeling}:/app/model:ro
+    - ${NATIVE_CANDIDATE_ROOT:-../../../.artifacts/native-model-migration/design-index-binding-20261006}/model/PSSYSAPPS/Central/PSSYSAPP.json:/app/model/PSSYSAPPS/Central/PSSYSAPP.json:ro
+    - ${NATIVE_CANDIDATE_ROOT:-../../../.artifacts/native-model-migration/design-index-binding-20261006}/model/PSSYSAPPS/Central/PSSYSAPP.simple.json:/app/model/PSSYSAPPS/Central/PSSYSAPP.simple.json:ro
+    - ${NATIVE_CANDIDATE_ROOT:-../../../.artifacts/native-model-migration/design-index-binding-20261006}/model/PSSYSAPPS/Central/PSSYSAPP.hubsubapp.json:/app/model/PSSYSAPPS/Central/PSSYSAPP.hubsubapp.json:ro
+    - ${NATIVE_CANDIDATE_ROOT:-../../../.artifacts/native-model-migration/design-index-binding-20261006}/model/PSSYSAPPS/ModelDesign/PSSYSAPP.json:/app/model/PSSYSAPPS/ModelDesign/PSSYSAPP.json:ro
+    - ${NATIVE_CANDIDATE_ROOT:-../../../.artifacts/native-model-migration/design-index-binding-20261006}/model/PSSYSAPPS/ModelDesign/PSSYSAPP.simple.json:/app/model/PSSYSAPPS/ModelDesign/PSSYSAPP.simple.json:ro
+    - ${NATIVE_CANDIDATE_ROOT:-../../../.artifacts/native-model-migration/design-index-binding-20261006}/model/PSSYSAPPS/ModelDesign/PSSYSAPP.hubsubapp.json:/app/model/PSSYSAPPS/ModelDesign/PSSYSAPP.hubsubapp.json:ro
+
+x-native-candidate-env: &native-candidate-env
+  TZ: Asia/Shanghai
+  MOCKDCSYSTEMID: ibizmodeling
+  HUB: "true"
+  ISLOCALMODEL: "true"
+  ISSAASMODE: "false"
+  ENABLEMQTT: "false"
+  PLUGINBASEURL: ./plugins
+  LOCAL_DIST_SOURCE: /opt/aibiz/local-dist
+
+services:
+  modelingweb-candidate-central:
+    <<: *native-candidate-web
+    ports: ["127.0.0.1:${MODELING_CANDIDATE_CENTRAL_PORT:-32008}:8080"]
+    environment:
+      <<: *native-candidate-env
+      NATIVE_MODEL_APP: Central
+      NATIVEMODELAPP: Central
+      APPCODE: central
+      APICODE: ibizmodeling__central
+      BASEURL: ibizmodeling__central
+
+  modelingweb-candidate-modeldesign:
+    <<: *native-candidate-web
+    ports: ["127.0.0.1:${MODELING_CANDIDATE_MODELDESIGN_PORT:-32009}:8080"]
+    environment:
+      <<: *native-candidate-env
+      NATIVE_MODEL_APP: ModelDesign
+      NATIVEMODELAPP: ModelDesign
+      APPCODE: modeldesign
+      APICODE: ibizmodeling__modeldesign
+      BASEURL: ibizmodeling__modeldesign

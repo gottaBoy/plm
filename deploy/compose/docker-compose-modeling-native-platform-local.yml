@@ -1,0 +1,9 @@
+# Apply only to the native candidates after deploying the source-built local platform.
+# Original 32006/32007 entries keep their existing upstream for comparison.
+services:
+  modelingweb-candidate-central:
+    environment:
+      NATIVE_PLATFORM_HOST: ibiz-ebsx-allinone-local
+  modelingweb-candidate-modeldesign:
+    environment:
+      NATIVE_PLATFORM_HOST: ibiz-ebsx-allinone-local

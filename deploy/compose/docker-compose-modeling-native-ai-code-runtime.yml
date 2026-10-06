@@ -1,0 +1,10 @@
+# Apply after the native candidate overlays; original/native entries stay unchanged.
+services:
+  modelingweb-candidate-central:
+    volumes:
+      - ${NATIVE_AI_CODE_RUNTIME_ROOT:?Generate native ai-code runtime assets first}/nginx-native.conf:/opt/aibiz/nginx-native.conf:ro
+      - ${NATIVE_AI_CODE_RUNTIME_ROOT:?Generate native ai-code runtime assets first}:/opt/aibiz/native-ai-code-runtime-assets:ro
+  modelingweb-candidate-modeldesign:
+    volumes:
+      - ${NATIVE_AI_CODE_RUNTIME_ROOT:?Generate native ai-code runtime assets first}/nginx-native.conf:/opt/aibiz/nginx-native.conf:ro
+      - ${NATIVE_AI_CODE_RUNTIME_ROOT:?Generate native ai-code runtime assets first}:/opt/aibiz/native-ai-code-runtime-assets:ro
