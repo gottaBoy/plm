@@ -1,6 +1,6 @@
 {
   "actionHolder" : 1,
-  "actionMode" : "CREATE",
+  "actionMode" : "CUSTOM",
   "actionType" : "DELOGIC",
   "codeName" : "publish_page",
   "dataAccessAction" : "UPDATE",

@@ -304,7 +304,7 @@
     "getPSDELogicLinks" : [ {
       "getDstPSDELogicNode" : {
         "modelref" : true,
-        "id" : "DEACTION1"
+        "id" : "PrepareSharePatch"
       },
       "name" : "连接名称",
       "getSrcPSDELogicNode" : {
@@ -314,6 +314,24 @@
     } ],
     "topPos" : 819
   }, {
+    "codeName" : "PrepareSharePatch",
+    "logicNodeType" : "DELOGIC",
+    "name" : "Project page sharing metadata",
+    "getDstPSDELogic" : {
+      "modelref" : true,
+      "path" : "PSMODULES/Wiki/PSDATAENTITIES/article_page/PSDELOGICS/share_metadata_patch.json"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/Wiki/PSDATAENTITIES/article_page.json"
+    },
+    "getDstPSDELogicParam" : { "modelref" : true, "id" : "Default" },
+    "getRetPSDELogicParam" : { "modelref" : true, "id" : "share_patch" },
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : { "modelref" : true, "id" : "DEACTION1" },
+      "getSrcPSDELogicNode" : { "modelref" : true, "id" : "PrepareSharePatch" }
+    } ]
+  }, {
     "codeName" : "DEACTION1",
     "getDstPSDEAction" : {
       "modelref" : true,
@@ -321,7 +339,7 @@
     },
     "getDstPSDELogicParam" : {
       "modelref" : true,
-      "id" : "Default"
+      "id" : "share_patch"
     },
     "getDstPSDataEntity" : {
       "modelref" : true,
@@ -362,6 +380,14 @@
       "path" : "PSMODULES/Wiki/PSDATAENTITIES/article_page.json"
     },
     "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "share_patch",
+    "name" : "Sharing metadata only",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/Wiki/PSDATAENTITIES/article_page.json"
+    },
     "entityParam" : true
   } ],
   "getStartPSDELogicNode" : {

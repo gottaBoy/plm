@@ -849,7 +849,7 @@
     "builtinMethod" : false,
     "needResourceKey" : true
   }, {
-    "actionMode" : "CREATE",
+    "actionMode" : "CUSTOM",
     "codeName" : "publish_page",
     "methodType" : "DEACTION",
     "name" : "publish_page",

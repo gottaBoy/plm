@@ -1071,7 +1071,7 @@
     "builtinMethod" : false,
     "needResourceKey" : true
   }, {
-    "actionMode" : "CREATE",
+    "actionMode" : "CUSTOM",
     "codeName" : "publish_page",
     "methodType" : "DEACTION",
     "name" : "publish_page",
@@ -1314,7 +1314,7 @@
     },
     "getPSDEOPPriv" : {
       "modelref" : true,
-      "id" : "space__READ"
+      "id" : "UPDATE"
     },
     "getPSDEServiceAPIMethod" : {
       "modelref" : true,
@@ -7059,7 +7059,7 @@
     },
     "getPSDEOPPriv" : {
       "modelref" : true,
-      "id" : "space__READ"
+      "id" : "UPDATE"
     },
     "getPSDEServiceAPIMethod" : {
       "modelref" : true,
@@ -9030,6 +9030,7 @@
     "actionTarget" : "SINGLEKEY",
     "caption" : "共享设置",
     "codeName" : "open_shared_setting_management",
+    "dataAccessAction" : "SHARED",
     "getFrontPSAppView" : {
       "modelref" : true,
       "path" : "PSSYSAPPS/plmweb/PSAPPDEVIEWS/article_page_shared_setting_view.json",
@@ -9041,6 +9042,10 @@
     "getPSAppDataEntity" : {
       "modelref" : true,
       "path" : "PSSYSAPPS/plmweb/PSAPPDATAENTITIES/article_page.json"
+    },
+    "getPSDEOPPriv" : {
+      "modelref" : true,
+      "id" : "space__SHARED"
     },
     "getPSNavigateContexts" : [ {
       "key" : "SPACE",

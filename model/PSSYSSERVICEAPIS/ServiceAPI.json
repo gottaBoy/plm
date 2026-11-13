@@ -4265,7 +4265,7 @@
     }, {
       "actionType" : "DEACTION",
       "codeName" : "shared",
-      "dataAccessAction" : "READ",
+      "dataAccessAction" : "UPDATE",
       "methodType" : "DEACTION",
       "name" : "shared",
       "getPSDEAction" : {
@@ -28583,7 +28583,7 @@
     }, {
       "actionType" : "DEACTION",
       "codeName" : "shared",
-      "dataAccessAction" : "READ",
+      "dataAccessAction" : "UPDATE",
       "methodType" : "DEACTION",
       "name" : "shared",
       "getPSDEAction" : {
@@ -111624,7 +111624,7 @@
       "needResourceKey" : true
     }, {
       "codeName" : "shared",
-      "dataAccessAction" : "READ",
+      "dataAccessAction" : "UPDATE",
       "methodType" : "DEACTION",
       "name" : "shared",
       "getPSDEAction" : {

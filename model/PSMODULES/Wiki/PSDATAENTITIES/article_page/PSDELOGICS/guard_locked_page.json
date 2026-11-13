@@ -1,0 +1,69 @@
+{
+  "codeName" : "guard_locked_page",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/Wiki/PSDATAENTITIES/article_page/PSDELOGICS/guard_locked_page.json",
+  "logicName" : "Guard locked page content",
+  "name" : "Guard locked page content",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "logicNodeType" : "BEGIN",
+    "name" : "Begin",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : { "modelref" : true, "id" : "ReadStoredPage" },
+      "getSrcPSDELogicNode" : { "modelref" : true, "id" : "Begin" }
+    } ]
+  }, {
+    "codeName" : "ReadStoredPage",
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "Read persisted page under row lock",
+    "getDstPSDELogicParam" : { "modelref" : true, "id" : "stored" },
+    "getPSDELogicNodeParams" : [ {
+      "name" : "Page ID",
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : { "modelref" : true, "id" : "Default" },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "sql" : "select ID,IS_LOCK from PAGE where ID = ? for update",
+    "fillDstLogicParam" : true,
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : { "modelref" : true, "id" : "CheckStoredLock" },
+      "getSrcPSDELogicNode" : { "modelref" : true, "id" : "ReadStoredPage" }
+    } ]
+  }, {
+    "codeName" : "CheckStoredLock",
+    "logicNodeType" : "RAWSFCODE",
+    "codeType" : "Groovy",
+    "name" : "Reject locked content changes before versioning",
+    "code" : "def incoming = logic.param('Default').getReal()\ndef stored = logic.param('stored').getReal()\nif (stored.get('id') == null) {\n    throw new net.ibizsys.runtime.util.ErrorException('Page is unavailable', net.ibizsys.runtime.util.Errors.ACCESSDENY)\n}\nif (stored.get('is_lock')?.toString() == '1') {\n    def protectedFields = ['is_lock', 'name', 'content', 'format_type', 'type', 'identifier', 'sequence', 'categories', 'parent_id', 'space_id', 'is_leaf', 'icon', 'is_archived', 'is_deleted', 'cur_version_id', 'cur_version_name', 'publish_time', 'publish_man', 'publish_name', 'publish_content', 'is_published', 'published', 'review_result_state', 'attachments', 'user_tag', 'user_tag2']\n    if (protectedFields.any { field -> incoming.contains(field) }) {\n        throw new net.ibizsys.runtime.util.ErrorException('Page is locked; unlock it before editing', net.ibizsys.runtime.util.Errors.ACCESSDENY)\n    }\n}",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : { "modelref" : true, "id" : "End" },
+      "getSrcPSDELogicNode" : { "modelref" : true, "id" : "CheckStoredLock" }
+    } ]
+  }, {
+    "codeName" : "End",
+    "logicNodeType" : "END",
+    "name" : "End"
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "name" : "Incoming page",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/Wiki/PSDATAENTITIES/article_page.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "stored",
+    "name" : "Persisted page",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/Wiki/PSDATAENTITIES/article_page.json"
+    },
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : { "modelref" : true, "id" : "Begin" },
+  "enableBackend" : true,
+  "enableFront" : false
+}

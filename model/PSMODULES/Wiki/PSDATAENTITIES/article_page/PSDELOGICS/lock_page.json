@@ -117,21 +117,17 @@
     "topPos" : 535
   }, {
     "codeName" : "DEACTION2",
-    "getDstPSDEAction" : {
-      "modelref" : true,
-      "path" : "PSMODULES/Wiki/PSDATAENTITIES/article_page/PSDEACTIONS/Update.json"
-    },
-    "getDstPSDELogicParam" : {
-      "modelref" : true,
-      "id" : "page_obj"
-    },
-    "getDstPSDataEntity" : {
-      "modelref" : true,
-      "path" : "PSMODULES/Wiki/PSDATAENTITIES/article_page.json"
-    },
     "leftPos" : 160,
-    "logicNodeType" : "DEACTION",
-    "name" : "更新页面",
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "Lock only the persisted page flag",
+    "getPSDELogicNodeParams" : [ {
+      "name" : "Persisted page ID",
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : { "modelref" : true, "id" : "page_obj" },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "sql" : "update PAGE set IS_LOCK = 1 where ID = ? and IS_DELETED = 0",
     "topPos" : 643
   } ],
   "getPSDELogicParams" : [ {

@@ -174,7 +174,7 @@
     "getPSDELogicLinks" : [ {
       "getDstPSDELogicNode" : {
         "modelref" : true,
-        "id" : "DEACTION2"
+        "id" : "DEACTION3"
       },
       "name" : "已发布",
       "getPSDELogicLinkGroupCond" : {
@@ -216,41 +216,28 @@
       "getPSDELogicLinkGroupCond" : {
         "groupOP" : "AND",
         "logicType" : "GROUP",
+        "notMode" : true,
         "name" : "连接条件组",
         "getPSDELogicLinkConds" : [ {
-          "groupOP" : "OR",
-          "logicType" : "GROUP",
-          "name" : "OR",
-          "getPSDELogicLinkConds" : [ {
-            "condOP" : "EQ",
-            "dstFieldName" : "IS_PUBLISHED",
-            "getDstLogicParam" : {
-              "modelref" : true,
-              "id" : "Default"
-            },
-            "logicType" : "SINGLE",
-            "name" : "Default[IS_PUBLISHED] 等于(=) 0",
-            "paramValue" : "0"
-          }, {
-            "condOP" : "EQ",
-            "dstFieldName" : "PUBLISHED",
-            "getDstLogicParam" : {
-              "modelref" : true,
-              "id" : "Default"
-            },
-            "logicType" : "SINGLE",
-            "name" : "Default[PUBLISHED] 等于(=) 0",
-            "paramValue" : "0"
-          }, {
-            "condOP" : "ISNULL",
-            "dstFieldName" : "PUBLISHED",
-            "getDstLogicParam" : {
-              "modelref" : true,
-              "id" : "Default"
-            },
-            "logicType" : "SINGLE",
-            "name" : "Default[PUBLISHED] 值为空(Nil) "
-          } ]
+          "condOP" : "EQ",
+          "dstFieldName" : "IS_PUBLISHED",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[IS_PUBLISHED] 等于(=) 1",
+          "paramValue" : "1"
+        }, {
+          "condOP" : "EQ",
+          "dstFieldName" : "PUBLISHED",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[PUBLISHED] 等于(=) 1",
+          "paramValue" : "1"
         } ]
       },
       "getSrcPSDELogicNode" : {
@@ -317,7 +304,67 @@
         "modelref" : true,
         "id" : "PREPAREPARAM2"
       },
-      "name" : "连接名称",
+      "name" : "已有页面",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNOTNULL",
+          "dstFieldName" : "ID",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[ID] 值不为空(NNotNil)"
+        }, {
+          "condOP" : "NOTEQ",
+          "dstFieldName" : "ID",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[ID] 不等于(<>) undefined",
+          "paramValue" : "undefined"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM2"
+      },
+      "name" : "首次保存",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "OR",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNULL",
+          "dstFieldName" : "ID",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[ID] 值为空(Nil)"
+        }, {
+          "condOP" : "EQ",
+          "dstFieldName" : "ID",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[ID] 等于(=) undefined",
+          "paramValue" : "undefined"
+        } ]
+      },
       "getSrcPSDELogicNode" : {
         "modelref" : true,
         "id" : "RAWSFCODE_01"
@@ -325,6 +372,35 @@
     } ],
     "topPos" : 459,
     "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION3",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/Wiki/PSDATAENTITIES/article_page/PSDEACTIONS/Save.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/Wiki/PSDATAENTITIES/article_page.json"
+    },
+    "leftPos" : 280,
+    "logicNodeType" : "DEACTION",
+    "name" : "保存已发布页面信息",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END2"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION3"
+      }
+    } ],
+    "topPos" : 560
   }, {
     "codeName" : "PREPAREPARAM2",
     "leftPos" : 72,

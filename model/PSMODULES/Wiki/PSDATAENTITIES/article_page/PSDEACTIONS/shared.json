@@ -3,7 +3,7 @@
   "actionMode" : "READ",
   "actionType" : "DELOGIC",
   "codeName" : "shared",
-  "dataAccessAction" : "READ",
+  "dataAccessAction" : "UPDATE",
   "dynaModelFilePath" : "PSMODULES/Wiki/PSDATAENTITIES/article_page/PSDEACTIONS/shared.json",
   "logicName" : "获取共享设置",
   "name" : "shared",
