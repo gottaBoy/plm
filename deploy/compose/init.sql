@@ -1,5 +1,5 @@
 -- 创建数据库实例及对应的用户(plm、nacos_conf、a_lab01_3f9ebc219、ibizapi)
-create database plm default character set utf8 collate utf8_general_ci;
+create database plm default character set utf8mb4 collate utf8mb4_general_ci;
 create user 'plm'@'%' identified by 'plm@2024';
 grant ALL PRIVILEGES on plm.* to 'plm'@'%' ;
 
