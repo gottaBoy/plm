@@ -1063,7 +1063,7 @@
         "path" : "PSSYSAPPS/plmweb/PSAPPDEVIEWS/work_item_test_drill_detail_grid_view.json",
         "viewType" : "DEGRIDVIEW"
       },
-      "measureFormula" : "countif(multiif(param(code_type, '-1') = '10', state_type = param(state_type, 'completed'), param(code_type, '-1') = '20', state = param(state, '10'), state_type = 'completed') and (end_at is not null and end_at >= completed_at or end_at is null and 1 = param(end_at, 0)) and is_deleted = 0 and project_is_deleted = 0)",
+      "measureFormula" : "countif(multiif(param(code_type, '-1') = '10', state_type = param(state_type, 'completed'), param(code_type, '-1') = '20', state = param(state, '10'), state_type in ('completed', 'closed')) and (end_at is not null and end_at >= completed_at or end_at is null and 1 = param(end_at, 0)) and is_deleted = 0 and project_is_deleted = 0)",
       "measureType" : "CALCULATED",
       "memo" : "统计已完成工作项的按期数量。",
       "name" : "工作项按期完成数",
@@ -1083,7 +1083,7 @@
         "viewType" : "DEGRIDVIEW"
       },
       "jsonFormat" : "[=0]0.00%;##0.00%",
-      "measureFormula" : "countif(multiif(param(code_type, '-1') = '10', state_type = param(state_type, 'completed'), param(code_type, '-1') = '20', state = param(state, '10'), state_type = 'completed') and (end_at is not null and end_at >= completed_at or end_at is null and 1 = param(end_at, 0)) and is_deleted = 0 and project_is_deleted = 0) / if(countif(is_deleted=0 and project_is_deleted = 0) = 0, 1, countif(is_deleted=0 and project_is_deleted = 0))",
+      "measureFormula" : "countif(multiif(param(code_type, '-1') = '10', state_type = param(state_type, 'completed'), param(code_type, '-1') = '20', state = param(state, '10'), state_type in ('completed', 'closed')) and (end_at is not null and end_at >= completed_at or end_at is null and 1 = param(end_at, 0)) and is_deleted = 0 and project_is_deleted = 0) / if(countif(multiif(param(code_type, '-1') = '10', state_type = param(state_type, 'completed'), param(code_type, '-1') = '20', state = param(state, '10'), state_type in ('completed', 'closed')) and is_deleted = 0 and project_is_deleted = 0) = 0, 1, countif(multiif(param(code_type, '-1') = '10', state_type = param(state_type, 'completed'), param(code_type, '-1') = '20', state = param(state, '10'), state_type in ('completed', 'closed')) and is_deleted = 0 and project_is_deleted = 0))",
       "measureType" : "CALCULATED",
       "memo" : "统计按期完成的工作项占比，反映工作项的按期完成情况。",
       "name" : "工作项按期完成率",
@@ -1113,7 +1113,7 @@
         "path" : "PSSYSAPPS/plmweb/PSAPPDEVIEWS/work_item_test_drill_detail_grid_view.json",
         "viewType" : "DEGRIDVIEW"
       },
-      "measureFormula" : "countif(multiif(param(code_type, '-1') = '10', state_type = param(state_type, 'completed'), param(code_type, '-1') = '20', state = param(state, '10'), state_type = 'completed') and (end_at is not null and end_at < now() or end_at is null and 1 = param(end_at, 0)) and is_deleted = 0 and project_is_deleted = 0)",
+      "measureFormula" : "countif(multiif(param(code_type, '-1') = '10', state_type = param(state_type, 'completed'), param(code_type, '-1') = '20', state = param(state, '10'), state_type in ('completed', 'closed')) and (end_at is not null and end_at < completed_at or end_at is null and 1 = param(end_at, 0)) and is_deleted = 0 and project_is_deleted = 0)",
       "measureType" : "CALCULATED",
       "memo" : "统计已完成工作项的逾期数量。",
       "name" : "工作项逾期完成数",
@@ -1133,7 +1133,7 @@
         "viewType" : "DEGRIDVIEW"
       },
       "jsonFormat" : "[=0]0.00%;##0.00%",
-      "measureFormula" : "countif(multiif(param(code_type, '-1') = '10', state_type = param(state_type, 'completed'), param(code_type, '-1') = '20', state = param(state, '10'), state_type = 'completed') and (end_at is not null and end_at < now() or end_at is null and 1 = param(end_at, 0)) and is_deleted = 0 and project_is_deleted = 0) / if(countif(is_deleted=0 and project_is_deleted = 0) = 0, 1, countif(is_deleted=0 and project_is_deleted = 0))",
+      "measureFormula" : "countif(multiif(param(code_type, '-1') = '10', state_type = param(state_type, 'completed'), param(code_type, '-1') = '20', state = param(state, '10'), state_type in ('completed', 'closed')) and (end_at is not null and end_at < completed_at or end_at is null and 1 = param(end_at, 0)) and is_deleted = 0 and project_is_deleted = 0) / if(countif(multiif(param(code_type, '-1') = '10', state_type = param(state_type, 'completed'), param(code_type, '-1') = '20', state = param(state, '10'), state_type in ('completed', 'closed')) and is_deleted = 0 and project_is_deleted = 0) = 0, 1, countif(multiif(param(code_type, '-1') = '10', state_type = param(state_type, 'completed'), param(code_type, '-1') = '20', state = param(state, '10'), state_type in ('completed', 'closed')) and is_deleted = 0 and project_is_deleted = 0))",
       "measureType" : "CALCULATED",
       "memo" : "统计已完成的逾期工作项，占完成或关闭工作项的比例，反映项目或团队完成工作项的逾期情况。",
       "name" : "工作项逾期完成率",
@@ -1152,7 +1152,7 @@
         "path" : "PSSYSAPPS/plmweb/PSAPPDEVIEWS/work_item_test_drill_detail_grid_view.json",
         "viewType" : "DEGRIDVIEW"
       },
-      "measureFormula" : "countif((end_at is not null and end_at < now() or end_at is null and 1 = param(end_at, 0)) and state <> 40  and is_deleted = 0 and project_is_deleted = 0)",
+      "measureFormula" : "countif((end_at is not null and end_at < now() or end_at is null and 1 = param(end_at, 0)) and state_type not in ('completed', 'closed') and is_deleted = 0 and project_is_deleted = 0)",
       "measureType" : "CALCULATED",
       "memo" : "统计未完成工作项的逾期数量。",
       "name" : "未完成工作项逾期数",
@@ -1172,7 +1172,7 @@
         "viewType" : "DEGRIDVIEW"
       },
       "jsonFormat" : "[=0]0.00%;##0.00%",
-      "measureFormula" : "countif((end_at is not null and end_at < now() or end_at is null and 1 = param(end_at, 0)) and state <> 40  and is_deleted = 0 and project_is_deleted = 0) / if(countif(is_deleted=0 and project_is_deleted = 0) = 0, 1, countif(is_deleted=0 and project_is_deleted = 0))",
+      "measureFormula" : "countif((end_at is not null and end_at < now() or end_at is null and 1 = param(end_at, 0)) and state_type not in ('completed', 'closed') and is_deleted = 0 and project_is_deleted = 0) / if(countif(state_type not in ('completed', 'closed') and is_deleted = 0 and project_is_deleted = 0) = 0, 1, countif(state_type not in ('completed', 'closed') and is_deleted = 0 and project_is_deleted = 0))",
       "measureType" : "CALCULATED",
       "memo" : "统计未完成的逾期工作项，占未完成工作项的比例，反映未完成工作项的逾期占比。",
       "name" : "未完成工作项逾期率",
@@ -1827,7 +1827,7 @@
         "viewType" : "DEGRIDVIEW"
       },
       "jsonFormat" : "[=0]0.00%;##0.00%",
-      "measureFormula" : "countif(type_id in (params(type_id, ('1')))) / if(count(id) = 0, 1, count(id))",
+      "measureFormula" : "sumif(duration, type_id in (params(type_id, ('1')))) / if(sum(duration) = 0, 1, sum(duration))",
       "measureType" : "CALCULATED",
       "memo" : "统计登记工时的所属类别情况。\t",
       "name" : "工时类别占比",

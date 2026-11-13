@@ -56,6 +56,14 @@
                     <sequenceFlow id="dedataset1_loopsubcall2" sourceRef="dedataset1" targetRef="loopsubcall2">
                     </sequenceFlow>
                     <sequenceFlow id="loopsubcall2_renewparam1" sourceRef="loopsubcall2" targetRef="renewparam1">
+                            <conditionExpression language="http://www.jboss.org/drools/rule"><![CDATA[
+                                $sprintend_sprintfor_work_item_temp:work_item();
+                                eval($sprintend_sprintfor_work_item_temp==sprintend_sprintfor_work_item_temp);
+                                eval(RuleUtils.test($sprintend_sprintfor_work_item_temp.get("state_type"),"ISNOTNULL",null)
+                                    && RuleUtils.test($sprintend_sprintfor_work_item_temp.get("state_type"),"NOTEQ","")
+                                    && RuleUtils.test($sprintend_sprintfor_work_item_temp.get("state_type"),"NOTEQ","completed")
+                                    && RuleUtils.test($sprintend_sprintfor_work_item_temp.get("state_type"),"NOTEQ","closed"))
+                            ]]></conditionExpression>
                     </sequenceFlow>
                     <sequenceFlow id="gateway-renewparam1_prepareparam2" sourceRef="gateway-renewparam1" targetRef="prepareparam2">
                             <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[

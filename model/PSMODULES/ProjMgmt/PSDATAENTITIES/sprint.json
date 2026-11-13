@@ -5066,6 +5066,51 @@
           "id" : "RENEWPARAM1"
         },
         "name" : "连接名称",
+        "getPSDELogicLinkGroupCond" : {
+          "groupOP" : "AND",
+          "logicType" : "GROUP",
+          "name" : "仅处理状态类型明确的未完成工作项",
+          "getPSDELogicLinkConds" : [ {
+            "condOP" : "ISNOTNULL",
+            "dstFieldName" : "STATE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "for_work_item_temp"
+            },
+            "logicType" : "SINGLE",
+            "name" : "工作项状态类型非空"
+          }, {
+            "condOP" : "NOTEQ",
+            "dstFieldName" : "STATE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "for_work_item_temp"
+            },
+            "logicType" : "SINGLE",
+            "name" : "工作项状态类型不是空字符串",
+            "paramValue" : ""
+          }, {
+            "condOP" : "NOTEQ",
+            "dstFieldName" : "STATE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "for_work_item_temp"
+            },
+            "logicType" : "SINGLE",
+            "name" : "工作项未完成",
+            "paramValue" : "completed"
+          }, {
+            "condOP" : "NOTEQ",
+            "dstFieldName" : "STATE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "for_work_item_temp"
+            },
+            "logicType" : "SINGLE",
+            "name" : "工作项未关闭",
+            "paramValue" : "closed"
+          } ]
+        },
         "getSrcPSDELogicNode" : {
           "modelref" : true,
           "id" : "LOOPSUBCALL2"
