@@ -4,6 +4,9 @@ import { open, lstat, realpath } from 'node:fs/promises';
 import { constants } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+  attachDtoSchemas, directDtoRequests, dtoDependencies, dtoModelPath,
+} from './api-reference-dto.mjs';
 
 const digest = bytes => createHash('sha256').update(bytes).digest('hex');
 const codePattern = /^[a-zA-Z_][a-zA-Z0-9_-]*$/;
@@ -26,10 +29,14 @@ const labels = {
     yes: '是', no: '否', unknown: '未声明', noRoot: '模型未标记 major。本参考保守省略独立根候选路径，不代表运行端一定未导出根入口。',
     noOperations: '此实体没有独立方法定义。',
     noParent: '未能从模型中的独立根入口解析父资源；不生成推测路径。',
-    warning: '本页由服务模型生成。权限声明不是授权结果，路径不是运行验收证据。输入/返回引用保留模型类型，不推测 DTO 的字段子集。',
+    warning: '本页由服务模型生成。权限声明不是授权结果，路径不是运行验收证据。DTO 字段仅来自明确引用的实体方法 DTO；未解析时不会回退为实体全部字段。',
     identifiers: '未提供英文词条时使用技术代码名称；本参考不翻译 ID、路由、状态存储值或未定义的业务说明。',
     routeNote: '路径是模型相对候选，不包含部署服务前缀；集合代码转为小写，关联使用子实体集合而非关系别名。major 与 API mode 的映射、多个父级路径变体、实际路由、认证、租户和授权须在运行端验证。',
     schema: '模型结构摘要', digest: '结构 SHA-256', entry: '方法条目', unavailable: '未解析',
+    dtoSchemas: 'DTO 字段声明', dtoNote: 'DTO 字段表与上方实体总字段分离。允许空值和只读只显示 DTO 显式元数据；未声明不等于允许或禁止。它们不是逐操作请求必填规则。DTO/PAGE/DTOS 包装及嵌套类型保留原模型声明，不推测分页外壳或序列化结果。',
+    dtoKind: 'DTO 类型', dtoSource: '权威模型', dtoField: '模型属性', readOnly: '只读声明',
+    references: '类型与来源引用', reference: '嵌套类型', relatedSource: '投影来源',
+    dtoUnavailable: '无法解析 DTO 字段声明', format: '格式', searchMode: '搜索模式', listMap: '列表映射',
   },
   en: {
     name: 'Service API', fields: 'Entity Fields', operations: 'Operations', related: 'Relationship Routes',
@@ -40,10 +47,14 @@ const labels = {
     yes: 'Yes', no: 'No', unknown: 'Unspecified', noRoot: 'The model does not mark this entity as major. Root candidates are conservatively omitted; this does not prove that the runtime exports no root.',
     noOperations: 'This entity has no independent method definitions.',
     noParent: 'The parent cannot be resolved from a declared independent root; no guessed route is generated.',
-    warning: 'Generated from the service model. Declared access is not an authorization result, and routes are not runtime acceptance evidence. Input/return references preserve model types without guessing DTO field subsets.',
+    warning: 'Generated from the service model. Declared access is not an authorization result, and routes are not runtime acceptance evidence. DTO fields come only from explicitly referenced entity method DTOs; unresolved references never fall back to all entity fields.',
     identifiers: 'Technical code names are used when an English term is unavailable. IDs, routes, stored state values and unspecified business descriptions are not translated.',
     routeNote: 'Paths are model-relative candidates without a deployment prefix. Collection codes are lowercased; relationships use the child entity collection, not the relationship alias. Verify major/API-mode mapping, alternate parent paths, actual routes, authentication, tenant and access at runtime.',
     schema: 'Model Structure Summary', digest: 'Structure SHA-256', entry: 'Method Entries', unavailable: 'Unresolved',
+    dtoSchemas: 'DTO Field Declarations', dtoNote: 'DTO tables are separate from the full entity field list. Nullable and read-only show only explicit DTO metadata; unspecified means neither allowed nor denied. These are not per-operation request-required rules. DTO/PAGE/DTOS wrappers and nested types retain model declarations without guessing page envelopes or serialized results.',
+    dtoKind: 'DTO Kind', dtoSource: 'Authority Model', dtoField: 'Model Field', readOnly: 'Declared Read-Only',
+    references: 'Type and Source References', reference: 'Nested Type', relatedSource: 'Projection Source',
+    dtoUnavailable: 'DTO field declaration cannot be resolved', format: 'Format', searchMode: 'Search Mode', listMap: 'List Map',
   },
 };
 
@@ -98,7 +109,7 @@ function methodContract(method, base, owner, index) {
   };
 }
 
-export function createApiReferenceContract(model) {
+export function createApiReferenceContract(model, { dtoModels = new Map() } = {}) {
   assert.equal(model.codeName, 'ServiceAPI');
   assert.ok(Array.isArray(model.getPSDEServiceAPIs) && model.getPSDEServiceAPIs.length > 0);
   assert.ok(Array.isArray(model.getPSDEServiceAPIRSs));
@@ -120,6 +131,7 @@ export function createApiReferenceContract(model) {
       `${code}: duplicate fields`);
     return {
       code, collection, routeCollection, apiMode: entity.aPIMode ?? null,
+      modelPath: entity.getPSDataEntity?.path ? dtoModelPath(entity.getPSDataEntity.path) : null,
       sourceLabel: entity.logicName ?? entity.name ?? code,
       major: entity.major === true,
       fields,
@@ -185,7 +197,7 @@ export function createApiReferenceContract(model) {
       unresolvedRelationships: entities.flatMap(entity => entity.relationships).filter(relation => !relation.resolved).length,
     },
   };
-  return contract;
+  return attachDtoSchemas(contract, dtoModels);
 }
 
 function displayLabel(code, original, language, english) {
@@ -200,7 +212,7 @@ const ref = value => [value.type, value.dto, value.field].filter(Boolean).map(li
 const pagePath = (language, code) => `#/api-reference/${language}/entities/${code}`;
 const languageLinks = (language, entityCode) => {
   const path = entityCode ? `entities/${entityCode}` : 'ServiceAPI';
-  return `[中文](#/api-reference/zh-CN/${path}) | [English](#/api-reference/en/${path})`;
+  return `[中文](/api-reference/zh-CN/${path}) | [English](/api-reference/en/${path})`;
 };
 
 export function renderApiReferenceFiles(contract, { englishLabels = {}, inputHashes = [] } = {}) {
@@ -219,6 +231,7 @@ export function renderApiReferenceFiles(contract, { englishLabels = {}, inputHas
     const prefix = `api-reference/${language}`;
     const name = entity => displayLabel(entity.code, entity.sourceLabel, language, englishLabels);
     const entries = [];
+    const schemas = new Map((contract.dtoSchemas ?? []).map(schema => [schema.id, schema]));
     const overview = [
       `# ${l.name}: ServiceAPI`, '', languageLinks(language), '', l.warning, '', l.identifiers, '', l.routeNote, '',
       `## ${l.schema}`, '',
@@ -228,19 +241,31 @@ export function renderApiReferenceFiles(contract, { englishLabels = {}, inputHas
       '', `${l.digest}: ${literal(contractSha256)}`, '',
       `## ${l.entities}`, '', `| ${l.label} | ${l.code} | ${l.entry} |`, '| --- | --- | --- |',
     ];
-    const sidebar = [`- [${l.name}](#/api-reference/${language}/ServiceAPI)`];
+    const sidebar = [`- [${l.name}](/api-reference/${language}/ServiceAPI)`];
     for (const entity of contract.entities) {
       const heading = name(entity);
       const href = pagePath(language, entity.code);
+      const documentHref = href.slice(1);
       const operations = allOperations(entity);
-      overview.push(`| [${text(heading)}](${href}) | ${literal(entity.code)} | ${operations.length} |`);
-      sidebar.push(`- [${text(heading)}](${href})`);
+      overview.push(`| [${text(heading)}](${documentHref}) | ${literal(entity.code)} | ${operations.length} |`);
+      sidebar.push(`- [${text(heading)}](${documentHref})`);
       entries.push({ label: heading, code: entity.code, path: href,
         keywords: [entity.code, entity.collection].join(' ') });
       const lines = [
         `# ${text(heading)} (${entity.code})`, '', languageLinks(language, entity.code),
         '', l.warning, '', l.routeNote, '',
       ];
+      const schemaLink = (id, name) => {
+        const schema = schemas.get(id);
+        return schema ? `[${text(name)}](${documentHref}?id=${schema.anchor})` : literal(name);
+      };
+      const methodRef = value => {
+        if (!value.dto) return ref(value);
+        const description = [value.type ? literal(value.type) : null,
+          schemaLink(value.schemaId, value.dto), value.field ? literal(value.field) : null].filter(Boolean).join(' / ');
+        return value.status === 'resolved' ? description
+          : `${description} (${l.unavailable}: ${literal(value.reason || 'dto-source-not-loaded')})`;
+      };
       if (!entity.major) lines.push(l.noRoot, '');
       lines.push(`## ${l.fields}`, '',
         `| ${l.code} | ${l.label} | stdDataType | ${l.length} | ${l.nullable} | ${l.create} | ${l.modify} | ${l.key} |`,
@@ -256,8 +281,8 @@ export function renderApiReferenceFiles(contract, { englishLabels = {}, inputHas
             operation.path ? literal(operation.path) : (parent ? l.noParent : l.noRoot), '',
             `| ${l.permission} | ${l.input} | ${l.output} | ${l.key} |`,
             '| --- | --- | --- | --- |',
-            `| ${operation.access ? literal(operation.access) : l.unknown} | ${ref(operation.input)} | ` +
-            `${ref(operation.output)} | ${bool(operation.needResourceKey, l)} |`, '');
+            `| ${operation.access ? literal(operation.access) : l.unknown} | ${methodRef(operation.input)} | ` +
+            `${methodRef(operation.output)} | ${bool(operation.needResourceKey, l)} |`, '');
           if (operation.path) entries.push({
             label: `${heading} / ${operation.method} ${operation.code}`,
             code: operation.code, path: `${href}?id=${operation.anchor}`,
@@ -273,6 +298,46 @@ export function renderApiReferenceFiles(contract, { englishLabels = {}, inputHas
           `${l.relation}: ${literal(relation.id)}`, '');
         renderOperations(relation.operations, relation.parent);
       }
+      if (entity.dtoSchemaIds?.length) {
+        lines.push(`## ${l.dtoSchemas}`, '', l.dtoNote, '');
+        for (const id of entity.dtoSchemaIds) {
+          const schema = schemas.get(id);
+          assert.ok(schema, `Missing referenced DTO schema: ${id}`);
+          lines.push(`### ${text(schema.name)} :id=${schema.anchor}`, '',
+            `${l.dtoSource}: ${literal(schema.modelPath)}`, '',
+            `${l.dtoKind}: ${schema.kind ? literal(schema.kind) : l.unknown}` +
+              `${schema.sourceType ? ` / ${literal(schema.sourceType)}` : ''}` +
+              `${schema.sourceMethodDTO ? ` / ${literal(schema.sourceMethodDTO)}` : ''}`, '');
+          if (schema.status !== 'resolved') {
+            lines.push(`${l.dtoUnavailable}: ${literal(schema.reason)}`, '');
+            continue;
+          }
+          entries.push({
+            label: `${heading} / DTO ${schema.name}`, code: schema.name,
+            path: `${href}?id=${schema.anchor}`,
+            keywords: [entity.code, schema.name, schema.modelPath,
+              ...schema.fields.map(field => field.code)].join(' '),
+          });
+          lines.push(
+            `| ${l.code} | ${l.label} | ${l.dtoField} | ${l.type} | stdDataType | ${l.length} | ${l.nullable} | ${l.readOnly} | ${l.references} |`,
+            '| --- | --- | --- | --- | --- | --- | --- | --- | --- |');
+          for (const field of schema.fields) {
+            const references = field.links.map(link => {
+              const label = link.kind === 'reference' ? l.reference : l.relatedSource;
+              const target = [link.dto ? schemaLink(link.schemaId, link.dto) : l.unknown,
+                link.field ? literal(link.field) : null].filter(Boolean).join(' / ');
+              return `${label}: ${target}${link.status === 'resolved' ? '' : ` (${l.unavailable}: ${literal(link.reason)})`}`;
+            });
+            if (field.jsonFormat !== null) references.push(`${l.format}: ${literal(field.jsonFormat)}`);
+            if (field.searchMode !== null) references.push(`${l.searchMode}: ${literal(field.searchMode)}`);
+            if (field.listMap !== null) references.push(`${l.listMap}: ${bool(field.listMap, l)}`);
+            lines.push(`| ${literal(field.code)} | ${text(displayLabel(field.code, field.sourceLabel, language, englishLabels))} | ` +
+              `${field.modelField ? literal(field.modelField) : '-'} | ${literal(field.type)} | ${field.stdDataType ?? '-'} | ` +
+              `${field.length ?? '-'} | ${bool(field.nullable, l)} | ${bool(field.readOnly, l)} | ${references.join('; ') || '-'} |`);
+          }
+          lines.push('');
+        }
+      }
       put(`${prefix}/entities/${entity.code}.md`, `${lines.join('\n')}\n`);
     }
     put(`${prefix}/ServiceAPI.md`, `${overview.join('\n')}\n`);
@@ -283,6 +348,13 @@ export function renderApiReferenceFiles(contract, { englishLabels = {}, inputHas
     contract: 'plm-bilingual-api-reference-v1',
     source: 'model/PSSYSSERVICEAPIS/ServiceAPI.json',
     contractSha256, languages, counts: contract.counts, routePolicy: contract.routePolicy, inputHashes,
+    dtoCoverage: contract.dtoCoverage,
+    dtoPolicy: {
+      fields: 'explicit-entity-method-dto-or-filter-dto-fields; never full-entity-fallback',
+      missingMetadata: 'unspecified; no per-operation-required inference',
+      nestedTypes: 'reference and related-source are distinct; cycles remain links',
+      runtimeSerializationVerified: false,
+    },
     runtimeAcceptance: false, arbitraryApiExecution: false,
     englishLabelPolicy: 'curated-label-or-technical-code; not machine-translated-business-descriptions',
     files: [...files].map(([path, bytes]) => ({ path, bytes: bytes.length, sha256: digest(bytes) })),
@@ -300,7 +372,8 @@ async function readInput(path, role, required = true) {
       const bytes = await handle.readFile();
       const after = await handle.stat();
       for (const key of ['ino', 'dev', 'size', 'mtimeMs', 'ctimeMs']) assert.equal(after[key], before[key]);
-      return { bytes, identity: { role, sha256: digest(bytes), bytes: bytes.length } };
+      return { bytes, identity: { role, sha256: digest(bytes), bytes: bytes.length },
+        metadata: Object.fromEntries(['ino', 'dev', 'size', 'mtimeMs', 'ctimeMs'].map(key => [key, after[key]])) };
     } finally { await handle.close(); }
   } catch (error) {
     if (!required && error.code === 'ENOENT') return null;
@@ -313,8 +386,53 @@ export async function buildApiReferenceFiles({ sourceDirectory }) {
   const model = await readInput(resolve(directory, '../../model/PSSYSSERVICEAPIS/ServiceAPI.json'), 'service-model');
   const english = await readInput(resolve(directory, '../../../plm-web/src/locale/en.json'), 'english-labels', false);
   const generator = await readInput(fileURLToPath(import.meta.url), 'generator');
-  return renderApiReferenceFiles(createApiReferenceContract(JSON.parse(model.bytes)), {
+  const helper = await readInput(fileURLToPath(new URL('./api-reference-dto.mjs', import.meta.url)), 'dto-generator');
+  const serviceModel = JSON.parse(model.bytes);
+  const models = new Map();
+  const inputs = new Map();
+  const unavailable = new Set();
+  const pending = directDtoRequests(serviceModel);
+  const seen = new Set();
+  const modelRoot = resolve(directory, '../../model');
+  for (let index = 0; index < pending.length; index++) {
+    const request = pending[index];
+    const key = `${request.modelPath}#${request.dto}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    if (!models.has(request.modelPath) && !unavailable.has(request.modelPath)) {
+      const input = await readInput(resolve(modelRoot, dtoModelPath(request.modelPath)), 'dto-model', false);
+      if (input) {
+        models.set(request.modelPath, JSON.parse(input.bytes));
+        input.identity.modelPath = request.modelPath;
+        inputs.set(request.modelPath, input);
+      } else unavailable.add(request.modelPath);
+    }
+    const entityModel = models.get(request.modelPath);
+    if (entityModel) pending.push(...dtoDependencies(entityModel, request.dto));
+  }
+  const participating = [
+    [resolve(directory, '../../model/PSSYSSERVICEAPIS/ServiceAPI.json'), model],
+    ...(english ? [[resolve(directory, '../../../plm-web/src/locale/en.json'), english]] : []),
+    [fileURLToPath(import.meta.url), generator],
+    [fileURLToPath(new URL('./api-reference-dto.mjs', import.meta.url)), helper],
+    ...[...inputs].map(([path, input]) => [resolve(modelRoot, path), input]),
+  ];
+  // Re-read every participating input after graph resolution to reject mixed snapshots.
+  for (const [path, input] of participating) {
+    const current = await readInput(path, input.identity.role);
+    assert.deepEqual(current.metadata, input.metadata, 'Reference input metadata changed during multi-source generation');
+    assert.equal(current.identity.sha256, input.identity.sha256, 'Reference input changed during multi-source generation');
+  }
+  if (!english) assert.equal(await readInput(resolve(directory, '../../../plm-web/src/locale/en.json'),
+    'english-labels', false), null, 'Previously missing English labels appeared during generation');
+  for (const path of unavailable) {
+    assert.equal(await readInput(resolve(modelRoot, path), 'dto-model', false), null,
+      'Previously missing DTO model appeared during generation');
+  }
+  return renderApiReferenceFiles(createApiReferenceContract(serviceModel, { dtoModels: models }), {
     englishLabels: english ? JSON.parse(english.bytes) : {},
-    inputHashes: [model, english, generator].filter(Boolean).map(input => input.identity),
+    inputHashes: [model, english, generator, helper,
+      ...[...inputs].sort(([a], [b]) => compare(a, b)).map(([, input]) => input)].filter(Boolean)
+      .map(input => input.identity),
   });
 }

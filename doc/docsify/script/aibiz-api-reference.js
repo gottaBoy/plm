@@ -10,7 +10,7 @@
     return /^en(?:[-_]|$)/i.test(stored || '') ? 'en' : 'zh-CN';
   };
   var currentRoute = function () {
-    return location.hash.match(/^#\/api-reference\/(en|zh-CN)\/(ServiceAPI|entities\/[a-zA-Z_][a-zA-Z0-9_-]*)(?:\.md)?(\?id=op-[a-f0-9]{16})?$/);
+    return location.hash.match(/^#\/api-reference\/(en|zh-CN)\/(ServiceAPI|entities\/[a-zA-Z_][a-zA-Z0-9_-]*)(?:\.md)?(\?id=(?:op|dto)-[a-f0-9]{16})?$/);
   };
   var redirect = function () {
     var overview = /^#\/api\/ServiceAPI(?:\/ServiceAPI)?(?:\.md)?\/?$/.test(location.hash);
@@ -19,7 +19,7 @@
     location.replace(location.pathname + location.search +
       '#/api-reference/' + preferredLanguage() + '/' +
       (overview ? 'ServiceAPI' : 'entities/' + entity[1] +
-        (/^op-[a-f0-9]{16}$/.test(entity[2] || '') ? '?id=' + entity[2] : '')));
+        (/^(?:op|dto)-[a-f0-9]{16}$/.test(entity[2] || '') ? '?id=' + entity[2] : '')));
   };
   var safeText = function (element, value) {
     element.textContent = String(value == null ? '' : value);
@@ -30,7 +30,7 @@
       typeof entry.keywords === 'string' && entry.keywords.length <= 16384 &&
       typeof entry.path === 'string' &&
       new RegExp('^#/api-reference/' + language +
-        '/(?:ServiceAPI|entities/[a-zA-Z_][a-zA-Z0-9_-]*)(?:\\?id=op-[a-f0-9]{16})?$').test(entry.path);
+        '/(?:ServiceAPI|entities/[a-zA-Z_][a-zA-Z0-9_-]*)(?:\\?id=(?:op|dto)-[a-f0-9]{16})?$').test(entry.path);
   };
   var generation = 0;
   var originalTitle = document.title;
