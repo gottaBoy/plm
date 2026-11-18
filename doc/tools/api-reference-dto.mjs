@@ -32,31 +32,41 @@ export function dtoModelPath(value) {
   return value;
 }
 
-function definition(model, name) {
-  const definitions = model.getAllPSDEMethodDTOs ?? [];
+export function dtoAuthorityPath(value) {
+  return value === 'PSSYSTEM.json' ? value : dtoModelPath(value);
+}
+
+function definition(model, name, system = false) {
+  const definitions = model[system ? 'getAllPSSysMethodDTOs' : 'getAllPSDEMethodDTOs'] ?? [];
   assert.ok(Array.isArray(definitions), 'Invalid DTO definition list');
-  const matching = definitions.filter(dto => dto.name === name);
+  const matching = definitions.filter(dto => (system ? dto.id ?? dto.name : dto.name) === name);
   assert.ok(matching.length <= 1, `Duplicate DTO definition: ${name}`);
   return matching[0];
 }
 
-function declaredFields(dto) {
-  const key = dto.type === 'DEFILTER' ? 'getPSDEFilterDTOFields' : 'getPSDEMethodDTOFields';
+function declaredFields(dto, system = false) {
+  const key = system ? 'getPSSysMethodDTOFields'
+    : dto.type === 'DEFILTER' ? 'getPSDEFilterDTOFields' : 'getPSDEMethodDTOFields';
   if (!Object.hasOwn(dto, key)) return null;
   assert.ok(Array.isArray(dto[key]), `Invalid DTO field list: ${dto.name}`);
   return dto[key];
 }
 
 function fieldLinks(field) {
+  if (field.getRefPSSysMethodDTO) {
+    assert.ok(!field.getRefPSDataEntity && !field.getRefPSDEMethodDTO,
+      'Conflicting entity/system DTO field reference');
+  }
   return ['Ref', 'Related'].flatMap(kind => {
     const target = field[`get${kind}PSDataEntity`];
     const dto = field[`get${kind}PSDEMethodDTO`];
     const relatedField = field.getRelatedPSDEMethodDTOField;
-    if (!target && !dto && !(kind === 'Related' && relatedField)) return [];
+    const system = kind === 'Ref' ? field.getRefPSSysMethodDTO : null;
+    if (!target && !dto && !system && !(kind === 'Related' && relatedField)) return [];
     return [{
       kind: kind === 'Ref' ? 'reference' : 'related-source',
-      modelPath: target?.path ? dtoModelPath(target.path) : null,
-      dto: dto?.id ? identifier(dto.id, 'Nested DTO') : null,
+      modelPath: system ? 'PSSYSTEM.json' : target?.path ? dtoModelPath(target.path) : null,
+      dto: system ? identifier(system.id, 'Nested system DTO') : dto?.id ? identifier(dto.id, 'Nested DTO') : null,
       field: kind === 'Related' && relatedField?.id
         ? identifier(relatedField.id, 'Related DTO field') : null,
     }];
@@ -86,21 +96,27 @@ export function directDtoRequests(model) {
   return requests;
 }
 
-export function dtoDependencies(model, name) {
-  const dto = definition(model, name);
+export function dtoDependencies(model, name, { system = false } = {}) {
+  const dto = definition(model, name, system);
   if (!dto) return [];
-  return (declaredFields(dto) ?? []).flatMap(field => fieldLinks(field))
+  const source = dto.getSrcPSSysMethodDTO?.id;
+  return [
+    ...(declaredFields(dto, system) === null && source ? [{
+      modelPath: 'PSSYSTEM.json', dto: identifier(source, 'Source system DTO'),
+    }] : []),
+    ...(declaredFields(dto, system) ?? []).flatMap(field => fieldLinks(field)),
+  ]
     .filter(link => link.modelPath && link.dto);
 }
 
 export function attachDtoSchemas(contract, models = new Map()) {
   assert.ok(models instanceof Map, 'DTO models must be a Map');
-  for (const path of models.keys()) dtoModelPath(path);
+  for (const path of models.keys()) dtoAuthorityPath(path);
   const schemas = new Map();
   const reference = (path, name) => {
     identifier(name, 'DTO reference');
     if (!path) return { schemaId: null, status: 'unresolved', reason: 'entity-model-not-declared' };
-    dtoModelPath(path);
+    dtoAuthorityPath(path);
     const id = `${path}#${name}`;
     if (!schemas.has(id)) {
       const schema = {
@@ -110,7 +126,7 @@ export function attachDtoSchemas(contract, models = new Map()) {
       // Install before resolving nested links so cycles remain references.
       schemas.set(id, schema);
       const model = models.get(path);
-      const dto = model && definition(model, name);
+      const dto = model && definition(model, name, path === 'PSSYSTEM.json');
       if (!model) schema.reason = 'entity-model-unavailable';
       else if (!dto) schema.reason = 'dto-not-declared';
       else {
@@ -118,7 +134,20 @@ export function attachDtoSchemas(contract, models = new Map()) {
         schema.sourceType = scalar(dto.sourceType, `${name}.sourceType`);
         schema.sourceMethodDTO = dto.getSrcPSSysMethodDTO?.id
           ? identifier(dto.getSrcPSSysMethodDTO.id, `${name}.sourceMethodDTO`) : null;
-        const fields = declaredFields(dto);
+        let fields = declaredFields(dto, path === 'PSSYSTEM.json');
+        if (fields === null && schema.sourceMethodDTO) {
+          const sourceModel = models.get('PSSYSTEM.json');
+          const sourceDto = sourceModel && definition(sourceModel, schema.sourceMethodDTO, true);
+          const sourceFields = sourceDto ? declaredFields(sourceDto, true) : null;
+          schema.fieldSource = {
+            modelPath: 'PSSYSTEM.json', dto: schema.sourceMethodDTO,
+            status: sourceFields === null ? 'unresolved' : 'resolved',
+            reason: !sourceModel ? 'system-dto-model-unavailable'
+              : !sourceDto ? 'system-dto-not-declared'
+                : sourceFields === null ? 'system-dto-fields-not-declared' : null,
+          };
+          if (sourceFields !== null) fields = sourceFields;
+        }
         if (fields === null) schema.reason = 'dto-fields-not-declared';
         else {
           schema.status = 'resolved';
