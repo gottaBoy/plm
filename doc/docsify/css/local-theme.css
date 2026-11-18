@@ -206,6 +206,8 @@ input:focus-visible {
     border: 1px solid var(--docs-border);
     text-align: left;
     vertical-align: top;
+    overflow-wrap: normal;
+    word-break: normal;
 }
 
 .markdown-section th {
