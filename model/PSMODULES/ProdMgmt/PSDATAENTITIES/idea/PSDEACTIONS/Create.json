@@ -24,6 +24,17 @@
     },
     "internalLogic" : true
   } ],
+  "getPreparePSDEActionLogics" : [ {
+    "actionLogicType" : 1,
+    "attachMode" : "PREPARE",
+    "codeName" : "GuardCreateProductAccess",
+    "name" : "Guard idea creation by product write access",
+    "getPSDELogic" : {
+      "modelref" : true,
+      "path" : "PSMODULES/ProdMgmt/PSDATAENTITIES/idea/PSDELOGICS/guard_create_product_access.json"
+    },
+    "internalLogic" : true
+  } ],
   "codeName" : "Create",
   "dataAccessAction" : "CREATE",
   "dynaModelFilePath" : "PSMODULES/ProdMgmt/PSDATAENTITIES/idea/PSDEACTIONS/Create.json",

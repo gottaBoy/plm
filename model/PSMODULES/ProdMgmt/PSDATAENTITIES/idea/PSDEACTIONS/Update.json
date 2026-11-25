@@ -1,6 +1,17 @@
 {
   "actionMode" : "UPDATE",
   "actionType" : "BUILTIN",
+  "getPreparePSDEActionLogics" : [ {
+    "actionLogicType" : 1,
+    "attachMode" : "PREPARE",
+    "codeName" : "GuardUpdateProductAccess",
+    "name" : "Guard idea updates by persisted product write access",
+    "getPSDELogic" : {
+      "modelref" : true,
+      "path" : "PSMODULES/ProdMgmt/PSDATAENTITIES/idea/PSDELOGICS/guard_save_product_access.json"
+    },
+    "internalLogic" : true
+  } ],
   "getAfterPSDEActionLogics" : [ {
     "actionLogicType" : 1,
     "attachMode" : "AFTER",

@@ -131,6 +131,17 @@
       },
       "internalLogic" : true
     } ],
+    "getPreparePSDEActionLogics" : [ {
+      "actionLogicType" : 1,
+      "attachMode" : "PREPARE",
+      "codeName" : "GuardCreateProductAccess",
+      "name" : "Guard idea creation by product write access",
+      "getPSDELogic" : {
+        "modelref" : true,
+        "path" : "PSMODULES/ProdMgmt/PSDATAENTITIES/idea/PSDELOGICS/guard_create_product_access.json"
+      },
+      "internalLogic" : true
+    } ],
     "codeName" : "Create",
     "dataAccessAction" : "CREATE",
     "dynaModelFilePath" : "PSMODULES/ProdMgmt/PSDATAENTITIES/idea/PSDEACTIONS/Create.json",
@@ -155,6 +166,17 @@
   }, {
     "actionMode" : "UPDATE",
     "actionType" : "BUILTIN",
+    "getPreparePSDEActionLogics" : [ {
+      "actionLogicType" : 1,
+      "attachMode" : "PREPARE",
+      "codeName" : "GuardUpdateProductAccess",
+      "name" : "Guard idea updates by persisted product write access",
+      "getPSDELogic" : {
+        "modelref" : true,
+        "path" : "PSMODULES/ProdMgmt/PSDATAENTITIES/idea/PSDELOGICS/guard_save_product_access.json"
+      },
+      "internalLogic" : true
+    } ],
     "getAfterPSDEActionLogics" : [ {
       "actionLogicType" : 1,
       "attachMode" : "AFTER",
@@ -14135,6 +14157,90 @@
     "enableAudit" : true
   } ],
   "getAllPSDELogics" : [ {
+    "codeName" : "guard_save_product_access",
+    "defaultParamName" : "Default",
+    "dynaModelFilePath" : "PSMODULES/ProdMgmt/PSDATAENTITIES/idea/PSDELOGICS/guard_save_product_access.json",
+    "logicName" : "Guard idea Save by persisted product write access",
+    "name" : "Guard idea Save by persisted product write access",
+    "getPSDELogicNodes" : [ {
+      "codeName" : "Begin",
+      "logicNodeType" : "BEGIN",
+      "name" : "Begin",
+      "getPSDELogicLinks" : [ {
+        "getDstPSDELogicNode" : { "modelref" : true, "id" : "CheckProductAccess" },
+        "getSrcPSDELogicNode" : { "modelref" : true, "id" : "Begin" }
+      } ]
+    }, {
+      "codeName" : "CheckProductAccess",
+      "logicNodeType" : "RAWSFCODE",
+      "codeType" : "Groovy",
+      "name" : "Authorize the persisted parent before Save dispatch",
+      "code" : "def deny = { ->\n    def language = org.springframework.context.i18n.LocaleContextHolder.getLocale().getLanguage()\n    def message = language == 'zh' ? '\u9700\u8981\u4ea7\u54c1\u5199\u5165\u6743\u9650' : 'Product write permission is required'\n    throw new net.ibizsys.runtime.util.ErrorException(message, net.ibizsys.runtime.util.Errors.ACCESSDENY)\n}\ndef actor = net.ibizsys.runtime.security.UserContext.getCurrent()\nif (actor == null || actor.isAnonymoususer() || !actor.getUserid()?.trim() || !actor.getOrgid()?.trim()) {\n    deny()\n}\ndef incoming = logic.param('Default').getReal()\ndef productId = incoming.get('product_id')\ndef id = incoming.get('id')\ndef idea = sys.getDataEntityRuntime('idea')\nif (id != null && idea.checkKeyState(id) == net.ibizsys.runtime.dataentity.action.CheckKeyStates.EXIST) {\n    def stored = idea.getSimpleEntity(id)\n    def storedProductId = stored.get('product_id')\n    if (productId != null && productId != storedProductId) {\n        deny()\n    }\n    productId = storedProductId\n}\nif (!(productId instanceof String) || productId.trim().isEmpty()) {\n    deny()\n}\ndef product = sys.getDataEntityRuntime('product')\nif (product.checkKeyState(productId) != net.ibizsys.runtime.dataentity.action.CheckKeyStates.EXIST) {\n    deny()\n}\nif (!product.getDataEntityAccessManager().testDataAccessActionIf(actor, productId, 'SUBDATA')) {\n    deny()\n}",
+      "getPSDELogicLinks" : [ {
+        "getDstPSDELogicNode" : { "modelref" : true, "id" : "End" },
+        "getSrcPSDELogicNode" : { "modelref" : true, "id" : "CheckProductAccess" }
+      } ]
+    }, {
+      "codeName" : "End",
+      "logicNodeType" : "END",
+      "name" : "End"
+    } ],
+    "getPSDELogicParams" : [ {
+      "codeName" : "Default",
+      "name" : "Incoming idea",
+      "getParamPSDataEntity" : {
+        "modelref" : true,
+        "path" : "PSMODULES/ProdMgmt/PSDATAENTITIES/idea.json"
+      },
+      "default" : true,
+      "entityParam" : true
+    } ],
+    "getStartPSDELogicNode" : { "modelref" : true, "id" : "Begin" },
+    "enableBackend" : true,
+    "enableFront" : false
+  }, {
+    "codeName" : "guard_create_product_access",
+    "defaultParamName" : "Default",
+    "dynaModelFilePath" : "PSMODULES/ProdMgmt/PSDATAENTITIES/idea/PSDELOGICS/guard_create_product_access.json",
+    "logicName" : "Guard idea creation by product write access",
+    "name" : "Guard idea creation by product write access",
+    "getPSDELogicNodes" : [ {
+      "codeName" : "Begin",
+      "logicNodeType" : "BEGIN",
+      "name" : "Begin",
+      "getPSDELogicLinks" : [ {
+        "getDstPSDELogicNode" : { "modelref" : true, "id" : "CheckProductAccess" },
+        "getSrcPSDELogicNode" : { "modelref" : true, "id" : "Begin" }
+      } ]
+    }, {
+      "codeName" : "CheckProductAccess",
+      "logicNodeType" : "RAWSFCODE",
+      "codeType" : "Groovy",
+      "name" : "Require native parent write access before sequence allocation",
+      "code" : "def deny = { ->\n    def language = org.springframework.context.i18n.LocaleContextHolder.getLocale().getLanguage()\n    def message = language == 'zh' ? '\u9700\u8981\u4ea7\u54c1\u5199\u5165\u6743\u9650' : 'Product write permission is required'\n    throw new net.ibizsys.runtime.util.ErrorException(message, net.ibizsys.runtime.util.Errors.ACCESSDENY)\n}\ndef actor = net.ibizsys.runtime.security.UserContext.getCurrent()\nif (actor == null || actor.isAnonymoususer() || !actor.getUserid()?.trim() || !actor.getOrgid()?.trim()) {\n    deny()\n}\ndef incoming = logic.param('Default').getReal()\ndef productId = incoming.get('product_id')\nif (!(productId instanceof String) || productId.trim().isEmpty()) {\n    deny()\n}\ndef product = sys.getDataEntityRuntime('product')\nif (product.checkKeyState(productId) != net.ibizsys.runtime.dataentity.action.CheckKeyStates.EXIST) {\n    deny()\n}\nif (!product.getDataEntityAccessManager().testDataAccessActionIf(actor, productId, 'SUBDATA')) {\n    deny()\n}",
+      "getPSDELogicLinks" : [ {
+        "getDstPSDELogicNode" : { "modelref" : true, "id" : "End" },
+        "getSrcPSDELogicNode" : { "modelref" : true, "id" : "CheckProductAccess" }
+      } ]
+    }, {
+      "codeName" : "End",
+      "logicNodeType" : "END",
+      "name" : "End"
+    } ],
+    "getPSDELogicParams" : [ {
+      "codeName" : "Default",
+      "name" : "Incoming idea",
+      "getParamPSDataEntity" : {
+        "modelref" : true,
+        "path" : "PSMODULES/ProdMgmt/PSDATAENTITIES/idea.json"
+      },
+      "default" : true,
+      "entityParam" : true
+    } ],
+    "getStartPSDELogicNode" : { "modelref" : true, "id" : "Begin" },
+    "enableBackend" : true,
+    "enableFront" : false
+  }, {
     "codeName" : "activate",
     "defaultParamName" : "Default",
     "dynaModelFilePath" : "PSMODULES/ProdMgmt/PSDATAENTITIES/idea/PSDELOGICS/activate.json",
