@@ -34,6 +34,24 @@
         '/(?:ServiceAPI|entities/[a-zA-Z_][a-zA-Z0-9_-]*)(?:\\?id=(?:op|dto|fields)-[a-f0-9]{16})?$').test(entry.path);
   };
   var normalize = function (value) { return value.normalize('NFKC').toLowerCase(); };
+  var snippetSegmenter = typeof Intl !== 'undefined' && typeof Intl.Segmenter === 'function'
+    ? new Intl.Segmenter(undefined, { granularity: 'grapheme' }) : null;
+  var searchSnippet = function (body, term) {
+    if (!snippetSegmenter) return body.length <= 180 ? body : '';
+    var segments = Array.from(snippetSegmenter.segment(body), function (part) { return part.segment; });
+    var matchOffset = normalize(body).indexOf(term);
+    var normalizedOffset = 0;
+    var match = 0;
+    while (match < segments.length) {
+      var width = normalize(segments[match]).length;
+      if (normalizedOffset + width > matchOffset) break;
+      normalizedOffset += width;
+      match += 1;
+    }
+    var start = Math.max(0, match - 50);
+    var end = start + 180;
+    return (start ? '…' : '') + segments.slice(start, end).join('') + (segments.length > end ? '…' : '');
+  };
   var queryKey = 'aibiz.api-reference.search:' + location.pathname;
   var readQuery = function () {
     try { return (sessionStorage.getItem(queryKey) || '').slice(0, 512); } catch (_) { return ''; }
@@ -171,10 +189,11 @@
               var body = entry.body.replace(/:id=(?:op|dto|fields)-[a-f0-9]{16}/g, '')
                 .replace(/\[([^\]\n]+)\]\([^)]+\)/g, '$1')
                 .replace(/[`#|]/g, ' ').replace(/-{3,}/g, ' ').replace(/\s+/g, ' ').trim();
-              var offset = Math.max(0, normalize(body).indexOf(terms[0]) - 50);
-              safeText(snippet, (offset ? '…' : '') + body.slice(offset, offset + 180) +
-                (body.length > offset + 180 ? '…' : ''));
-              item.appendChild(snippet);
+              var preview = searchSnippet(body, terms[0]);
+              if (preview) {
+                safeText(snippet, preview);
+                item.appendChild(snippet);
+              }
               results.appendChild(item);
             });
           };
