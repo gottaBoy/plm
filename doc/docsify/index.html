@@ -46,25 +46,7 @@
 				mergeNavbar: true,
 				// 未找到页面 _404.md
 				//notFoundPage: true,
-				// 搜索配置
-				search:{
-					// 过期时间，单位毫秒，默认一天
-					maxAge: 86400000,
-					// 注意：仅适用于 paths: 'auto' 模式
-					paths: "auto",
-					// 支持本地化
-					placeholder: {
-						'/': '搜索',
-						'/zh-en/': 'Type to search'
-					},
-					noData: {
-					        '/': '找不到结果',
-					        '/zh-en/': 'No Results'
-					      },
-					depth: 3,
-					hideOtherSidebarContent: false,
-					namespace: 'Docsify-Guide',
-				},
+				// API reference search uses the local authority-generated bilingual index.
                 copyCode: {
                     buttonText: '复制',
                     errorText: '错误',
@@ -98,9 +80,6 @@
 		<script src="script/docsify.js"></script>
 		<script src="script/docsify-plugin-table-fixed.js"></script>
 		<!-- Optional CDN-only plugins are intentionally omitted in the local build. -->
-		<!-- 搜索功能支持
-		<script src="//npmjs.ibizlab.cn/docsify/lib/plugins/search.min.js"></script>
-		-->
 		<!--在所有的代码块上添加一个简单的Click to copy按钮来允许用户从你的文档中轻易地复制代码-->
 		<!-- 分页导航
 		<script src="//npmjs.ibizlab.cn/docsify-pagination/dist/docsify-pagination.min.js"></script>

@@ -116,6 +116,26 @@ input:focus-visible {
     margin: 6px 0;
 }
 
+.aibiz-api-search-snippet {
+    margin: 2px 0 12px;
+    color: #42535c;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+[data-aibiz-api-retry] {
+    min-height: 36px;
+    margin: 4px 0;
+    padding: 6px 12px;
+    border: 1px solid #aebfc6;
+    border-radius: 4px;
+    background: #fff;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
 .content {
     min-width: 0;
     min-height: 100vh;

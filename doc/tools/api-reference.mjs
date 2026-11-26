@@ -14,10 +14,23 @@ const codePattern = /^[a-zA-Z_][a-zA-Z0-9_-]*$/;
 const verbs = new Set(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS']);
 const languages = ['zh-CN', 'en'];
 const compare = (a, b) => a < b ? -1 : a > b ? 1 : 0;
-const text = value => String(value ?? '').replace(/[&<>|[\]`]/g, character => ({
-  '&': '&amp;', '<': '&lt;', '>': '&gt;', '|': '&#124;', '[': '&#91;', ']': '&#93;', '`': '&#96;',
-})[character]).replace(/[\r\n]+/g, ' ');
-const literal = value => `\`${text(value)}\``;
+const text = value => String(value ?? '').replace(/[&<>|[\]`\\*~]|_+/g, (character, offset, source) => {
+  if (character.startsWith('_')) {
+    return /[A-Za-z0-9]/.test(source[offset - 1] ?? '') &&
+      /[A-Za-z0-9]/.test(source[offset + character.length] ?? '') ? character : '&#95;'.repeat(character.length);
+  }
+  return {
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '|': '&#124;', '[': '&#91;', ']': '&#93;', '`': '&#96;',
+    '\\': '&#92;', '*': '&#42;', '~': '&#126;',
+  }[character];
+}).replace(/[\r\n]+/g, ' ');
+const literal = value => {
+  const source = String(value ?? '');
+  if (!/[&<>|`\r\n]/.test(source)) return `\`${source}\``;
+  // Markdown code spans display entities literally; inline HTML also needs its Markdown punctuation encoded.
+  const encoded = source.replace(/[!-/:-@[-`{-~\r\n]/g, character => `&#${character.codePointAt(0)};`);
+  return `<code>${encoded}</code>`;
+};
 const title = code => String(code).replace(/([a-z0-9])([A-Z])/g, '$1 $2')
   .replace(/[_-]+/g, ' ').replace(/\b[a-z]/g, character => character.toUpperCase());
 const labels = {
@@ -257,8 +270,9 @@ export function renderApiReferenceFiles(contract, { englishLabels = {}, inputHas
       const operations = allOperations(entity);
       overview.push(`| [${text(heading)}](${documentHref}) | ${literal(entity.code)} | ${operations.length} |`);
       sidebar.push(`- [${text(heading)}](${documentHref})`);
-      entries.push({ label: heading, code: entity.code, path: href,
-        keywords: [entity.code, entity.collection].join(' ') });
+      const entityEntry = { label: heading, code: entity.code, path: href,
+        keywords: [entity.code, entity.collection, entity.sourceLabel].join(' '), body: '' };
+      entries.push(entityEntry);
       const lines = [
         `# ${text(heading)} (${entity.code})`, '', languageLinks(language, entity.code),
         '', l.warning, '', l.routeNote, '',
@@ -275,7 +289,10 @@ export function renderApiReferenceFiles(contract, { englishLabels = {}, inputHas
           : `${description} (${l.unavailable}: ${literal(value.reason || 'dto-source-not-loaded')})`;
       };
       if (!entity.major) lines.push(l.noRoot, '');
-      lines.push(`## ${l.fields}`, '',
+      entityEntry.body = lines.join('\n');
+      const fieldsAnchor = `fields-${digest(`${entity.code}:fields`).slice(0, 16)}`;
+      const fieldStart = lines.length;
+      lines.push(`## ${l.fields} :id=${fieldsAnchor}`, '',
         `| ${l.code} | ${l.label} | stdDataType | ${l.length} | ${l.nullable} | ${l.create} | ${l.modify} | ${l.key} |`,
         '| --- | --- | --- | --- | --- | --- | --- | --- |');
       for (const field of entity.fields) {
@@ -283,8 +300,15 @@ export function renderApiReferenceFiles(contract, { englishLabels = {}, inputHas
           `${field.type ?? '-'} | ${field.length ?? '-'} | ${bool(field.nullable, l)} | ${bool(field.create, l)} | ` +
           `${bool(field.modify, l)} | ${bool(field.key, l)} |`);
       }
+      entries.push({
+        label: `${heading} / ${l.fields}`, code: entity.code,
+        path: `${href}?id=${fieldsAnchor}`,
+        keywords: [entity.code, ...entity.fields.flatMap(field => [field.code, field.sourceLabel])].join(' '),
+        body: lines.slice(fieldStart).join('\n'),
+      });
       const renderOperations = (items, parent = '') => {
         for (const operation of items) {
+          const start = lines.length;
           lines.push(`### ${operation.method} ${text(operation.code)} :id=${operation.anchor}`, '',
             operation.path ? literal(operation.path) : (parent ? l.noParent : l.noRoot), '',
             `| ${l.permission} | ${l.input} | ${l.output} | ${l.key} |`,
@@ -297,10 +321,11 @@ export function renderApiReferenceFiles(contract, { englishLabels = {}, inputHas
               `| ${l.code} | ${l.type} | ${l.nullable} |`, '| --- | --- | --- |',
               ...operation.logicOutput.fields.map(field => `| ${literal(field.code)} | ${l.unknown} | ${l.unknown} |`), '');
           }
-          if (operation.path) entries.push({
+          entries.push({
             label: `${heading} / ${operation.method} ${operation.code}`,
             code: operation.code, path: `${href}?id=${operation.anchor}`,
             keywords: [entity.code, entity.collection, operation.code, operation.path, operation.access, parent].filter(Boolean).join(' '),
+            body: lines.slice(start).join('\n'),
           });
         }
       };
@@ -317,6 +342,7 @@ export function renderApiReferenceFiles(contract, { englishLabels = {}, inputHas
         for (const id of entity.dtoSchemaIds) {
           const schema = schemas.get(id);
           assert.ok(schema, `Missing referenced DTO schema: ${id}`);
+          const start = lines.length;
           lines.push(`### ${text(schema.name)} :id=${schema.anchor}`, '',
             `${l.dtoSource}: ${literal(schema.modelPath)}`, '',
             `${l.dtoKind}: ${schema.kind ? literal(schema.kind) : l.unknown}` +
@@ -326,16 +352,19 @@ export function renderApiReferenceFiles(contract, { englishLabels = {}, inputHas
             lines.push(`${l.dtoFieldSource}: ${literal(schema.fieldSource.modelPath)} / ${literal(schema.fieldSource.dto)}` +
               `${schema.fieldSource.status === 'resolved' ? '' : ` (${l.unavailable}: ${literal(schema.fieldSource.reason)})`}`, '');
           }
-          if (schema.status !== 'resolved') {
-            lines.push(`${l.dtoUnavailable}: ${literal(schema.reason)}`, '');
-            continue;
-          }
-          entries.push({
+          const schemaEntry = {
             label: `${heading} / DTO ${schema.name}`, code: schema.name,
             path: `${href}?id=${schema.anchor}`,
             keywords: [entity.code, schema.name, schema.modelPath,
-              ...schema.fields.map(field => field.code)].join(' '),
-          });
+              ...schema.fields.flatMap(field => [field.code, field.sourceLabel])].join(' '),
+            body: '',
+          };
+          entries.push(schemaEntry);
+          if (schema.status !== 'resolved') {
+            lines.push(`${l.dtoUnavailable}: ${literal(schema.reason)}`, '');
+            schemaEntry.body = lines.slice(start).join('\n');
+            continue;
+          }
           lines.push(
             `| ${l.code} | ${l.label} | ${l.dtoField} | ${l.type} | stdDataType | ${l.length} | ${l.nullable} | ${l.readOnly} | ${l.references} |`,
             '| --- | --- | --- | --- | --- | --- | --- | --- | --- |');
@@ -354,13 +383,21 @@ export function renderApiReferenceFiles(contract, { englishLabels = {}, inputHas
               `${field.length ?? '-'} | ${bool(field.nullable, l)} | ${bool(field.readOnly, l)} | ${references.join('; ') || '-'} |`);
           }
           lines.push('');
+          schemaEntry.body = lines.slice(start).join('\n');
         }
       }
       put(`${prefix}/entities/${entity.code}.md`, `${lines.join('\n')}\n`);
     }
     put(`${prefix}/ServiceAPI.md`, `${overview.join('\n')}\n`);
     put(`${prefix}/_sidebar.md`, `${sidebar.join('\n')}\n`);
-    put(`${prefix}/search.json`, `${JSON.stringify({ language, entries })}\n`);
+    entries.unshift({ label: l.name, code: 'ServiceAPI',
+      path: `#/api-reference/${language}/ServiceAPI`, keywords: 'ServiceAPI',
+      body: overview.join('\n') });
+    put(`${prefix}/search.json`, `${JSON.stringify({
+      schemaVersion: 2, language, contractSha256,
+      scope: 'generated-overview-entity-fields-methods-dto-and-logic-output-text',
+      entries,
+    })}\n`);
   }
   put('api-reference/manifest.json', `${JSON.stringify({
     contract: 'plm-bilingual-api-reference-v1',
@@ -376,6 +413,8 @@ export function renderApiReferenceFiles(contract, { englishLabels = {}, inputHas
       runtimeSerializationVerified: false,
     },
     runtimeAcceptance: false, arbitraryApiExecution: false,
+    searchPolicy: { source: 'exact-generated-markdown-sections', localOnly: true,
+      runtimeApiExecution: false, unresolvedDtoDeclarationsRetained: true },
     englishLabelPolicy: 'curated-label-or-technical-code; not machine-translated-business-descriptions',
     files: [...files].map(([path, bytes]) => ({ path, bytes: bytes.length, sha256: digest(bytes) })),
   }, null, 2)}\n`);
