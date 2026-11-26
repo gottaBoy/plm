@@ -34,6 +34,20 @@
         '/(?:ServiceAPI|entities/[a-zA-Z_][a-zA-Z0-9_-]*)(?:\\?id=(?:op|dto|fields)-[a-f0-9]{16})?$').test(entry.path);
   };
   var normalize = function (value) { return value.normalize('NFKC').toLowerCase(); };
+  var renderedText = function (markdown) {
+    if (typeof window.marked !== 'function' || typeof window.marked.Renderer !== 'function') {
+      throw new Error('Local Markdown renderer unavailable');
+    }
+    var template = document.createElement('template');
+    template.innerHTML = window.marked(markdown.replace(/:id=(?:op|dto|fields)-[a-f0-9]{16}(?=\s*$)/gm, ''), {
+      renderer: new window.marked.Renderer()
+    });
+    template.content.querySelectorAll('script, style, noscript, template').forEach(function (node) { node.remove(); });
+    template.content.querySelectorAll('br, p, li, tr, td, th, h1, h2, h3, h4, h5, h6, pre').forEach(function (node) {
+      node.appendChild(document.createTextNode(' '));
+    });
+    return template.content.textContent.replace(/\s+/g, ' ').trim();
+  };
   var snippetSegmenter = typeof Intl !== 'undefined' && typeof Intl.Segmenter === 'function'
     ? new Intl.Segmenter(undefined, { granularity: 'grapheme' }) : null;
   var searchSnippet = function (body, term) {
@@ -75,10 +89,12 @@
           throw new Error('Invalid API search index');
         }
         return data.entries.map(function (entry) {
+          var body = renderedText(entry.body);
           return Object.assign({}, entry, {
+            displayBody: body,
             normalizedLabel: normalize(entry.label + ' ' + entry.code),
             normalizedKeywords: normalize(entry.keywords),
-            normalizedBody: normalize(entry.body)
+            normalizedBody: normalize(body)
           });
         });
       }).catch(function (error) { delete indexCache[language]; throw error; });
@@ -186,10 +202,7 @@
               item.appendChild(link);
               var snippet = document.createElement('p');
               snippet.className = 'aibiz-api-search-snippet';
-              var body = entry.body.replace(/:id=(?:op|dto|fields)-[a-f0-9]{16}/g, '')
-                .replace(/\[([^\]\n]+)\]\([^)]+\)/g, '$1')
-                .replace(/[`#|]/g, ' ').replace(/-{3,}/g, ' ').replace(/\s+/g, ' ').trim();
-              var preview = searchSnippet(body, terms[0]);
+              var preview = searchSnippet(entry.displayBody, terms[0]);
               if (preview) {
                 safeText(snippet, preview);
                 item.appendChild(snippet);
