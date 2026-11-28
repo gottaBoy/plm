@@ -1,10 +1,67 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
+import { isDeepStrictEqual } from 'node:util';
 
 const code = /^[a-zA-Z_][a-zA-Z0-9_-]*$/;
 const modelPathPattern = /^(?:PSSYSMODELGROUPS\/[a-zA-Z_][a-zA-Z0-9_-]*\/)?PSMODULES\/[a-zA-Z_][a-zA-Z0-9_-]*\/PSDATAENTITIES\/[a-zA-Z_][a-zA-Z0-9_-]*\.json$/;
 const compare = (a, b) => a < b ? -1 : a > b ? 1 : 0;
 const digest = value => createHash('sha256').update(value).digest('hex');
+const runtimeSources = [
+  ['plm/backend/plm-util/src/main/groovy/cn/ibizlab/central/plugin/groovy/dataentity/dto/GroovyDTO.groovy',
+    'bc5e20199bc43c7a016e7cf580a0f2446d023dc6b97471cf712b219f1852e875'],
+  ['ibiz-service-hub/libs/ibiz-runtime/src/main/java/net/ibizsys/central/util/EntityDTO.java',
+    '2ed637b31945b9ba5ca4408dc4a2284df76b281c89c046c714407a4663081b0f'],
+  ['ibiz-service-hub/libs/ibiz-runtime/src/main/java/net/ibizsys/central/dataentity/service/DEMethodDTORuntime.java',
+    'e63a1d2a529e437f53b1a7e25b78d542fd15adf595a5393d7835ee412798293a'],
+  ['ibiz-service-hub/libs/ibiz-model/src/main/java/net/ibizsys/model/dataentity/service/PSDEMethodDTOFieldImpl.java',
+    '4626d1569e87da10d0cf21e6265e2eb2b83f7cba9a45b93558ec4c6419a6088c'],
+];
+// These two declarations were reviewed together with their exact serializer sources.
+// Missing field metadata alone never establishes an open object contract.
+const openDtos = [
+  {
+    modelPath: 'PSMODULES/ProdMgmt/PSDATAENTITIES/idea.json',
+    declaration: { name: 'idea_def_group_common_dto', sourceType: 'DE', type: 'DEFAULT' },
+    source: ['plm/backend/plm-core/src/main/groovy/cn/ibizlab/plm/prodmgmt/idea/dto/IdeaDefGroupCommonDTO.groovy',
+      '7582597bfedb62e941766243de6bfbd164124e04ccba3c72d8d7204d2b423955'],
+  },
+  {
+    modelPath: 'PSMODULES/Base/PSDATAENTITIES/view_theme_setting.json',
+    declaration: {
+      name: 'view_theme_setting_usr1014979662dto', sourceType: 'DYNAMODEL',
+      getSrcPSSysMethodDTO: { modelref: true, id: 'Usr1014979662DTO' }, type: 'DEFAULT',
+    },
+    systemDeclaration: { name: 'Usr1014979662DTO', sourceType: 'DYNAMODEL', type: 'DEFAULT' },
+    source: ['plm/backend/plm-core/src/main/groovy/cn/ibizlab/plm/base/viewthemesetting/dto/ViewThemeSettingUsr1014979662DTO.groovy',
+      'ac2c7f02fde6345121a313c0d80464a76d2e23801afb5d0abe1bbd0fbbbb93cb'],
+  },
+];
+const openObjectSchema = () => ({ type: 'object', additionalProperties: true });
+
+export function openDtoRuntimeInputs() {
+  return [...runtimeSources, ...openDtos.map(dto => dto.source)]
+    .map(([workspacePath, sha256]) => ({ workspacePath, sha256 }));
+}
+
+function reviewedOpenObject(path, dto, models, sources) {
+  const reviewed = openDtos.find(candidate => candidate.modelPath === path &&
+    candidate.declaration.name === dto.name);
+  if (!reviewed || !isDeepStrictEqual(dto, reviewed.declaration)) return null;
+  if (reviewed.systemDeclaration &&
+      !isDeepStrictEqual(definition(models.get('PSSYSTEM.json') ?? {},
+        reviewed.systemDeclaration.name, true), reviewed.systemDeclaration)) return null;
+  const required = [...runtimeSources, reviewed.source];
+  if (!required.every(([source, hash]) => {
+    const bytes = sources.get(source);
+    return (typeof bytes === 'string' || Buffer.isBuffer(bytes)) && digest(bytes) === hash;
+  })) return null;
+  return {
+    basis: 'reviewed-source-open-object',
+    sources: required.map(([workspacePath, sha256]) => ({ workspacePath, sha256 })),
+    fieldNames: 'unspecified', valueTypes: 'unspecified', nullable: 'unspecified',
+    validation: 'unspecified', runtimeSerializationVerified: false,
+  };
+}
 const scalar = (value, context) => {
   if (value === undefined || value === null) return null;
   assert.equal(typeof value, 'string', `${context}: invalid text metadata`);
@@ -109,8 +166,9 @@ export function dtoDependencies(model, name, { system = false } = {}) {
     .filter(link => link.modelPath && link.dto);
 }
 
-export function attachDtoSchemas(contract, models = new Map()) {
+export function attachDtoSchemas(contract, models = new Map(), { runtimeSources = new Map() } = {}) {
   assert.ok(models instanceof Map, 'DTO models must be a Map');
+  assert.ok(runtimeSources instanceof Map, 'DTO runtime sources must be a Map');
   for (const path of models.keys()) dtoAuthorityPath(path);
   const schemas = new Map();
   const reference = (path, name) => {
@@ -148,8 +206,17 @@ export function attachDtoSchemas(contract, models = new Map()) {
           };
           if (sourceFields !== null) fields = sourceFields;
         }
-        if (fields === null) schema.reason = 'dto-fields-not-declared';
-        else {
+        if (fields === null) {
+          schema.reason = 'dto-fields-not-declared';
+          const openObject = reviewedOpenObject(path, dto, models, runtimeSources);
+          if (openObject) {
+            schema.status = 'resolved';
+            schema.reason = null;
+            schema.fieldDeclaration = { status: 'undeclared', reason: 'dto-fields-not-declared' };
+            schema.openObject = openObject;
+            schema.jsonSchema = openObjectSchema();
+          }
+        } else {
           schema.status = 'resolved';
           schema.fields = fields.map(field => {
             const fieldName = identifier(field.name, `${name}.field`);
@@ -220,6 +287,12 @@ export function attachDtoSchemas(contract, models = new Map()) {
       link.status = 'unresolved';
       link.reason = 'related-field-not-declared';
     }
+    if (link.kind === 'reference' && link.status === 'resolved' && target.openObject) {
+      if (field.type === 'DTO') field.jsonSchema = openObjectSchema();
+      if (field.type === 'DTOS') field.jsonSchema = field.listMap === true
+        ? { type: 'object', additionalProperties: openObjectSchema() }
+        : { type: 'array', items: openObjectSchema() };
+    }
   }
   contract.dtoSchemas = [...schemas.values()].sort((a, b) => compare(a.id, b.id));
   const nested = contract.dtoSchemas.flatMap(schema => schema.fields.flatMap(field => field.links));
@@ -243,5 +316,14 @@ export function attachDtoSchemas(contract, models = new Map()) {
       })),
     ],
   };
+  const openSchemas = contract.dtoSchemas.filter(schema => schema.openObject);
+  if (openSchemas.length) {
+    const openIds = new Set(openSchemas.map(schema => schema.id));
+    contract.dtoCoverage.openObjectSchemas = openSchemas.length;
+    contract.dtoCoverage.declaredFieldSchemas = contract.dtoCoverage.resolvedSchemas - openSchemas.length;
+    contract.dtoCoverage.openObjectMethodReferences = methodRefs.filter(ref => openIds.has(ref.schemaId)).length;
+    contract.dtoCoverage.openObjectNestedReferences = nested.filter(link =>
+      link.status === 'resolved' && openIds.has(link.schemaId)).length;
+  }
   return contract;
 }

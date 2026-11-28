@@ -5,7 +5,7 @@ import { constants } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  attachDtoSchemas, directDtoRequests, dtoAuthorityPath, dtoDependencies, dtoModelPath,
+  attachDtoSchemas, directDtoRequests, dtoAuthorityPath, dtoDependencies, dtoModelPath, openDtoRuntimeInputs,
 } from './api-reference-dto.mjs';
 import { attachLogicOutputFields, logicOutputRequests } from './api-reference-logic.mjs';
 
@@ -52,6 +52,9 @@ const labels = {
     references: '类型与来源引用', reference: '嵌套类型', relatedSource: '投影来源',
     dtoUnavailable: '无法解析 DTO 字段声明', format: '格式', searchMode: '搜索模式', listMap: '列表映射',
     dtoFieldSource: '字段来源',
+    openObject: '开放对象结构', openObjectNote: '此 DTO 的精确模型声明和已锁定后端源码支持开放对象。字段名、值类型、可空性及校验规则未声明；这不是运行序列化验收，也不表示可写任意业务字段。',
+    openObjectSources: '开放结构源码依据', declaredFieldsUnavailable: '字段声明仍未提供',
+    nestedOpenObject: '嵌套开放结构',
     logicFields: '逻辑输出字段（不是 DTO 声明）',
     logicNote: '以下键来自已核对的返回参数赋值链。字段类型、可空性及实际序列化未声明或未验收；不补入 DTO 字段统计。',
   },
@@ -73,6 +76,9 @@ const labels = {
     references: 'Type and Source References', reference: 'Nested Type', relatedSource: 'Projection Source',
     dtoUnavailable: 'DTO field declaration cannot be resolved', format: 'Format', searchMode: 'Search Mode', listMap: 'List Map',
     dtoFieldSource: 'Field Source',
+    openObject: 'Open Object Structure', openObjectNote: 'The exact DTO declaration and pinned backend sources support an open object. Field names, value types, nullable rules and validation are unspecified. This is not runtime serialization acceptance or permission to write arbitrary business fields.',
+    openObjectSources: 'Open Structure Source Evidence', declaredFieldsUnavailable: 'Field declarations remain unavailable',
+    nestedOpenObject: 'Nested Open Structure',
     logicFields: 'Logic-Defined Response Fields (Not DTO Declarations)',
     logicNote: 'These keys come from the reviewed assignments to the returned logic parameter. Types, nullable rules and actual serialization are unspecified or unverified; they are not counted as DTO fields.',
   },
@@ -130,7 +136,9 @@ function methodContract(method, base, owner, index) {
   };
 }
 
-export function createApiReferenceContract(model, { dtoModels = new Map(), logicModels = new Map() } = {}) {
+export function createApiReferenceContract(model, {
+  dtoModels = new Map(), logicModels = new Map(), dtoRuntimeSources = new Map(),
+} = {}) {
   assert.equal(model.codeName, 'ServiceAPI');
   assert.ok(Array.isArray(model.getPSDEServiceAPIs) && model.getPSDEServiceAPIs.length > 0);
   assert.ok(Array.isArray(model.getPSDEServiceAPIRSs));
@@ -218,7 +226,9 @@ export function createApiReferenceContract(model, { dtoModels = new Map(), logic
       unresolvedRelationships: entities.flatMap(entity => entity.relationships).filter(relation => !relation.resolved).length,
     },
   };
-  return attachLogicOutputFields(attachDtoSchemas(contract, dtoModels), dtoModels, logicModels);
+  return attachLogicOutputFields(attachDtoSchemas(contract, dtoModels, {
+    runtimeSources: dtoRuntimeSources,
+  }), dtoModels, logicModels);
 }
 
 function displayLabel(code, original, language, english) {
@@ -365,6 +375,16 @@ export function renderApiReferenceFiles(contract, { englishLabels = {}, inputHas
             schemaEntry.body = lines.slice(start).join('\n');
             continue;
           }
+          if (schema.openObject) {
+            lines.push(`#### ${l.openObject}`, '', l.openObjectNote, '',
+              `${l.declaredFieldsUnavailable}: ${literal(schema.fieldDeclaration.reason)}`, '',
+              '```json', JSON.stringify(schema.jsonSchema, null, 2), '```', '',
+              `${l.openObjectSources}:`, '',
+              ...schema.openObject.sources.map(source =>
+                `- ${literal(source.workspacePath)} / SHA-256 ${literal(source.sha256)}`), '');
+            schemaEntry.body = lines.slice(start).join('\n');
+            continue;
+          }
           lines.push(
             `| ${l.code} | ${l.label} | ${l.dtoField} | ${l.type} | stdDataType | ${l.length} | ${l.nullable} | ${l.readOnly} | ${l.references} |`,
             '| --- | --- | --- | --- | --- | --- | --- | --- | --- |');
@@ -383,6 +403,10 @@ export function renderApiReferenceFiles(contract, { englishLabels = {}, inputHas
               `${field.length ?? '-'} | ${bool(field.nullable, l)} | ${bool(field.readOnly, l)} | ${references.join('; ') || '-'} |`);
           }
           lines.push('');
+          for (const field of schema.fields.filter(field => field.jsonSchema)) {
+            lines.push(`#### ${l.nestedOpenObject}: ${literal(field.code)}`, '',
+              '```json', JSON.stringify(field.jsonSchema, null, 2), '```', '');
+          }
           schemaEntry.body = lines.slice(start).join('\n');
         }
       }
@@ -410,6 +434,7 @@ export function renderApiReferenceFiles(contract, { englishLabels = {}, inputHas
       missingMetadata: 'unspecified; no per-operation-required inference',
       nestedTypes: 'reference and related-source are distinct; cycles remain links',
       systemSources: 'explicit getSrcPSSysMethodDTO follows PSSYSTEM.getAllPSSysMethodDTOs; no dynamic attributes or script-to-DTO inference',
+      openObjects: 'only exact reviewed declarations plus SHA-256-pinned backend/runtime sources; no inferred named fields, value types, nullable or validation rules',
       runtimeSerializationVerified: false,
     },
     runtimeAcceptance: false, arbitraryApiExecution: false,
@@ -455,6 +480,9 @@ export async function buildApiReferenceFiles({ sourceDirectory }) {
   const seen = new Set();
   const logicModels = new Map();
   const logicInputs = new Map();
+  const dtoRuntimeSources = new Map();
+  const runtimeInputs = new Map();
+  const missingRuntimeInputs = [];
   const modelRoot = resolve(directory, '../../model');
   for (let index = 0; index < pending.length; index++) {
     const request = pending[index];
@@ -482,6 +510,15 @@ export async function buildApiReferenceFiles({ sourceDirectory }) {
       logicInputs.set(path, input);
     } else unavailable.add(path);
   }
+  for (const { workspacePath } of openDtoRuntimeInputs()) {
+    const path = resolve(directory, '../../..', workspacePath);
+    const input = await readInput(path, 'dto-open-object-source', false);
+    if (input) {
+      input.identity.workspacePath = workspacePath;
+      runtimeInputs.set(path, input);
+      dtoRuntimeSources.set(workspacePath, input.bytes);
+    } else missingRuntimeInputs.push(path);
+  }
   const participating = [
     [resolve(directory, '../../model/PSSYSSERVICEAPIS/ServiceAPI.json'), model],
     ...(english ? [[resolve(directory, '../../../plm-web/src/locale/en.json'), english]] : []),
@@ -490,6 +527,7 @@ export async function buildApiReferenceFiles({ sourceDirectory }) {
     [fileURLToPath(new URL('./api-reference-logic.mjs', import.meta.url)), logicHelper],
     ...[...inputs].map(([path, input]) => [resolve(modelRoot, path), input]),
     ...[...logicInputs].map(([path, input]) => [resolve(modelRoot, path), input]),
+    ...runtimeInputs,
   ];
   // Re-read every participating input after graph resolution to reject mixed snapshots.
   for (const [path, input] of participating) {
@@ -503,10 +541,17 @@ export async function buildApiReferenceFiles({ sourceDirectory }) {
     assert.equal(await readInput(resolve(modelRoot, path), 'dto-model', false), null,
       'Previously missing DTO model appeared during generation');
   }
-  return renderApiReferenceFiles(createApiReferenceContract(serviceModel, { dtoModels: models, logicModels }), {
+  for (const path of missingRuntimeInputs) {
+    assert.equal(await readInput(path, 'dto-open-object-source', false), null,
+      'Previously missing DTO runtime source appeared during generation');
+  }
+  return renderApiReferenceFiles(createApiReferenceContract(serviceModel, {
+    dtoModels: models, logicModels, dtoRuntimeSources,
+  }), {
     englishLabels: english ? JSON.parse(english.bytes) : {},
     inputHashes: [model, english, generator, helper, logicHelper,
-      ...[...inputs, ...logicInputs].sort(([a], [b]) => compare(a, b)).map(([, input]) => input)].filter(Boolean)
+      ...[...inputs, ...logicInputs].sort(([a], [b]) => compare(a, b)).map(([, input]) => input),
+      ...runtimeInputs.values()].filter(Boolean)
       .map(input => input.identity),
   });
 }
